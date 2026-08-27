@@ -1,0 +1,2662 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lumina · Dijital Kütüphane & Yönetim Merkezi</title>
+  <script>
+    window.onerror = function(msg, url, line, col, error) {
+      var d = document.createElement('div');
+      d.style.cssText = 'position:fixed;top:0;left:0;width:100%;background:red;color:white;z-index:999999;padding:10px;font-family:monospace;';
+      d.innerHTML = '<b>Global Error:</b> ' + msg + '<br>Line: ' + line + '<br>Url: ' + url;
+      if (document.body) document.body.appendChild(d);
+    };
+    window.addEventListener('unhandledrejection', function(event) {
+      var d = document.createElement('div');
+      d.style.cssText = 'position:fixed;top:50px;left:0;width:100%;background:darkred;color:white;z-index:999999;padding:10px;font-family:monospace;';
+      d.innerHTML = '<b>Unhandled Promise:</b> ' + event.reason;
+      if (document.body) document.body.appendChild(d);
+    });
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=DM+Mono:wght@400;500;600&family=DM+Sans:ital,opsz,wght@0,9..40,300..800;1,9..40,300..800&family=Fraunces:ital,opsz,wght@0,9..144,400..800;1,9..144,400..800&family=Newsreader:ital,opsz,wght@0,6..72,400..700;1,6..72,400..700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="src/styles/main.css">
+</head>
+
+<body>
+
+  <!-- ========================================================================= -->
+  <!-- 0. GRAND LIBRARY CORRIDOR INTRO (KORUNAN ASİL GİRİŞ EKRANI) -->
+  <!-- ========================================================================= -->
+  <div id="luminaIntro">
+    <div class="intro-background"></div>
+    <div class="intro-particles" id="introParticles"></div>
+    <div class="intro-content">
+      <div class="intro-logo">lumina<i>.</i></div>
+      <div class="intro-subtitle">dijital kütüphane</div>
+    </div>
+  </div>
+
+  <!-- Top Announcement Bar (Infinite Continuous Marquee Ticker) -->
+  <div class="topline">
+    <div class="topline-marquee">
+      <div class="marquee-track">
+        <span class="marquee-item"><span class="pulse-dot"></span> LUMINA · DİJİTAL KÜTÜPHANE VE OKUMA ALANI</span>
+        <span class="marquee-sep">✦</span>
+        <span class="marquee-item">YENİ ARŞİV: 2026 SEÇİLMİŞ ESERLER KOLEKSİYONU YAYINLANDI</span>
+        <span class="marquee-sep">✦</span>
+        <span class="marquee-item">KÜTÜPHANE ÇALIŞMA SAATLERİ: HAFTANIN HER GÜNÜ 08:30 — 23:00</span>
+        <span class="marquee-sep">✦</span>
+        <span class="marquee-item">OKUMA KULÜBÜ: BU AYIN KİTABI "SESSİZLİĞİN ATLASI" TARTIŞMAYA AÇILDI</span>
+        <span class="marquee-sep">✦</span>
+        <span class="marquee-item">TÜM TÜRKİYE'YE HIZLI VE ÜCRETSİZ KÜTÜPHANE KARGOSU</span>
+        <span class="marquee-sep">✦</span>
+        <!-- Kesintisiz Sonsuz Döngü Klonu -->
+        <span class="marquee-item"><span class="pulse-dot"></span> LUMINA · DİJİTAL KÜTÜPHANE VE OKUMA ALANI</span>
+        <span class="marquee-sep">✦</span>
+        <span class="marquee-item">YENİ ARŞİV: 2026 SEÇİLMİŞ ESERLER KOLEKSİYONU YAYINLANDI</span>
+        <span class="marquee-sep">✦</span>
+        <span class="marquee-item">KÜTÜPHANE ÇALIŞMA SAATLERİ: HAFTANIN HER GÜNÜ 08:30 — 23:00</span>
+        <span class="marquee-sep">✦</span>
+        <span class="marquee-item">OKUMA KULÜBÜ: BU AYIN KİTABI "SESSİZLİĞİN ATLASI" TARTIŞMAYA AÇILDI</span>
+        <span class="marquee-sep">✦</span>
+        <span class="marquee-item">TÜM TÜRKİYE'YE HIZLI VE ÜCRETSİZ KÜTÜPHANE KARGOSU</span>
+        <span class="marquee-sep">✦</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Navbar (Floating Capsule Dock) -->
+  <div class="nav-wrapper">
+    <header class="nav-floating-capsule">
+      <div class="brand" onclick="navigateTo('home')">
+        lumina<i>.</i>
+      </div>
+
+      <div class="nav-pill-group">
+        <button class="navlink-btn active" id="navBtn-home" onclick="navigateTo('home')">Ana Sayfa</button>
+        <button class="navlink-btn" id="navBtn-catalog" onclick="scrollToSection('katalog')">Katalog</button>
+        <button class="navlink-btn nav-desktop-only" id="navBtn-quotes" onclick="navigateTo('quotes')">Alıntı Defteri</button>
+        <button class="navlink-btn nav-desktop-only" id="navBtn-about" onclick="navigateTo('about')">Hakkımızda</button>
+        <button class="navlink-btn nav-desktop-only" id="navBtn-faq" onclick="navigateTo('faq')">S.S.S.</button>
+
+        <!-- Mobile More Menu Trigger -->
+        <div class="nav-mobile-only" style="position:relative;display:inline-flex;align-items:center">
+          <button type="button" class="navlink-btn" id="navMobileMoreBtn" onclick="toggleMobileNavMenu(event)" title="Diğer Menüler">
+            <span>Diğer ▾</span>
+          </button>
+          <div class="mobile-nav-dropdown" id="mobileNavMenu" onclick="event.stopPropagation()">
+            <button class="mobile-nav-item" onclick="navigateTo('quotes'); toggleMobileNavMenu(event)">Alıntı Defteri</button>
+            <button class="mobile-nav-item" onclick="navigateTo('about'); toggleMobileNavMenu(event)">Hakkımızda</button>
+            <button class="mobile-nav-item" onclick="navigateTo('faq'); toggleMobileNavMenu(event)">S.S.S.</button>
+            <button class="mobile-nav-item" onclick="toggleAmbientMenu(event); toggleMobileNavMenu(event)">Ambiyans Sesleri</button>
+          </div>
+        </div>
+
+        <div class="nav-desktop-only" style="position:relative;display:inline-flex;align-items:center">
+          <button class="navlink-btn ambient-nav-btn" id="navBtn-ambient" onclick="toggleAmbientMenu(event)"
+            title="Kütüphane Okuma Ambiyansı">
+            <span id="ambientBtnLabel">Ambiyans</span>
+          </button>
+          <div class="ambient-dropdown" id="ambientMenu" onclick="event.stopPropagation()">
+            <div
+              style="font:700 10px 'DM Mono',monospace;color:#f3d478;letter-spacing:0.05em;margin-bottom:6px;padding:0 4px">
+              KÜTÜPHANE SESLERİ</div>
+            <button class="ambient-opt-btn active" id="ambientOpt-off" onclick="setAmbientTrack('off')">
+              <img src="basarimlar/ambiyansikapat.png" alt="Kapat" class="ambient-pixel-icon"
+                onerror="this.src='basarimlar/ambiyansikapat.png'">
+              <span>Ambiyansı Kapat</span>
+            </button>
+            <button class="ambient-opt-btn" id="ambientOpt-rain" onclick="setAmbientTrack('rain')">
+              <img src="basarimlar/yagmur.png" alt="Yağmur" class="ambient-pixel-icon"
+                onerror="this.src='basarimlar/yagmur.png'">
+              <span>Pencerede Yağmur</span>
+            </button>
+            <button class="ambient-opt-btn" id="ambientOpt-fireplace" onclick="setAmbientTrack('fireplace')">
+              <img src="basarimlar/somine.png" alt="Şömine" class="ambient-pixel-icon"
+                onerror="this.src='basarimlar/somine.png'">
+              <span>Kütüphane Şöminesi</span>
+            </button>
+            <button class="ambient-opt-btn" id="ambientOpt-library" onclick="setAmbientTrack('library')">
+              <img src="basarimlar/kutuphanekafe.png" alt="Kafe" class="ambient-pixel-icon"
+                onerror="this.src='basarimlar/kutuphanekafe.png'">
+              <span>Kütüphane & Kafe</span>
+            </button>
+            <button class="ambient-opt-btn" id="ambientOpt-lofi" onclick="setAmbientTrack('lofi')">
+              <img src="basarimlar/lofiplak.png" alt="Lo-Fi" class="ambient-pixel-icon"
+                onerror="this.src='basarimlar/lofiplak.png'">
+              <span>Lo-Fi Plak Cızırtısı</span>
+            </button>
+            <div
+              style="border-top:1px solid rgba(255,255,255,0.12);margin:8px 0 4px;padding:8px 6px 2px;display:flex;align-items:center;justify-content:space-between">
+              <span style="font:700 10px 'DM Mono',monospace;color:#cfdad6;letter-spacing:0.04em">DOKUNSAL SES
+                (SFX)</span>
+              <button class="sfx-toggle-btn" id="sfxToggleBtn" onclick="toggleSfx(event)"
+                style="background:rgba(243,212,120,0.22);border:1px solid #f3d478;color:#f3d478;padding:2px 8px;border-radius:999px;font:700 10px 'DM Mono',monospace;cursor:pointer;transition:all 0.2s">AÇIK</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="nav-actions">
+        <button class="lang-pill-btn" id="langBtn" onclick="toggleLanguage()" title="Dili Değiştir">EN</button>
+        <button class="nav-icon-btn" onclick="focusSearch()" title="Kitap Ara">
+          <svg viewBox="0 0 24 24">
+            <circle cx="11" cy="11" r="7"></circle>
+            <line x1="21" y1="21" x2="16" y2="16"></line>
+          </svg>
+        </button>
+        <button class="nav-icon-btn" id="navIcon-fav" onclick="navigateTo('favorites')" title="Favorilerim"
+          style="display:inline-flex;align-items:center;justify-content:center">
+          <img src="basarimlar/kalp.png" alt="Favori" style="width:25px;height:25px;object-fit:contain"
+            onerror="this.src='basarimlar/kalp.png'">
+          <span class="nav-badge" id="favCountBadge">0</span>
+        </button>
+        <button class="nav-icon-btn" id="navIcon-cart" onclick="navigateTo('cart')" title="Sepetim"
+          style="display:inline-flex;align-items:center;justify-content:center">
+          <img src="basarimlar/alisverissepeti.png" alt="Sepet" style="width:22px;height:22px;object-fit:contain"
+            onerror="this.src='basarimlar/alisverissepeti.png'">
+          <span class="nav-badge" id="cartCountBadge">0</span>
+        </button>
+
+        <button class="user-pill-btn" id="userNavPill" onclick="handleProfileNavClick()" title="Kullanıcı Profili">
+          <span class="user-pill-avatar" id="navUserAvatar">AD</span>
+          <span id="navUserName">Yönetici</span>
+        </button>
+      </div>
+    </header>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- 1. HOME VIEW (BEYAZ & ASİL ANA SAYFA) -->
+  <!-- ========================================================================= -->
+  <main class="app-view active" id="view-home">
+    <div class="shell">
+      <!-- Hero Banner -->
+      <section class="hero" id="heroSlider">
+        <div class="hero-art">
+          <div class="hero-slide active">
+            <img src="https://images.unsplash.com/photo-1526243741027-444d633d7365?auto=format&fit=crop&w=1600&q=85"
+              alt="Kütüphane">
+          </div>
+          <div class="hero-slide">
+            <img src="https://images.unsplash.com/photo-1495446815901-a7297e633e8d?auto=format&fit=crop&w=1600&q=85"
+              alt="Kitap rafları">
+          </div>
+          <div class="hero-slide">
+            <img src="https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=1600&q=85"
+              alt="Açık kitap">
+          </div>
+        </div>
+        <div class="hero-overlay">
+          <span class="hero-badge" id="heroBadge">EDİTORYAL SEÇKİ · 2026 ARŞİVİ</span>
+          <h1 id="heroTitle">Seçilmiş Eserler. Sessiz Bir Zihin.</h1>
+          <p id="heroSub">Fiziksel kütüphane disiplinini çağdaş dijital okuma kültürüyle buluşturan bağımsız bir
+            edebiyat platformu.</p>
+          <div class="hero-btn-group">
+            <button class="btn-primary-formal" id="heroBtn1" onclick="scrollToSection('katalog')">Koleksiyonu İncele
+              →</button>
+            <button class="btn-glass-formal" id="heroBtn2" onclick="navigateTo('quotes')">Okur Defterini Aç</button>
+          </div>
+        </div>
+        <div class="hero-controls">
+          <button onclick="moveHero(-1)" aria-label="Önceki">‹</button>
+          <button onclick="moveHero(1)" aria-label="Sonraki">›</button>
+        </div>
+      </section>
+
+      <!-- Featured Picks -->
+      <section class="section-spacing">
+        <div class="section-head">
+          <div>
+            <h2 id="featuredTitle">Haftanın Editoryal Seçkisi.</h2>
+            <p id="featuredSub">Küratörlerimiz ve okurlarımız tarafından öne çıkarılan eserler.</p>
+          </div>
+          <button class="link" id="featuredAll" onclick="scrollToSection('katalog')">Tüm Koleksiyon →</button>
+        </div>
+        <div class="featured">
+          <article class="featured-book" onclick="showDetails('Sessizliğin Atlası')">
+            <div class="featured-cover"
+              style="background: linear-gradient(to top, rgba(15,23,20,0.85) 0%, rgba(15,23,20,0.2) 60%, rgba(15,23,20,0.4) 100%), url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=85') center/cover no-repeat">
+              <em>FELSEFE · 2024</em>
+              <strong>Sessizliğin Atlası</strong>
+              <em>ELİF DEMİR</em>
+            </div>
+            <div class="featured-info">
+              <div>
+                <h3>Sessizliğin Atlası</h3>
+                <p>Elif Demir · Felsefe</p>
+              </div>
+              <div class="featured-bottom">
+                <span class="rating-badge" style="display:inline-flex;align-items:center;gap:4px"><img
+                    src="basarimlar/yildiz.png" style="width:12px;height:12px;object-fit:contain" alt="★"
+                    onerror="this.src='basarimlar/yildiz.png'"> 4.9 Okur Puanı</span>
+                <span class="stock-tag">12 Stokta</span>
+              </div>
+            </div>
+          </article>
+          <article class="featured-book" onclick="showDetails('Yarın, Bir Başka Yarın')">
+            <div class="featured-cover"
+              style="background: linear-gradient(to top, rgba(15,23,20,0.85) 0%, rgba(15,23,20,0.2) 60%, rgba(15,23,20,0.4) 100%), url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=800&q=85') center/cover no-repeat">
+              <em>BİLİM KURGU · 2025</em>
+              <strong>Yarın, Bir Başka Yarın</strong>
+              <em>DENİZ AKIN</em>
+            </div>
+            <div class="featured-info">
+              <div>
+                <h3>Yarın, Bir Başka Yarın</h3>
+                <p>Deniz Akın · Bilim Kurgu</p>
+              </div>
+              <div class="featured-bottom">
+                <span class="rating-badge" style="display:inline-flex;align-items:center;gap:4px"><img
+                    src="basarimlar/yildiz.png" style="width:12px;height:12px;object-fit:contain" alt="★"
+                    onerror="this.src='basarimlar/yildiz.png'"> 4.8 Okur Puanı</span>
+                <span class="stock-tag">7 Stokta</span>
+              </div>
+            </div>
+          </article>
+          <article class="featured-book" onclick="showDetails('İki Durak Arası')">
+            <div class="featured-cover"
+              style="background: linear-gradient(to top, rgba(15,23,20,0.85) 0%, rgba(15,23,20,0.2) 60%, rgba(15,23,20,0.4) 100%), url('https://images.unsplash.com/photo-1517649763962-0c623266ddc0?auto=format&fit=crop&w=800&q=85') center/cover no-repeat">
+              <em>ROMAN · 2024</em>
+              <strong>İki Durak Arası</strong>
+              <em>AYLİN KAYA</em>
+            </div>
+            <div class="featured-info">
+              <div>
+                <h3>İki Durak Arası</h3>
+                <p>Aylin Kaya · Roman</p>
+              </div>
+              <div class="featured-bottom">
+                <span class="rating-badge" style="display:inline-flex;align-items:center;gap:4px"><img
+                    src="basarimlar/yildiz.png" style="width:12px;height:12px;object-fit:contain" alt="★"
+                    onerror="this.src='basarimlar/yildiz.png'"> 4.7 Okur Puanı</span>
+                <span class="stock-tag">18 Stokta</span>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- Catalog Section -->
+      <section class="catalog-section" id="katalog">
+        <div class="section-head"
+          style="display:flex;justify-content:space-between;align-items:flex-end;gap:18px;flex-wrap:wrap;margin-bottom:20px">
+          <div>
+            <h2 id="catalogTitle" style="margin:0 0 4px">Kütüphane Kataloğu.</h2>
+            <p id="catalogSub" style="margin:0">Tüm eserleri inceleyin, ödünç alın veya arşivinize dahil edin.</p>
+          </div>
+          <div class="catalog-header-actions" style="display:flex;align-items:center;gap:10px">
+          </div>
+        </div>
+        <!-- 1. ÖNERİ: Unified Luxury Control Deck -->
+        <div class="catalog-control-deck">
+          <div class="filter-bar">
+            <div class="search-input-wrapper">
+              <svg class="search-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="7"></circle>
+                <line x1="21" y1="21" x2="16" y2="16"></line>
+              </svg>
+              <input class="search-input" id="search" placeholder="Kitap adı, yazar veya ISBN ara..."
+                oninput="renderBooks()">
+              <button type="button" class="search-shortcut-badge" onclick="openSpotlight()"
+                title="Hızlı Arama (Ctrl + K)">Ctrl + K</button>
+            </div>
+            <div class="filter-select-wrapper">
+              <select class="filter-select" id="sort" onchange="renderBooks()">
+                <option value="new">En Yeni Eklenenler</option>
+                <option value="title">Kitap Adı (A-Z)</option>
+                <option value="author">Yazar Adı (A-Z)</option>
+                <option value="price-asc">Fiyat: Düşükten Yükseğe</option>
+                <option value="price-desc">Fiyat: Yüksekten Düşüğe</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- 2. ÖNERİ: Interactive Pixel Category Filter Bar with Live Count Badges & Aura Glow -->
+          <div class="category-pills-bar" id="catalogCategoryPills">
+            <button class="category-pill active" onclick="selectCatalogCategory('', this)">
+              <img src="basarimlar/tumu.png" alt="Tümü" class="category-pill-icon"
+                onerror="this.src='basarimlar/tumu.png'">
+              <span class="pill-title">Tüm Eserler</span>
+              <span class="pill-count-badge">13</span>
+            </button>
+            <button class="category-pill" onclick="selectCatalogCategory('Roman', this)">
+              <img src="basarimlar/roman.png" alt="Roman" class="category-pill-icon"
+                onerror="this.src='basarimlar/roman.png'">
+              <span class="pill-title">Roman</span>
+              <span class="pill-count-badge">2</span>
+            </button>
+            <button class="category-pill" onclick="selectCatalogCategory('Felsefe', this)">
+              <img src="basarimlar/felsefe.png" alt="Felsefe" class="category-pill-icon"
+                onerror="this.src='basarimlar/felsefe.png'">
+              <span class="pill-title">Felsefe</span>
+              <span class="pill-count-badge">2</span>
+            </button>
+            <button class="category-pill" onclick="selectCatalogCategory('Psikoloji', this)">
+              <img src="basarimlar/psikoloji.png" alt="Psikoloji" class="category-pill-icon"
+                onerror="this.src='basarimlar/psikoloji.png'">
+              <span class="pill-title">Psikoloji</span>
+              <span class="pill-count-badge">1</span>
+            </button>
+            <button class="category-pill" onclick="selectCatalogCategory('Bilim Kurgu', this)">
+              <img src="basarimlar/bilimkurgu.png" alt="Bilim Kurgu" class="category-pill-icon"
+                onerror="this.src='basarimlar/bilimkurgu.png'">
+              <span class="pill-title">Bilim Kurgu</span>
+              <span class="pill-count-badge">2</span>
+            </button>
+            <button class="category-pill" onclick="selectCatalogCategory('Şiir & Sanat', this)">
+              <img src="basarimlar/siir.png" alt="Şiir" class="category-pill-icon"
+                onerror="this.src='basarimlar/siir.png'">
+              <span class="pill-title">Şiir & Sanat</span>
+              <span class="pill-count-badge">1</span>
+            </button>
+            <button class="category-pill" onclick="selectCatalogCategory('Tarih', this)">
+              <img src="basarimlar/tarih.png" alt="Tarih" class="category-pill-icon"
+                onerror="this.src='basarimlar/tarih.png'">
+              <span class="pill-title">Tarih</span>
+              <span class="pill-count-badge">1</span>
+            </button>
+            <button class="category-pill" onclick="selectCatalogCategory('Sanat', this)">
+              <img src="basarimlar/sanat.png" alt="Sanat" class="category-pill-icon"
+                onerror="this.src='basarimlar/sanat.png'">
+              <span class="pill-title">Sanat</span>
+              <span class="pill-count-badge">1</span>
+            </button>
+          </div>
+        </div>
+        <div class="catalog-grid" id="catalog"></div>
+        <div id="catalogExpandWrapper" style="display:none;justify-content:flex-end;margin-top:28px"></div>
+      </section>
+    </div>
+  </main>
+
+  <!-- ========================================================================= -->
+  <!-- 2. QUOTES VIEW (ALINTI DEFTERİ) -->
+  <!-- ========================================================================= -->
+  <section class="app-view shell" id="view-quotes">
+    <div class="page-header">
+      <div>
+        <span class="eyebrow" id="quotesEyebrow">LUMINA / OKUR ARŞİVİ</span>
+        <h1 class="page-title" id="quotesPageTitle">Okur Defteri & Alıntılar.</h1>
+        <p class="page-subtitle" id="quotesPageSubtitle">Kütüphane koleksiyonundaki eserlerden altı çizilen, düşündüren
+      </div>
+    </div>
+
+    <div class="filter-bar" style="margin-bottom:28px">
+      <input class="search-input" id="quoteSearch" placeholder="Alıntı veya kitap ara..." oninput="renderQuotes()">
+      <select class="filter-select" id="quoteTagFilter" onchange="renderQuotes()">
+        <option value="">Tüm Etiketler</option>
+        <option>Felsefe</option>
+        <option>Bilim Kurgu</option>
+        <option>Hayat</option>
+        <option>Tarih</option>
+        <option>Klasik</option>
+        <option>Aşk</option>
+      </select>
+    </div>
+
+    <div class="catalog-grid" id="quotesGrid" style="grid-template-columns: repeat(auto-fill, minmax(340px, 1fr))">
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- 2.1 ABOUT VIEW (HAKKIMIZDA & KÜTÜPHANE HİKÂYESİ) -->
+  <!-- ========================================================================= -->
+  <section class="app-view shell" id="view-about">
+    <div class="page-header">
+      <div>
+        <span class="eyebrow" id="aboutEyebrow">LUMINA / KURULUŞ & FELSEFE</span>
+        <h1 class="page-title" id="aboutPageTitle">Kütüphane Hakkında.</h1>
+        <p class="page-subtitle" id="aboutPageSubtitle">Yazılı kültürün kalıcılığına ve bilinçli okuma eylemine adanmış
+          bağımsız bir edebiyat ekosistemi.</p>
+      </div>
+    </div>
+
+    <!-- About Grand Story Card -->
+    <div class="club-banner" style="background:linear-gradient(135deg, #16241f 0%, #0d1613 100%)">
+      <div>
+        <span class="club-badge">KURULUŞ VE MİSYON</span>
+        <h2 style="font:700 32px/1.2 'Fraunces',serif;margin:0 0 12px;color:#ffffff">Düşünce, Arşiv ve Okuma Disiplini.
+        </h2>
+        <p style="font-size:15px;color:#d1dcda;line-height:1.65;margin:0 0 22px;max-width:560px">
+          Lumina, kitapları yalnızca tüketilen nesneler olarak değil; zaman içinde değer kazanan, altı çizilen ve
+          kuşaktan kuşağa aktarılan entelektüel miraslar olarak konumlandırır. Burada her eser, özenle kayıt altına
+          alınır ve okurun istifadesine sunulur.
+        </p>
+        <div style="display:flex;gap:12px;flex-wrap:wrap">
+          <button class="btn-primary-formal" onclick="scrollToSection('katalog')">Koleksiyonu İncele →</button>
+        </div>
+      </div>
+      <div
+        style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.15);border-radius:14px;padding:26px">
+        <b style="font:700 18px 'Fraunces',serif;color:#ffffff;display:block;margin-bottom:12px">Ziyaret & Çalışma
+          Saatleri</b>
+        <div class="data-row" style="border-color:rgba(255,255,255,0.1);color:#d1dcda">
+          <span>Hafta İçi & Hafta Sonu</span>
+          <b style="color:#f3d478">08:30 — 22:30</b>
+        </div>
+        <div class="data-row" style="border-color:rgba(255,255,255,0.1);color:#d1dcda">
+          <span>Dijital Arşiv Erişimi</span>
+          <b style="color:#f3d478">7 / 24 Kesintisiz</b>
+        </div>
+        <div class="data-row" style="border-color:rgba(255,255,255,0.1);color:#d1dcda">
+          <span>Konum</span>
+          <span style="font-size:12px">Lumina Merkez Külliyesi, No: 42</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6 Core Pillars -->
+    <div class="section-head" style="margin-top:40px">
+      <div>
+        <h2 id="aboutValuesTitle">Temel İlkelerimiz & Değerlerimiz</h2>
+        <p id="aboutValuesSub">Lumina kütüphane ekosistemini ayakta tutan sekiz ana sütun.</p>
+      </div>
+    </div>
+
+    <div class="cat-grid" style="grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));margin-bottom:30px">
+      <div class="cat-card" style="padding:26px">
+        <span class="cat-tag">01 · KÜRASYON</span>
+        <b style="font-size:18px;margin-top:10px;font-family:'Fraunces',serif">Özenli Seçki & Canlı Arşiv</b>
+        <p style="color:var(--muted);font-size:13px;line-height:1.6;margin:8px 0 0">
+          Kütüphanemizdeki her eser, alanında iz bırakmış yazarlar ve düşünürler arasından edebi derinliğine göre
+          titizlikle seçilerek kayıt altına alınır.
+        </p>
+      </div>
+
+      <div class="cat-card" style="padding:26px">
+        <span class="cat-tag">02 · AÇIK ERİŞİM</span>
+        <b style="font-size:18px;margin-top:10px;font-family:'Fraunces',serif">Özgür Okuma & Alıntı Kültürü</b>
+        <p style="color:var(--muted);font-size:13px;line-height:1.6;margin:8px 0 0">
+          Okurlarımız hiçbir ticari baskı olmadan diledikleri kitabı ödünç alabilir, altını çizdikleri satırları ortak
+          Alıntı Defteri'nde paylaşabilirler.
+        </p>
+      </div>
+
+      <div class="cat-card" style="padding:26px">
+        <span class="cat-tag">03 · HİBRİT MODEL</span>
+        <b style="font-size:18px;margin-top:10px;font-family:'Fraunces',serif">Fiziksel Cilt & Dijital Hız</b>
+        <p style="color:var(--muted);font-size:13px;line-height:1.6;margin:8px 0 0">
+          İster sessiz salonda ahşap kokulu ciltler arasında vakit geçirin, ister anında dijital kopyalara ulaşıp kendi
+          cihazınızda okuyun.
+        </p>
+      </div>
+
+      <div class="cat-card" style="padding:26px">
+        <span class="cat-tag">04 · ŞEFFAFLIK & GÜVEN</span>
+        <b style="font-size:18px;margin-top:10px;font-family:'Fraunces',serif">Emanet & Paylaşım Etiği</b>
+        <p style="color:var(--muted);font-size:13px;line-height:1.6;margin:8px 0 0">
+          Her eser, kütüphane ve okurlar arasında kurulan karşılıklı saygı, şeffaf iade süreleri ve dayanışma esasına
+          dayalı olarak korunur.
+        </p>
+      </div>
+
+      <div class="cat-card" style="padding:26px">
+        <span class="cat-tag">05 · OKUR TOPLULUĞU</span>
+        <b style="font-size:18px;margin-top:10px;font-family:'Fraunces',serif">Ortak Zihin & Değerlendirme</b>
+        <p style="color:var(--muted);font-size:13px;line-height:1.6;margin:8px 0 0">
+          Okurların bıraktığı dürüst incelemeler, puanlar ve alıntılar, sonraki okurlar için yol gösterici birer
+          edebiyat pusulasına dönüşür.
+        </p>
+      </div>
+
+      <div class="cat-card" style="padding:26px">
+        <span class="cat-tag">06 · KÜLTÜREL MİRAS</span>
+        <b style="font-size:18px;margin-top:10px;font-family:'Fraunces',serif">Kalıcı Hafıza & Gelecek</b>
+        <p style="color:var(--muted);font-size:13px;line-height:1.6;margin:8px 0 0">
+          Nadir basımlar ve zamansız felsefi metinler, gelecek kuşakların da aynı heyecanla ulaşabilmesi için dijital
+          olarak arşivlenir.
+        </p>
+      </div>
+
+      <div class="cat-card" style="padding:26px">
+        <span class="cat-tag">07 · KAPSAYICILIK & EŞİTLİK</span>
+        <b style="font-size:18px;margin-top:10px;font-family:'Fraunces',serif">Bilgiye Engelleri Kaldırma</b>
+        <p style="color:var(--muted);font-size:13px;line-height:1.6;margin:8px 0 0">
+          Yaş, mekân ve imkân farkı gözetmeksizin her bireyin evrensel bilgi ve edebiyat birikimine eşit, engelsiz ve
+          adil şartlarda erişimini savunuyoruz.
+        </p>
+      </div>
+
+      <div class="cat-card" style="padding:26px">
+        <span class="cat-tag">08 · SÜRDÜRÜLEBİLİR GELECEK</span>
+        <b style="font-size:18px;margin-top:10px;font-family:'Fraunces',serif">Ekolojik Arşiv & Sıfır Atık</b>
+        <p style="color:var(--muted);font-size:13px;line-height:1.6;margin:8px 0 0">
+          Karbon ayak izini azaltan akıllı dijitalleşme ve çevre dostu kütüphanecilik pratikleriyle kelimeleri gezegenle
+          uyum içinde geleceğe taşıyoruz.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- 2.2 FAQ VIEW (S.S.S. & KÜTÜPHANE REHBERİ) -->
+  <!-- ========================================================================= -->
+  <section class="app-view shell" id="view-faq">
+    <div class="page-header">
+      <div>
+        <span class="eyebrow" id="faqEyebrow">LUMINA / YARDIM & REHBER</span>
+        <h1 class="page-title" id="faqPageTitle">Sıkça Sorulan Sorular.</h1>
+        <p class="page-subtitle" id="faqPageSubtitle">Ödünç alma süreleri, üyelik hakları, sipariş süreçleri ve
+          kütüphane kullanım kuralları hakkında tüm cevaplar.</p>
+      </div>
+    </div>
+
+    <div class="filter-bar" style="max-width:860px;margin:0 auto 30px">
+      <input class="search-input" id="faqSearchInput" placeholder="Soru veya konu ara (örn. ödünç, ceza, iade)..."
+        oninput="filterFaqItems()">
+      <select class="filter-select" id="faqCategoryFilter" onchange="filterFaqItems()">
+        <option value="">Tüm Kategoriler</option>
+        <option value="odunc">Ödünç & İade</option>
+        <option value="uyelik">Üyelik & Hesap</option>
+        <option value="alinti">Alıntı Defteri</option>
+        <option value="siparis">Sipariş & Satın Alma</option>
+      </select>
+    </div>
+
+    <div class="faq-accordion-list" id="faqAccordionList">
+
+      <div class="faq-item open" data-cat="odunc">
+        <button class="faq-header-btn" onclick="toggleFaqAccordion(this)">
+          <span>Lumina Kütüphanesi'nden aynı anda kaç kitap ödünç alabilirim?</span>
+          <svg viewBox="0 0 24 24" fill="none">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </button>
+        <div class="faq-body">
+          Kayıtlı bir okur aynı anda en fazla <b>3 adet aktif kitabı</b> ödünç alabilir. Ödünç alınan kitapların
+          standart kullanım süresi <b>7 gündür</b>. Süre dolmadan önce kitap başka bir okur tarafından talep edilmediyse
+          profilinizden süreyi uzatabilirsiniz.
+        </div>
+      </div>
+
+      <div class="faq-item" data-cat="odunc">
+        <button class="faq-header-btn" onclick="toggleFaqAccordion(this)">
+          <span>Ödünç aldığım kitabı nasıl iade edebilirim?</span>
+          <svg viewBox="0 0 24 24" fill="none">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </button>
+        <div class="faq-body">
+          Sağ üstteki profil butonuna tıklayarak açılan <b>"Okuma Alanım / Ödünç Aldıklarım"</b> sekmesinden ilgili
+          kitabın yanındaki <b>"İade Et"</b> butonuna basarak iade işlemini anında tamamlayabilirsiniz.
+        </div>
+      </div>
+
+      <div class="faq-item" data-cat="odunc">
+        <button class="faq-header-btn" onclick="toggleFaqAccordion(this)">
+          <span>Geç iadelerde herhangi bir para cezası veya yaptırım var mı?</span>
+          <svg viewBox="0 0 24 24" fill="none">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </button>
+        <div class="faq-body">
+          Lumina kütüphanesinde maddi para cezası uygulanmaz. Ancak teslim tarihi geçen kitaplar iade edilene kadar yeni
+          bir ödünç alma talebinde bulunamazsınız. Zamanında yapılan iadeler ise hesabınıza <b>indirim kuponu ve ödül
+            puanı</b> kazandırır.
+        </div>
+      </div>
+
+      <div class="faq-item" data-cat="alinti">
+        <button class="faq-header-btn" onclick="toggleFaqAccordion(this)">
+          <span>Alıntı Defteri'ne nasıl satır ekleyebilir ve paylaşabilirim?</span>
+          <svg viewBox="0 0 24 24" fill="none">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </button>
+        <div class="faq-body">
+          Üst menüdeki <b>"Alıntı Defteri"</b> sekmesine giderek <b>"+ Yeni Alıntı Ekle"</b> butonuna tıklayabilirsiniz.
+          Beğendiğiniz cümlenin ait olduğu kitabı, yazarını, sayfa numarasını ve tür etiketini girerek topluluğun
+          beğenisine sunabilirsiniz.
+        </div>
+      </div>
+
+      <div class="faq-item" data-cat="siparis">
+        <button class="faq-header-btn" onclick="toggleFaqAccordion(this)">
+          <span>Satın alınan kitapların teslimatı nasıl yapılıyor?</span>
+          <svg viewBox="0 0 24 24" fill="none">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </button>
+        <div class="faq-body">
+          Satın aldığınız tüm eserler için adınıza dijital makbuz oluşturulur ve eser anında kişisel dijital
+          kütüphanenize tanımlanır. Fiziksel basım kopyası ise 2 iş günü içerisinde ücretsiz kargo ile adresinize sevk
+          edilir.
+        </div>
+      </div>
+
+      <div class="faq-item" data-cat="uyelik">
+        <button class="faq-header-btn" onclick="toggleFaqAccordion(this)">
+          <span>Yönetim Paneli ile Okur Hesabı arasındaki fark nedir?</span>
+          <svg viewBox="0 0 24 24" fill="none">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </button>
+        <div class="faq-body">
+          <b>Okur Hesabı:</b> Kitap ödünç alma, alıntı kaydetme, sipariş geçmişini görüntüleme ve kupon kazanma
+          özelliklerine sahiptir.<br>
+          <b>Yönetici (Admin) Hesabı:</b> Tüm kütüphane stoklarını düzenleme, yeni kitap ekleme, ödünç onaylarını
+          yönetme, üye kaydetme ve toplam satış raporlarını görme yetkisine sahiptir. Sağ üstteki profilden istediğiniz
+          zaman hesaplar arası hızlı geçiş yapabilirsiniz.
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- 3. PROFILE VIEW (YÖNETİM PANELİ & OKUR PROFİLİ) -->
+  <!-- ========================================================================= -->
+  <section class="app-view shell" id="view-profile">
+    <div class="page-header">
+      <div>
+        <span class="eyebrow" id="profilePageEyebrow">LUMINA / YÖNETİCİ KONTROL MERKEZİ</span>
+        <h1 class="page-title" id="profilePageTitle">Yönetim Paneli.</h1>
+        <p class="page-subtitle" id="profilePageSubtitle">Kütüphane ekosistemindeki tüm kitapları, stokları, ödünç
+          onaylarını ve satışları canlı yönetin.</p>
+      </div>
+    </div>
+
+    <div class="page-grid-layout">
+      <aside class="sidebar-panel">
+        <div style="display:flex;align-items:center;gap:14px;margin-bottom:20px">
+          <div class="user-avatar-lg" id="profileAvatar">AD</div>
+          <div>
+            <h3 style="margin:0;font-size:18px" id="profileName">Yönetici (Admin)</h3>
+            <span style="font-size:12px;color:var(--muted);display:block;margin-top:3px"
+              id="profileEmail">admin@lumina.lib</span>
+            <div style="margin-top:4px"><span class="status-badge admin" id="profileRoleBadge">Yönetici</span></div>
+          </div>
+        </div>
+
+        <div class="vertical-nav" id="profileNavContainer"></div>
+      </aside>
+
+      <div class="content-panel">
+
+        <!-- 1. Admin Tab: Kitap & Envanter Yönetimi (DEFAULT) -->
+        <div class="profile-tab-pane active" id="pTab-adminInventory">
+          <!-- Top KPI Bar for Books & Stock -->
+          <div class="admin-stats-grid" style="grid-template-columns: repeat(2, 1fr); margin-bottom: 22px">
+            <div class="admin-stat-card">
+              <b id="dashTotalBooks">8</b>
+              <span>Kayıtlı Kitap Türü</span>
+            </div>
+            <div class="admin-stat-card">
+              <b id="dashTotalCopies">57 Kopya</b>
+              <span>Toplam Envanter Stoğu</span>
+            </div>
+          </div>
+
+          <div class="card-box">
+            <div
+              style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:12px">
+              <div>
+                <h3 style="margin:0">Kütüphane Kataloğu & Stok Düzenleme</h3>
+                <p style="margin:4px 0 0;font-size:13px;color:var(--muted)">Kitapların stok adetlerini anlık artırıp
+                  azaltabilir veya yeni kitap ekleyebilirsiniz.</p>
+              </div>
+              <button class="btn-action-primary" onclick="openAddBookModal()">+ Yeni Kitap Ekle</button>
+            </div>
+            <div style="overflow-x:auto">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>Kitap Adı</th>
+                    <th>Yazar</th>
+                    <th>Tür</th>
+                    <th>ISBN</th>
+                    <th>Fiyat</th>
+                    <th>Stok Düzenle</th>
+                    <th>İşlemler</th>
+                  </tr>
+                </thead>
+                <tbody id="adminBooksTableBody">
+                  <tr>
+                    <td><b>Yarın, Bir Başka Yarın</b><br><small style="color:var(--muted)">Yıl: 2025</small></td>
+                    <td>Deniz Akın</td>
+                    <td><span class="quote-tag-badge">#Bilim Kurgu</span></td>
+                    <td><code style="font-family:monospace;font-size:11px">9786051234001</code></td>
+                    <td><b>₺245</b></td>
+                    <td>
+                      <div style="display:flex;align-items:center;gap:6px">
+                        <button class="btn-action-secondary" style="padding:2px 8px;font-size:11px"
+                          onclick="adjustBookStock(1, -1)">-</button>
+                        <b style="min-width:20px;text-align:center">7</b>
+                        <button class="btn-action-secondary" style="padding:2px 8px;font-size:11px"
+                          onclick="adjustBookStock(1, 1)">+</button>
+                      </div>
+                    </td>
+                    <td><button class="btn-action-secondary" style="color:var(--danger);padding:4px 10px;font-size:11px"
+                        onclick="deleteBook(1)">Sil</button></td>
+                  </tr>
+                  <tr>
+                    <td><b>Sessizliğin Atlası</b><br><small style="color:var(--muted)">Yıl: 2024</small></td>
+                    <td>Elif Demir</td>
+                    <td><span class="quote-tag-badge">#Felsefe</span></td>
+                    <td><code style="font-family:monospace;font-size:11px">9786051234002</code></td>
+                    <td><b>₺210</b></td>
+                    <td>
+                      <div style="display:flex;align-items:center;gap:6px">
+                        <button class="btn-action-secondary" style="padding:2px 8px;font-size:11px"
+                          onclick="adjustBookStock(2, -1)">-</button>
+                        <b style="min-width:20px;text-align:center">12</b>
+                        <button class="btn-action-secondary" style="padding:2px 8px;font-size:11px"
+                          onclick="adjustBookStock(2, 1)">+</button>
+                      </div>
+                    </td>
+                    <td><button class="btn-action-secondary" style="color:var(--danger);padding:4px 10px;font-size:11px"
+                        onclick="deleteBook(2)">Sil</button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. Admin Tab: Ödünç & İade Masası -->
+        <div class="profile-tab-pane" id="pTab-adminLoans" style="display:none">
+          <!-- Top KPI Bar for Loans & Pending -->
+          <div class="admin-stats-grid" style="grid-template-columns: repeat(2, 1fr); margin-bottom: 22px">
+            <div class="admin-stat-card">
+              <b id="dashActiveLoans">1</b>
+              <span>Şu An Ödünçte Olan Kitap</span>
+            </div>
+            <div class="admin-stat-card">
+              <b id="dashPendingCount">0</b>
+              <span>Onay Bekleyen İstida / Talep</span>
+            </div>
+          </div>
+
+          <div class="card-box" style="margin-bottom:22px">
+            <h3 style="margin:0 0 14px">Onay Bekleyen Yeni Ödünç Talepleri</h3>
+            <div id="adminPendingFullList"></div>
+          </div>
+
+          <div class="card-box" style="margin-bottom:22px">
+            <h3 style="margin:0 0 14px">Onay Bekleyen Süre Uzatma Talepleri (+7 Gün)</h3>
+            <div id="adminExtensionPendingList"></div>
+          </div>
+
+          <div class="card-box">
+            <h3 style="margin:0 0 14px">Şu An Ödünçte Olan Kitaplar</h3>
+            <div style="overflow-x:auto">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>Okur Adı</th>
+                    <th>Kitap Adı</th>
+                    <th>Veriliş Tarihi</th>
+                    <th>Son Teslim Tarihi</th>
+                    <th>Kalan Süre</th>
+                    <th>İşlem</th>
+                  </tr>
+                </thead>
+                <tbody id="adminLoansTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. Admin Tab: Üye & Okur Yönetimi -->
+        <div class="profile-tab-pane" id="pTab-adminUsers" style="display:none">
+          <!-- Top KPI Bar for Users -->
+          <div class="admin-stats-grid" style="grid-template-columns: 1fr; margin-bottom: 22px">
+            <div class="admin-stat-card">
+              <b id="dashRegisteredUsers">5 Okur</b>
+              <span>Kayıtlı ve Doğrulanmış Kütüphane Üyesi</span>
+            </div>
+          </div>
+
+          <div class="card-box">
+            <div
+              style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:12px">
+              <div>
+                <h3 style="margin:0">Kayıtlı Üyeler & Okurlar (<span id="adminUsersCountSpan">5</span>)</h3>
+                <p style="margin:4px 0 0;font-size:13px;color:var(--muted)">Üyelerin yetkilerini yönetin veya yeni okur
+                  kaydı açın.</p>
+              </div>
+              <button class="btn-action-primary" onclick="openAddUserModal()">+ Yeni Okur Ekle</button>
+            </div>
+            <div style="overflow-x:auto">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>Ad Soyad</th>
+                    <th>E-posta</th>
+                    <th>Yetki / Rol</th>
+                    <th>Kayıt Tarihi</th>
+                    <th>İşlem</th>
+                  </tr>
+                </thead>
+                <tbody id="adminUsersTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. Admin Tab: Satışlar & Ciro Raporu -->
+        <div class="profile-tab-pane" id="pTab-adminSales" style="display:none">
+          <!-- Top KPI Bar for Revenue & Orders -->
+          <div class="admin-stats-grid" style="grid-template-columns: repeat(2, 1fr); margin-bottom: 22px">
+            <div class="admin-stat-card">
+              <b id="dashTotalRevenue">₺760</b>
+              <span>Toplam Satış Geliri</span>
+            </div>
+            <div class="admin-stat-card">
+              <b id="dashTotalOrders">4 Sipariş</b>
+              <span>Tamamlanan Sipariş Sayısı</span>
+            </div>
+          </div>
+
+          <div class="card-box">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
+              <h3 style="margin:0">Satış Geçmişi & Makbuzlar</h3>
+              <b style="font:700 17px 'Fraunces',serif;color:var(--ink)" id="adminSalesTotalSum">Toplam Ciro: 760 Coin</b>
+            </div>
+            <div style="overflow-x:auto">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>Makbuz No</th>
+                    <th>Kitap Adı</th>
+                    <th>Tarih</th>
+                    <th>Tutar</th>
+                  </tr>
+                </thead>
+                <tbody id="adminSalesTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5. Admin Tab: Alıntı Defteri Moderasyonu -->
+        <div class="profile-tab-pane" id="pTab-adminQuotes" style="display:none">
+          <div class="card-box">
+            <div
+              style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:12px">
+              <div>
+                <h3 style="margin:0">Paylaşılan Alıntılar & Denetim</h3>
+                <p style="margin:4px 0 0;font-size:13px;color:var(--muted)">Okurların eklediği alıntıları inceleyin,
+                  yeni alıntı ekleyin veya silin.</p>
+              </div>
+              <button class="btn-action-primary" onclick="openAddQuoteModal()">+ Yeni Alıntı Ekle</button>
+            </div>
+            <div id="adminQuotesManageList"></div>
+          </div>
+        </div>
+
+        <!-- 6. Admin Tab: Sistem Ayarları & Araçlar -->
+        <div class="profile-tab-pane" id="pTab-adminSettings" style="display:none">
+          <div class="card-box" style="margin-bottom:22px">
+            <h3>Canlı Üst Bant Duyurusu Yayınla</h3>
+            <p style="color:var(--muted);font-size:13px;margin:0 0 16px">Sitenin en tepesindeki siyah şeritte dönecek
+              duyuru metnini güncelleyin.</p>
+            <div style="display:flex;gap:12px">
+              <input class="search-input" id="dashAnnouncementInput"
+                placeholder="Sitede en üstte kayan duyuru metnini girin...">
+              <button class="btn-action-primary" onclick="publishAnnouncementFromDash()">Yayınla</button>
+            </div>
+          </div>
+
+          <div class="card-box" style="margin-bottom:22px">
+            <h3>Geliştirici & Topluluk Bağlantıları</h3>
+            <p style="color:var(--muted);font-size:13px;margin:0 0 14px">Resmi sosyal medya ve geliştirici profillerine
+              göz atın.</p>
+            <div class="admin-action-bar" style="margin:0">
+              <button class="btn-action-secondary" onclick="exportDatabaseJson()">Veritabanını Yedekle (.JSON)</button>
+              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer"
+                class="social-link-btn instagram" title="Instagram">
+                <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                </svg>
+                <span>Instagram</span>
+              </a>
+              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="social-link-btn linkedin"
+                title="LinkedIn">
+                <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                  <rect x="2" y="9" width="4" height="12"></rect>
+                  <circle cx="4" cy="4" r="2"></circle>
+                </svg>
+                <span>LinkedIn</span>
+              </a>
+              <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="social-link-btn github"
+                title="GitHub">
+                <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2">
+                  <path
+                    d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22">
+                  </path>
+                </svg>
+                <span>GitHub</span>
+              </a>
+            </div>
+          </div>
+
+          <div class="card-box">
+            <h3>Sistem Tercihleri & Hesap</h3>
+            <div class="data-row">
+              <span>Hesap Rolü</span>
+              <span class="status-badge admin">Tam Yetkili Yönetici</span>
+            </div>
+            <div class="data-row">
+              <span>Hesap Değiştir / Çıkış Yap</span>
+              <button class="btn-action-secondary" onclick="openModal('authModal')">Farklı Hesaba Geç</button>
+            </div>
+            <div class="data-row">
+              <span>Demo Verilerini Sıfırla<small>Tüm stok ve işlemleri ilk haline döndürür</small></span>
+              <button class="btn-action-secondary" style="color:var(--danger)" onclick="resetDemoData()">Varsayılana
+                Sıfırla</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- OKUR TABS -->
+        <!-- 0. OKUR TAB: KİŞİSEL BİLGİLER -->
+        <div class="profile-tab-pane" id="pTab-userInfo" style="display:none">
+
+          <!-- 1. KİŞİSEL BİLGİLER KARTI -->
+          <div class="card-box" style="margin-bottom:22px">
+            <!-- Üst Profil Özeti (Avatar, Ad Soyad, Seviye, Rozetler) -->
+            <div
+              style="display:flex;align-items:center;gap:20px;margin-bottom:24px;padding-bottom:22px;border-bottom:1px solid var(--line);flex-wrap:wrap">
+              <div class="user-avatar-lg" id="userInfoAvatar"
+                style="width:68px;height:68px;font-size:24px;flex-shrink:0">SO</div>
+              <div style="display:flex;flex-direction:column;gap:8px;flex:1;min-width:240px">
+                <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+                  <h3 style="margin:0;font-size:21px;letter-spacing:-0.3px;color:var(--ink)" id="userInfoName">Sena Okur
+                  </h3>
+                  <span
+                    style="display:inline-flex;align-items:center;gap:6px;background:#fff8e1;border:1px solid #ffe082;padding:4px 12px;border-radius:999px;font:700 11.5px 'DM Mono',monospace;color:#b78103"><img
+                      src="basarimlar/okurtaci.png" alt="Taç" style="width:14px;height:14px;object-fit:contain"
+                      onerror="this.src='basarimlar/okurtaci.png'"> Bilge Okur (Seviye 3)</span>
+                </div>
+                <!-- Mini Badges Under Full Name -->
+                <div style="display:flex;align-items:center;gap:8px;margin-top:2px">
+                  <div id="userInfoMiniBadges" class="user-mini-badges-row" style="margin:0"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- GÖRÜNTÜLEME MODU -->
+            <div id="profileInfoDisplayView">
+              <div
+                style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;flex-wrap:wrap;gap:10px">
+                <div>
+                  <h3 style="margin:0 0 4px;font-size:18px">Kişisel Bilgiler</h3>
+                  <p style="margin:0;font-size:13px;color:var(--muted)">Hesabınıza tanımlı temel iletişim ve kimlik
+                    bilgileriniz.</p>
+                </div>
+                <button type="button" class="btn-action-secondary"
+                  style="font-size:12.5px;padding:7px 16px;font-weight:600"
+                  onclick="toggleProfileEditMode(true)">Bilgileri Düzenle</button>
+              </div>
+
+              <div class="profile-info-grid">
+                <div class="profile-info-field">
+                  <span class="profile-info-label">Ad Soyad</span>
+                  <div class="profile-info-value" id="displayProfileName">Erdem Şensoy</div>
+                </div>
+
+                <div class="profile-info-field">
+                  <span class="profile-info-label">E-posta</span>
+                  <div style="display:flex;align-items:center;gap:6px;flex-wrap:nowrap;overflow:hidden">
+                    <span class="profile-info-value" id="displayProfileEmail"
+                      style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#2e7d32;font-weight:600">erdemensoy@gmail.com</span>
+                  </div>
+                </div>
+
+                <div class="profile-info-field">
+                  <span class="profile-info-label">Telefon Numarası</span>
+                  <div style="display:flex;align-items:center;gap:6px;flex-wrap:nowrap">
+                    <span class="profile-info-value" id="displayProfilePhone" style="color:#2e7d32;font-weight:600">0532 845 19 23</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- DÜZENLEME FORMU MODU -->
+            <div id="profileInfoEditView" style="display:none">
+              <div style="margin-bottom:18px">
+                <h3 style="margin:0 0 4px;font-size:18px">Bilgileri Düzenle</h3>
+                <p style="margin:0;font-size:13px;color:var(--muted)">Profil adınızı, e-posta adresinizi ve iletişim
+                  numaranızı güncelleyin.</p>
+              </div>
+
+              <div class="profile-info-grid" style="margin-bottom:20px">
+                <div>
+                  <label style="display:block;font-size:12px;font-weight:700;color:var(--muted);margin-bottom:6px">AD SOYAD (KİLİTLİ)</label>
+                  <div style="position:relative;display:flex;align-items:center">
+                    <input class="search-input" id="editFullNameInput" readonly disabled style="width:100%;background:#f1f4f2;color:var(--muted);cursor:not-allowed;font-weight:600;padding-right:32px" title="Üyelik güvenliği nedeniyle Ad Soyad değiştirilemez.">
+                    <span style="position:absolute;right:10px;font-size:13px" title="Kilitli">🔒</span>
+                  </div>
+                  <small style="font-size:11px;color:var(--muted);margin-top:4px;display:block">Üyelik güvenliği nedeniyle Ad Soyad değiştirilemez.</small>
+                </div>
+                <div>
+                  <label
+                    style="display:block;font-size:12px;font-weight:700;color:var(--muted);margin-bottom:6px">E-POSTA
+                    ADRESİ</label>
+                  <input class="search-input" id="editEmailInput" placeholder="E-posta adresi..." style="width:100%">
+                </div>
+                <div>
+                  <label
+                    style="display:block;font-size:12px;font-weight:700;color:var(--muted);margin-bottom:6px">TELEFON
+                    NUMARASI</label>
+                  <input class="search-input" id="editPhoneInput" placeholder="05XX XXX XX XX" style="width:100%">
+                </div>
+              </div>
+
+              <div
+                style="display:flex;justify-content:flex-end;align-items:center;gap:10px;padding-top:14px;border-top:1px solid var(--line)">
+                <button type="button" class="btn-action-secondary"
+                  onclick="toggleProfileEditMode(false)">Vazgeç</button>
+                <button type="button" class="btn-action-primary" onclick="savePersonalProfileInfo()">Değişiklikleri
+                  Kaydet</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. ÜYELİK BİLGİLERİ KARTI -->
+          <div class="card-box">
+            <div style="margin-bottom:18px">
+              <h3 style="margin:0 0 4px;font-size:18px">Üyelik Bilgileri</h3>
+              <p style="margin:0;font-size:13px;color:var(--muted)">Lumina Kütüphane ekosistemindeki üyelik kaydınız ve
+                statünüz.</p>
+            </div>
+
+            <div class="profile-info-grid">
+              <div class="profile-info-field">
+                <span class="profile-info-label">ÜYELİK DURUMU</span>
+                <div style="display:flex;align-items:center;gap:6px;margin-top:2px">
+                  <span class="status-badge"
+                    style="background:#e8f5e9;color:#267332;font-weight:700;font-size:12px;padding:4px 10px">Doğrulanmış
+                    Okur</span>
+                </div>
+              </div>
+
+              <div class="profile-info-field">
+                <span class="profile-info-label">ÜYELİK TARİHİ</span>
+                <div class="profile-info-value" id="displayMemberDate">14 Ocak 2026</div>
+              </div>
+
+              <div class="profile-info-field">
+                <span class="profile-info-label">ÜYELİK NO</span>
+                <div style="display:flex;align-items:center;gap:6px;margin-top:2px">
+                  <code
+                    style="font-family:'DM Mono',monospace;font-size:13.5px;font-weight:600;color:var(--ink);background:var(--bg-subtle);padding:4px 10px;border-radius:6px;border:1px solid var(--line)"
+                    id="displayMemberNo">LMN-001284</code>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="profile-tab-pane" id="pTab-userLoans" style="display:none">
+          <div class="card-box">
+            <div style="margin-bottom:18px">
+              <h3 style="margin:0 0 4px;font-size:18px">Şu An Ödünçte Olan Kitaplar</h3>
+              <p style="margin:0;font-size:13px;color:var(--muted)">Kütüphaneden ödünç aldığınız aktif kitaplar, kalan
+                süreler ve iade masası.</p>
+            </div>
+            <div id="profileFullLoans"></div>
+          </div>
+        </div>
+
+        <div class="profile-tab-pane" id="pTab-userHistory" style="display:none">
+          <div class="card-box">
+            <div style="margin-bottom:18px">
+              <h3 style="margin:0 0 4px;font-size:18px">Geçmiş Okumalarım</h3>
+              <p style="margin:0;font-size:13px;color:var(--muted)">Kütüphaneden ödünç alıp başarıyla tamamladığınız ve
+                iade ettiğiniz eserler.</p>
+            </div>
+            <div id="profileHistoryList"></div>
+          </div>
+        </div>
+
+        <div class="profile-tab-pane" id="pTab-userPurchases" style="display:none">
+          <div class="card-box">
+            <h3>Satın Aldığın Kitaplar ve Faturalar</h3>
+            <div id="profilePurchasesList"></div>
+          </div>
+        </div>
+
+        <div class="profile-tab-pane" id="pTab-userQuotes" style="display:none">
+          <div class="card-box">
+            <div
+              style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;flex-wrap:wrap;gap:10px">
+              <div>
+                <h3 style="margin:0 0 4px;font-size:18px">Kaydettiğin Alıntılar</h3>
+                <p style="margin:0;font-size:13px;color:var(--muted)">Okuduğun kitaplardan kaydettiğin özel alıntılar.
+                </p>
+              </div>
+              <button type="button" class="btn-action-primary" style="padding:8px 16px;font-size:12.5px"
+                onclick="openAddQuoteModal()">+ Yeni Alıntı</button>
+            </div>
+            <div id="profileQuotesList"></div>
+          </div>
+        </div>
+
+        <div class="profile-tab-pane" id="pTab-userRewards" style="display:none">
+          <div class="card-box">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+              <div>
+                <h3 style="margin:0 0 4px">Kuponların ve Görev Başarımları</h3>
+                <p style="margin:0;font-size:13px;color:var(--muted)">Kütüphane okuma görevlerini tamamlayarak indirim
+                  biletlerini hesabına tanımla.</p>
+              </div>
+            </div>
+            <div class="ticket-list-stack" id="rewardsVouchersList"></div>
+          </div>
+        </div>
+
+        <!-- KOLEKSİYONCU ROZETLERİ TAB -->
+        <div class="profile-tab-pane" id="pTab-userBadges" style="display:none">
+          <div class="card-box">
+            <div
+              style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:12px">
+              <div>
+                <h3 style="margin:0 0 4px;display:flex;align-items:center;gap:8px">Koleksiyoncu Rozetleri & Okur
+                  Başarıları</h3>
+                <p style="margin:0;font-size:13px;color:var(--muted)">Kütüphanede ödünç aldıkça, okudukça ve alıntı
+                  paylaştıkça hesabına tanımlanan prestij rozetleri.</p>
+              </div>
+              <div id="badgesUnlockedCounter"
+                style="font:700 12px 'DM Mono',monospace;color:var(--gold-dark);background:var(--bg-subtle);padding:6px 14px;border-radius:999px;border:1px solid var(--line)">
+                0 / 6 Kazanıldı</div>
+            </div>
+            <div class="ticket-list-stack" id="userBadgesGrid"></div>
+          </div>
+        </div>
+
+        <div class="profile-tab-pane" id="pTab-userSettings" style="display:none">
+          <div class="card-box">
+            <div style="margin-bottom:22px">
+              <h3 style="margin:0 0 4px;font:700 22px 'Fraunces',serif;color:var(--ink)">Hesap Tercihleri ve Bildirimler</h3>
+              <p style="margin:0;font-size:13px;color:var(--muted)">Kütüphane bildirimlerinizi, ses efektlerini ve oturum ayarlarınızı buradan yönetin.</p>
+            </div>
+
+            <div class="preferences-card-stack">
+              <!-- Hatırlatma E-postaları -->
+              <div class="pref-row-card">
+                <div class="pref-icon-circle">
+                  <img src="basarimlar/iadehatirlatma.png?v=1787578488889" alt="İade Hatırlatma" class="pref-pixel-icon">
+                </div>
+                <div class="pref-text-col">
+                  <h4 class="pref-title">İade Hatırlatma E-postaları</h4>
+                  <p class="pref-subtitle">Ödünç aldığınız kitapların iade tarihine 2 gün kala e-posta ile nazik bildirim alın.</p>
+                </div>
+                <button type="button" class="btn-toggle-switch active" id="emailNotifBtn" onclick="toggleEmailNotif()" title="Bildirimleri Aç/Kapat">
+                  <span class="toggle-track"><span class="toggle-thumb"></span></span>
+                  <span class="toggle-label">Açık</span>
+                </button>
+              </div>
+
+              <!-- Favori Kitaplarım -->
+              <div class="pref-row-card">
+                <div class="pref-icon-circle">
+                  <img src="basarimlar/favori_kalp.png?v=1787578488889" alt="Favori Eserler" class="pref-pixel-icon">
+                </div>
+                <div class="pref-text-col">
+                  <h4 class="pref-title">Favori Eserler & Okuma Listem</h4>
+                  <p class="pref-subtitle">Daha sonra incelemek veya satın almak üzere kaydettiğiniz seçkin kitaplar.</p>
+                </div>
+                <button type="button" class="btn-action-secondary" onclick="navigateTo('favorites')" style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;font-weight:600">
+                  <span>Favorileri Aç</span>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </button>
+              </div>
+
+              <!-- Ses Efektleri -->
+              <div class="pref-row-card">
+                <div class="pref-icon-circle">
+                  <img src="basarimlar/dokunsalsesler.png?v=1787578488889" alt="Dokunsal Sesler" class="pref-pixel-icon">
+                </div>
+                <div class="pref-text-col">
+                  <h4 class="pref-title">Dokunsal Sesler & Ambiyans Efektleri</h4>
+                  <p class="pref-subtitle">Sayfa çevirme hışırtısı, buton dokunuşları ve kütüphane arka plan sesleri.</p>
+                </div>
+                <button type="button" class="btn-toggle-switch active" id="profileSfxToggleBtn" onclick="toggleSfx()" title="Ses Efektlerini Aç/Kapat">
+                  <span class="toggle-track"><span class="toggle-thumb"></span></span>
+                  <span class="toggle-label">Açık</span>
+                </button>
+              </div>
+
+              <!-- Okuma Teması Tercihi -->
+              <div class="pref-row-card">
+                <div class="pref-icon-circle">
+                  <img src="basarimlar/baykus.png?v=1787578488889" alt="Okuma Teması" class="pref-pixel-icon">
+                </div>
+                <div class="pref-text-col">
+                  <h4 class="pref-title">Okuma Odası Varsayılan Teması</h4>
+                  <p class="pref-subtitle">3D Kitap okuma odasında tercih ettiğiniz varsayılan estetik aydınlatma paleti.</p>
+                </div>
+                <select class="filter-select" style="padding:7px 12px;font-size:12.5px;border-radius:8px;font-weight:600" onchange="setReaderTheme(this.value); toast('Varsayılan okuma teması güncellendi: ' + this.options[this.selectedIndex].text)">
+                  <option value="light">Klasik Parşömen</option>
+                  <option value="dark">Gece Kuşu (Dark)</option>
+                  <option value="sepia">Vintage Sepya</option>
+                </select>
+              </div>
+
+              <!-- Kişisel Veri ve Arşiv Yedeği -->
+              <div class="pref-row-card">
+                <div class="pref-icon-circle">
+                  <img src="basarimlar/parsomen.png?v=1787578488889" alt="Arşiv Yedeği" class="pref-pixel-icon">
+                </div>
+                <div class="pref-text-col">
+                  <h4 class="pref-title">Kişisel Arşiv & Veri Yedeği</h4>
+                  <p class="pref-subtitle">Okur defteri alıntılarınızı, sipariş makbuzlarınızı ve kütüphane geçmişinizi indirin.</p>
+                </div>
+                <button type="button" class="btn-action-secondary" onclick="exportDatabaseJson()" style="padding:8px 16px;font-weight:600">📥 JSON İndir</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- 4. FAVORITES VIEW (FAVORİLERİM) -->
+  <!-- ========================================================================= -->
+  <section class="app-view shell" id="view-favorites">
+    <div class="page-header">
+      <div>
+        <span class="eyebrow" id="favEyebrow">LUMINA / LİSTEM</span>
+        <h1 class="page-title" id="favPageTitle">Kaydettiğin Kitaplar.</h1>
+        <p class="page-subtitle" id="favPageSubtitle">Daha sonra okumak veya satın almak için favorilerine eklediğin
+          eserler.</p>
+      </div>
+    </div>
+
+    <div class="catalog-grid" id="favoritesPageList"></div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- 5. CART VIEW (SEPETİM - Minimalist Luxury) -->
+  <!-- ========================================================================= -->
+  <section class="app-view shell" id="view-cart">
+    <div class="page-header">
+      <div>
+        <span class="eyebrow" id="cartEyebrow">LUMINA / ALIŞVERİŞ</span>
+        <h1 class="page-title" id="cartPageTitle">Alışveriş Sepetin.</h1>
+        <p class="page-subtitle" id="cartPageSubtitle">Seçtiğin kitapları güvenle sipariş vererek kütüphanene dahil et.</p>
+      </div>
+    </div>
+
+    <div class="card-box" id="cartUnifiedBox" style="max-width:1240px;margin:0 auto;padding:40px 46px;box-shadow:var(--shadow-sm);border-radius:20px;border:1px solid var(--line);background:#ffffff">
+      <div id="cartEmptyNotice" style="display:block;text-align:center;padding:60px 20px;color:var(--muted)">
+        <h3 style="font:700 24px 'Fraunces',serif;color:var(--ink);margin:0 0 10px">Sepetinizde ürün bulunmuyor.</h3>
+        <p style="color:var(--muted);font-size:14px;max-width:480px;margin:0 auto 22px;line-height:1.5">Katalogdaki kitapları sepetinize ekleyerek sipariş verebilirsiniz.</p>
+        <button class="btn-action-primary" style="padding:12px 28px;font-size:14px;font-weight:700" onclick="scrollToSection('katalog')">Kataloğu Aç</button>
+      </div>
+
+      <!-- Header above cart columns -->
+      <h3 style="margin:0 0 24px;font:700 24px 'Fraunces',serif;color:var(--ink);display:none" id="cartItemsHeading">Sepetindeki Eserler (0)</h3>
+
+      <div id="cartContentGrid" style="display:none;grid-template-columns:1.35fr 1fr;gap:36px;align-items:start">
+        <!-- SOL TARAF: Kitap Listesi + Okur Avantajları ve Ekstra Eylemler -->
+        <div style="display:flex;flex-direction:column;gap:18px">
+          <!-- Cart items list -->
+          <div id="cartPageList" style="display:flex;flex-direction:column;gap:16px"></div>
+
+          <!-- Kataloğa Dön ve Keşfet Bannerı -->
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:16px 20px;background:#f8faf9;border:1px dashed #d1dcda;border-radius:14px;gap:16px;flex-wrap:wrap">
+            <div>
+              <b style="font-size:14px;color:var(--ink);display:block;margin-bottom:2px">Başka bir eser daha eklemek ister misiniz?</b>
+              <span style="font-size:12.5px;color:var(--muted)">Kütüphanemizin zengin koleksiyonunu keşfetmeye devam edin.</span>
+            </div>
+            <button type="button" class="btn-action-secondary" onclick="scrollToSection('katalog')" style="font-size:12.5px;padding:9px 18px;font-weight:700;white-space:nowrap">+ Kataloğa Göz At</button>
+          </div>
+
+          <!-- Lumina Okur Ayrıcalıkları & Güvenceler Paneli -->
+          <div style="display:grid;grid-template-columns:repeat(3, 1fr);gap:14px;background:#ffffff;border:1px solid #e1e7e4;padding:18px 20px;border-radius:16px;box-shadow:0 2px 10px rgba(15,23,20,0.03)">
+            <div style="display:flex;gap:10px;align-items:flex-start">
+              <span style="font-size:20px;line-height:1">🚚</span>
+              <div>
+                <b style="font-size:12px;color:var(--ink);display:block;margin-bottom:2px">Ücretsiz Kargo</b>
+                <span style="font-size:11px;color:var(--muted);line-height:1.4;display:block">Özel korumalı kütüphane kutusunda teslimat.</span>
+              </div>
+            </div>
+            <div style="display:flex;gap:10px;align-items:flex-start">
+              <span style="font-size:20px;line-height:1">📖</span>
+              <div>
+                <b style="font-size:12px;color:var(--ink);display:block;margin-bottom:2px">Dijital Erişim</b>
+                <span style="font-size:11px;color:var(--muted);line-height:1.4;display:block">Kişisel dijital arşivinize anında tanımlanır.</span>
+              </div>
+            </div>
+            <div style="display:flex;gap:10px;align-items:flex-start">
+              <span style="font-size:20px;line-height:1">🎁</span>
+              <div>
+                <b style="font-size:12px;color:var(--ink);display:block;margin-bottom:2px">Hediye İpek Ayraç</b>
+                <span style="font-size:11px;color:var(--muted);line-height:1.4;display:block">Lumina damgalı koleksiyonluk kumaş ayraç.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SAĞ TARAF: Fotoğrafın Sağındaki Sipariş Özeti -->
+        <div id="cartSummaryBox" style="background:linear-gradient(135deg, #f7faf8 0%, #edf3ef 100%);padding:30px 28px;border-radius:18px;border:1px solid #d5ded9;box-shadow:0 4px 18px rgba(15,23,20,0.05);box-sizing:border-box;display:flex;flex-direction:column;justify-content:space-between;position:sticky;top:90px">
+          <div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px">
+              <h3 style="margin:0;font:700 22px/1.2 'Fraunces',serif;color:var(--ink)">Sipariş Özeti</h3>
+              <span style="background:#eaf4ed;color:#1e5b38;font:700 10px 'DM Mono',monospace;padding:3px 8px;border-radius:4px">LUMINA KASA</span>
+            </div>
+
+            <div class="data-row" style="padding:10px 0;border-bottom:1px solid #e1e7e4">
+              <span style="color:var(--muted);font-size:13.5px">Ara Toplam</span>
+              <div style="display:inline-flex;align-items:center;gap:6px">
+                <img src="basarimlar/coin.png" alt="Coin" style="width:16px;height:16px;object-fit:contain" onerror="this.src='basarimlar/coin.png'">
+                <span id="cartSubtotalText" style="font:700 16px 'Plus Jakarta Sans',sans-serif;color:var(--ink)">0</span>
+              </div>
+            </div>
+
+            <div class="data-row" id="cartDiscountRow" style="display:none;color:#185a38;padding:10px 0;border-bottom:1px solid #e1e7e4">
+              <span id="cartDiscountLabel" style="font-size:13.5px">İndirim Kuponu</span>
+              <div style="display:inline-flex;align-items:center;gap:6px">
+                <img src="basarimlar/coin.png" alt="Coin" style="width:16px;height:16px;object-fit:contain" onerror="this.src='basarimlar/coin.png'">
+                <span id="cartDiscountText" style="font:700 16px 'Plus Jakarta Sans',sans-serif;color:#185a38">-0</span>
+              </div>
+            </div>
+
+            <div class="data-row" style="padding:10px 0;border-bottom:1px solid #e1e7e4">
+              <span style="color:var(--muted);font-size:13.5px">Teslimat & Kargo</span>
+              <span style="background:#e8f5e9;color:#2e7d32;font:700 10.5px 'DM Mono',monospace;padding:3px 8px;border-radius:4px">ÜCRETSİZ</span>
+            </div>
+
+            <!-- Vintage Perforated Coupon Ticket Voucher -->
+            <div class="vintage-coupon-ticket" style="margin:18px 0 10px">
+              <div class="ticket-stub-left">
+                <span class="ticket-stub-icon"><img src="basarimlar/kuponbileti.png" alt="Kupon" style="width:22px;height:18px;object-fit:contain" onerror="this.src='basarimlar/kuponbileti.png'"></span>
+                <span class="ticket-stub-label">KUPON</span>
+              </div>
+              <div class="ticket-input-area">
+                <label style="font:700 9.5px 'DM Mono',monospace;color:#927221;margin-bottom:2px;display:block">İNDİRİM KUPONU</label>
+                <div class="ticket-input-row">
+                  <input class="ticket-code-input" id="cartCouponInput" placeholder="KUPON KODU" onkeydown="if(event.key==='Enter') applyCartCoupon()">
+                  <button class="ticket-apply-btn" type="button" onclick="applyCartCoupon()">Uygula</button>
+                </div>
+                <div id="cartCouponMsg" class="ticket-msg-status" style="display:none"></div>
+              </div>
+            </div>
+          </div>
+
+            <div class="data-row" style="padding:14px 0 8px;border-top:1px solid #d5ded9;align-items:center">
+              <span style="color:var(--ink);font-weight:700;font-size:14.5px">Ödenecek Tutar</span>
+              <div style="display:inline-flex;align-items:center;gap:6px">
+                <img src="basarimlar/coin.png" alt="Coin" style="width:18px;height:18px;object-fit:contain" onerror="this.src='basarimlar/coin.png'">
+                <span id="cartTotalText" style="font:800 18.5px/1 'Plus Jakarta Sans',sans-serif;color:var(--ink)">0</span>
+              </div>
+            </div>
+            <button class="btn-action-primary" style="width:100%;margin-top:14px;padding:14px;font-size:14.5px;font-weight:700;background:#185a38;border-radius:12px" onclick="checkoutCart()">Siparişi Tamamla →</button>
+            <div style="display:flex;align-items:center;justify-content:center;gap:6px;margin-top:12px;font-size:11.5px;color:var(--muted)">
+              <span>🔒</span>
+              <span>256-Bit Güvenli Kasa & Dijital Makbuz</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="shell" style="border-top:1px solid var(--line);margin-top:90px;padding:44px 0 64px">
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:gap">
+      <div>
+        <div class="brand">lumina<i>.</i></div>
+        <p style="color:var(--muted);font-size:13px;margin:6px 0 0">Her hikaye için biraz daha yer.</p>
+      </div>
+      <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="social-link-btn instagram"
+          title="Instagram">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+          </svg>
+          <span>Instagram</span>
+        </a>
+        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="social-link-btn linkedin"
+          title="LinkedIn">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+            <rect x="2" y="9" width="4" height="12"></rect>
+            <circle cx="4" cy="4" r="2"></circle>
+          </svg>
+          <span>LinkedIn</span>
+        </a>
+        <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="social-link-btn github"
+          title="GitHub">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+            <path
+              d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22">
+            </path>
+          </svg>
+          <span>GitHub</span>
+        </a>
+        <p style="color:var(--muted);font-size:12px;font-family:'DM Mono',monospace;margin:0 0 0 8px">© 2026 LUMINA
+          LIBRARY</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========================================================================= -->
+  <!-- MODALS -->
+  <!-- ========================================================================= -->
+
+  <!-- Premium Modal Styles -->
+  <style>
+    .premium-modal .modal-box {
+      max-width: 460px;
+      background: #ffffff;
+      border: 1px solid rgba(15, 23, 20, 0.08);
+      box-shadow: 0 24px 60px -10px rgba(15, 23, 20, 0.12), 0 0 0 1px rgba(255, 255, 255, 0.9) inset;
+      border-radius: 28px;
+      padding: 44px 38px 36px;
+      position: relative;
+      overflow: hidden;
+    }
+    .premium-modal .modal-box::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--gold, #bda573), #e2cfab, var(--gold, #bda573));
+      z-index: 2;
+    }
+    .premium-modal .modal-box > * {
+      position: relative;
+      z-index: 1;
+    }
+    .auth-pixel-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      background: #f4f6f4;
+      border: 1px solid #e2e8e3;
+      border-radius: 100px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      color: var(--ink-soft, #2d3b36);
+      margin-bottom: 16px;
+      text-transform: uppercase;
+    }
+    .auth-pixel-badge img {
+      width: 18px;
+      height: 18px;
+      object-fit: contain;
+      image-rendering: pixelated;
+    }
+    .auth-tab-bar {
+      display: flex;
+      background: #f1f4f2;
+      border-radius: 14px;
+      padding: 4px;
+      margin-bottom: 22px;
+      border: 1px solid rgba(15, 23, 20, 0.05);
+    }
+    .auth-tab-pill {
+      flex: 1;
+      text-align: center;
+      padding: 10px 12px;
+      font-size: 13.5px;
+      font-weight: 700;
+      color: var(--muted, #64748b);
+      background: transparent;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: inherit;
+    }
+    .auth-tab-pill.active {
+      background: #ffffff;
+      color: var(--ink, #0f1714);
+      box-shadow: 0 2px 8px rgba(15, 23, 20, 0.07);
+    }
+    .premium-modal .auth-title {
+      font-family: 'Fraunces', serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--ink, #0f1714);
+      margin: 0 0 6px;
+      letter-spacing: -0.4px;
+    }
+    .premium-modal .auth-subtitle {
+      font-size: 13.5px;
+      color: var(--muted, #64748b);
+      line-height: 1.5;
+      margin: 0 0 22px;
+    }
+    .premium-modal .auth-input {
+      width: 100%;
+      background: #fafbfb;
+      border: 1px solid rgba(15, 23, 20, 0.1);
+      border-radius: 12px;
+      padding: 14px 16px;
+      font-size: 14px;
+      transition: all 0.25s ease;
+      color: var(--ink, #0f1714);
+      box-sizing: border-box;
+      font-family: inherit;
+    }
+    .premium-modal .auth-input:focus {
+      background: #ffffff;
+      border-color: var(--gold, #bda573);
+      box-shadow: 0 0 0 3px rgba(189, 165, 115, 0.18);
+      outline: none;
+    }
+    .premium-modal .auth-label {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--ink-soft, #2d3b36);
+      margin-bottom: 7px;
+      display: block;
+      letter-spacing: 0.2px;
+    }
+    .premium-modal .auth-btn {
+      width: 100%;
+      background: var(--ink, #0f1714);
+      color: #ffffff;
+      border: none;
+      padding: 15px;
+      border-radius: 12px;
+      font-size: 14.5px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      margin: 22px 0 16px;
+      box-shadow: 0 8px 20px rgba(15, 23, 20, 0.12);
+      font-family: inherit;
+    }
+    .premium-modal .auth-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 26px rgba(15, 23, 20, 0.22);
+      background: #000000;
+    }
+    .premium-modal .auth-btn-secondary {
+      width: 100%;
+      background: #f8faf9;
+      color: var(--ink, #0f1714);
+      border: 1px solid rgba(15, 23, 20, 0.1);
+      padding: 14px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: inherit;
+    }
+    .premium-modal .auth-btn-secondary:hover {
+      background: #f0f3f1;
+      border-color: var(--ink, #0f1714);
+    }
+    .premium-modal .auth-switch-text {
+      text-align: center;
+      font-size: 13px;
+      color: var(--muted, #64748b);
+      padding-top: 18px;
+      border-top: 1px solid rgba(15, 23, 20, 0.06);
+    }
+    .premium-modal .auth-switch-btn {
+      background: none;
+      border: none;
+      color: var(--gold-dark, #967d49);
+      font-weight: 700;
+      cursor: pointer;
+      padding: 0 4px;
+      font-size: 13px;
+      transition: color 0.2s;
+    }
+    .premium-modal .auth-switch-btn:hover {
+      color: var(--ink, #0f1714);
+      text-decoration: underline;
+    }
+    .premium-modal .modal-close-btn {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      width: 34px;
+      height: 34px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      cursor: pointer;
+      background: #f4f6f4;
+      border: 1px solid rgba(15, 23, 20, 0.08);
+      color: var(--muted, #64748b);
+      transition: all 0.2s ease;
+      z-index: 10;
+      font-size: 14px;
+      line-height: 1;
+    }
+    .premium-modal .modal-close-btn:hover {
+      background: #ffffff;
+      color: var(--ink, #0f1714);
+      transform: rotate(90deg) scale(1.06);
+      box-shadow: 0 4px 12px rgba(15, 23, 20, 0.1);
+    }
+    .premium-modal .eye-btn {
+      position: absolute;
+      right: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      padding: 8px;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      font-size: 16px;
+      color: var(--muted, #64748b);
+      transition: transform 0.2s;
+    }
+    .premium-modal .eye-btn:hover {
+      transform: translateY(-50%) scale(1.1);
+    }
+    .premium-modal .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+  </style>
+
+  <!-- Modal: Auth (Giriş Yap, Kayıt Ol, Şifremi Unuttum) -->
+  <div class="modal-backdrop premium-modal" id="authModal">
+    <div class="modal-box">
+      <button class="modal-close-btn" onclick="closeModal('authModal')">✕</button>
+
+      <!-- Pixel Art Header Badge -->
+      <div class="auth-pixel-badge">
+        <img src="basarimlar/farklibirokur.png" alt="✦">
+        <span>LUMINA · OKUR PORTALI</span>
+      </div>
+
+      <!-- Segmented Tab Switcher -->
+      <div class="auth-tab-bar" id="authTabSwitcher">
+        <button type="button" class="auth-tab-pill active" id="authTabLogin" onclick="switchAuthView('login')">Giriş Yap</button>
+        <button type="button" class="auth-tab-pill" id="authTabRegister" onclick="switchAuthView('register')">Yeni Kayıt</button>
+      </div>
+
+      <!-- 1. GİRİŞ YAP FORMU -->
+      <div id="authLoginView">
+        <h2 class="auth-title">Hoş Geldiniz</h2>
+        <p class="auth-subtitle">Kütüphane arşivinize ve okuma defterinize erişin.</p>
+
+        <form onsubmit="event.preventDefault(); handleFormLogin();">
+          <div style="margin-bottom: 18px;">
+            <label class="auth-label">E-posta Adresi *</label>
+            <input id="loginEmail" type="email" class="auth-input" required autocomplete="username">
+          </div>
+
+          <div style="margin-bottom: 8px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+              <label class="auth-label" style="margin:0">Şifre *</label>
+              <button type="button" onclick="switchAuthView('forgot')" class="auth-switch-btn" style="font-size: 12px; font-weight: 600;">Şifremi Unuttum?</button>
+            </div>
+            <div style="position:relative;">
+              <input id="loginPass" type="password" class="auth-input" required autocomplete="current-password" style="padding-right:48px">
+              <button type="button" onclick="togglePasswordVisibility('loginPass', this)" class="eye-btn" title="Şifreyi Göster / Gizle">👁️</button>
+            </div>
+          </div>
+
+          <button type="submit" class="auth-btn">Giriş Yap</button>
+        </form>
+
+        <div class="auth-switch-text">
+          Henüz hesabınız yok mu? <button type="button" onclick="switchAuthView('register')" class="auth-switch-btn" style="color:var(--ink)">Hemen Kaydolun</button>
+        </div>
+      </div>
+
+      <!-- 2. KAYIT OL FORMU -->
+      <div id="authRegisterView" style="display:none">
+        <h2 class="auth-title">Yeni Okur Kaydı</h2>
+        <p class="auth-subtitle">Lumina edebiyat topluluğuna katılın ve dijital kütüphanenizi oluşturun.</p>
+
+        <form onsubmit="event.preventDefault(); handleFormRegister();">
+          <div style="margin-bottom: 18px;">
+            <label class="auth-label">Ad Soyad *</label>
+            <input id="regName" class="auth-input" required autocomplete="name">
+          </div>
+
+          <div style="margin-bottom: 18px;">
+            <label class="auth-label">E-posta Adresi *</label>
+            <input id="regEmail" type="email" class="auth-input" required autocomplete="email">
+          </div>
+
+          <div style="margin-bottom: 16px;">
+            <label class="auth-label">Şifre Belirleyin *</label>
+            <div style="position:relative;">
+              <input id="regPass" type="password" class="auth-input" required autocomplete="new-password" style="padding-right:48px" oninput="validateRegisterPasswordLive(this.value)">
+              <button type="button" onclick="togglePasswordVisibility('regPass', this)" class="eye-btn" title="Şifreyi Göster / Gizle">👁️</button>
+            </div>
+
+            <!-- Live Password Rules Checklist -->
+            <div id="passRulesBox" style="background:#f8faf9;border:1px solid #e1e7e4;border-radius:10px;padding:10px 14px;margin-top:10px;font-size:11.5px;display:flex;flex-direction:column;gap:5px">
+              <div id="rule-length" style="display:flex;align-items:center;gap:6px;color:#c93424;font-weight:600;transition:all 0.2s">
+                <span class="rule-icon" style="font-size:12px">✕</span> <span>En az 8 karakter</span>
+              </div>
+              <div id="rule-upper" style="display:flex;align-items:center;gap:6px;color:#c93424;font-weight:600;transition:all 0.2s">
+                <span class="rule-icon" style="font-size:12px">✕</span> <span>En az bir büyük harf (A-Z)</span>
+              </div>
+              <div id="rule-lower" style="display:flex;align-items:center;gap:6px;color:#c93424;font-weight:600;transition:all 0.2s">
+                <span class="rule-icon" style="font-size:12px">✕</span> <span>En az bir küçük harf (a-z)</span>
+              </div>
+              <div id="rule-number" style="display:flex;align-items:center;gap:6px;color:#c93424;font-weight:600;transition:all 0.2s">
+                <span class="rule-icon" style="font-size:12px">✕</span> <span>En az bir rakam (0-9)</span>
+              </div>
+              <div id="rule-special" style="display:flex;align-items:center;gap:6px;color:#c93424;font-weight:600;transition:all 0.2s">
+                <span class="rule-icon" style="font-size:12px">✕</span> <span>En az bir özel sembol (!@#$%^&*...)</span>
+              </div>
+            </div>
+          </div>
+
+          <button type="submit" class="auth-btn">Okur Hesabımı Aç</button>
+        </form>
+
+        <div class="auth-switch-text">
+          Zaten bir hesabınız var mı? <button type="button" onclick="switchAuthView('login')" class="auth-switch-btn" style="color:var(--ink)">Giriş Yap</button>
+        </div>
+      </div>
+
+      <!-- 3. ŞİFREMİ UNUTTUM FORMU -->
+      <div id="authForgotView" style="display:none">
+        <h2 class="auth-title">Şifremi Unuttum</h2>
+        <p class="auth-subtitle">Kayıtlı e-posta adresinizi girin, şifre sıfırlama bağlantısını iletelim.</p>
+
+        <form onsubmit="event.preventDefault(); handlePasswordReset();">
+          <div style="margin-bottom: 18px;">
+            <label class="auth-label">E-posta Adresi *</label>
+            <input id="forgotEmail" type="email" class="auth-input" required>
+          </div>
+
+          <button type="submit" class="auth-btn">Sıfırlama Bağlantısı Gönder</button>
+        </form>
+
+        <div class="auth-switch-text">
+          <button type="button" onclick="switchAuthView('login')" class="auth-switch-btn" style="color:var(--ink)">← Giriş Ekranına Dön</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Yeni Kitap Ekle -->
+  <div class="modal-backdrop premium-modal" id="addBookModal">
+    <div class="modal-box" style="max-width: 600px;">
+      <button class="modal-close-btn" onclick="closeModal('addBookModal')">✕</button>
+      <h2 class="auth-title">Yeni Kitap Ekle</h2>
+      <p class="auth-subtitle">Kütüphane kataloğuna yeni bir eser kaydedin.</p>
+      
+      <div style="margin-bottom: 20px;">
+        <label class="auth-label">Kitap Adı *</label>
+        <input id="newBookTitle" class="auth-input" placeholder="Örn. Gökyüzü Güncesi" required>
+      </div>
+
+      <div class="form-grid" style="margin-bottom: 20px;">
+        <div>
+          <label class="auth-label">Yazar *</label>
+          <input id="newBookAuthor" class="auth-input" placeholder="Örn. Selin Vural" required>
+        </div>
+        <div>
+          <label class="auth-label">Tür *</label>
+          <select id="newBookGenre" class="auth-input">
+            <option>Roman</option>
+            <option>Bilim Kurgu</option>
+            <option>Tarih</option>
+            <option>Kişisel Gelişim</option>
+            <option>Psikoloji</option>
+            <option>Edebiyat</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-grid" style="margin-bottom: 20px;">
+        <div>
+          <label class="auth-label">ISBN</label>
+          <input id="newBookIsbn" class="auth-input" placeholder="Barkod numarası">
+        </div>
+        <div>
+          <label class="auth-label">Yayın Yılı</label>
+          <input id="newBookYear" type="number" class="auth-input" placeholder="2026">
+        </div>
+      </div>
+
+      <div class="form-grid" style="margin-bottom: 32px;">
+        <div>
+          <label class="auth-label">Stok Adedi</label>
+          <input id="newBookStock" type="number" class="auth-input" placeholder="5" value="5">
+        </div>
+        <div>
+          <label class="auth-label">Fiyat (Coin)</label>
+          <input id="newBookPrice" type="number" class="auth-input" placeholder="150" value="150">
+        </div>
+      </div>
+
+      <div style="margin-bottom: 24px;">
+        <label class="auth-label">Kapak Görseli URL (İsteğe Bağlı)</label>
+        <input id="newBookCover" class="auth-input" placeholder="https://resim...">
+      </div>
+
+      <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:20px;">
+        <button type="button" class="btn-action-secondary" onclick="closeModal('addBookModal')" style="padding:8px 18px; font-size:13px; font-weight:600; min-width:110px; height:38px; display:inline-flex; align-items:center; justify-content:center;">Vazgeç</button>
+        <button type="button" class="btn-action-primary" onclick="submitNewBook(event)" style="padding:8px 20px; font-size:13px; font-weight:600; min-width:130px; height:38px; display:inline-flex; align-items:center; justify-content:center;">Kataloğa Ekle</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Yeni Üye Ekle -->
+  <div class="modal-backdrop" id="addUserModal">
+    <div class="modal-box">
+      <button class="modal-close-btn" onclick="closeModal('addUserModal')">✕</button>
+      <h2>Yeni Üye Kaydet</h2>
+      <p>Kütüphaneye yeni bir okur veya yönetici ekleyin.</p>
+      <div class="form-group">
+        <label>Ad Soyad *</label>
+        <input id="newUserName" required>
+      </div>
+      <div class="form-group">
+        <label>E-posta Adresi *</label>
+        <input id="newUserEmail" type="email" required>
+      </div>
+      <div class="form-group">
+        <label>Hesap Rolü</label>
+        <select id="newUserRole">
+          <option value="Okur">Okur (Standart)</option>
+          <option value="Yönetici">Yönetici (Admin)</option>
+        </select>
+      </div>
+      <div class="modal-actions" style="margin-top:20px; display:flex; justify-content:flex-end; gap:10px;">
+        <button type="button" class="btn-action-secondary" onclick="closeModal('addUserModal')" style="padding:8px 18px; font-size:13px; font-weight:600; min-width:110px; height:38px; display:inline-flex; align-items:center; justify-content:center;">Vazgeç</button>
+        <button type="button" class="btn-action-primary" onclick="submitNewUser(event)" style="padding:8px 20px; font-size:13px; font-weight:600; min-width:130px; height:38px; display:inline-flex; align-items:center; justify-content:center;">Üyeyi Kaydet</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Alıntı Silme Onayı -->
+  <div class="modal-backdrop" id="deleteQuoteConfirmModal">
+    <div class="modal-box" style="max-width:420px;text-align:center;padding:26px 22px">
+      <button class="modal-close-btn" onclick="closeModal('deleteQuoteConfirmModal')">✕</button>
+      <div
+        style="width:48px;height:48px;border-radius:50%;background:#fbeeed;color:var(--danger);display:grid;place-items:center;margin:0 auto 14px;font-size:20px;border:1px solid rgba(201,52,36,0.2)">
+        🗑️
+      </div>
+      <h2 style="font:700 19px 'Fraunces',serif;margin:0 0 6px;color:var(--ink)">Alıntıyı Sil?</h2>
+      <p style="color:var(--muted);font-size:13.5px;margin:0 0 20px;line-height:1.45">Bu alıntıyı silmek istediğinizden
+        emin misiniz? Bu işlem geri alınamaz.</p>
+      <div class="modal-actions" style="justify-content:center;gap:10px">
+        <button type="button" class="btn-action-secondary" style="padding:8px 18px;font-size:12.5px;font-weight:600"
+          onclick="closeModal('deleteQuoteConfirmModal')">Vazgeç</button>
+        <button type="button" class="btn-action-primary"
+          style="background:var(--danger);border-color:var(--danger);padding:8px 18px;font-size:12.5px;font-weight:700"
+          onclick="executeDeleteQuote()">Alıntıyı Sil</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Yeni Alıntı Ekle -->
+  <div class="modal-backdrop" id="addQuoteModal">
+    <div class="modal-box">
+      <button class="modal-close-btn" onclick="closeModal('addQuoteModal')">✕</button>
+      <h2>Alıntı Defterine Ekle</h2>
+      <p>Kitaplardan ilham aldığınız bir cümleyi kaydedin.</p>
+      
+      <div id="quoteBookInfoBox" style="background:var(--bg-subtle);border-radius:10px;padding:12px 16px;margin-bottom:16px;display:flex;align-items:center;gap:12px;border:1px solid var(--line)">
+        <span style="font-size:22px">📖</span>
+        <div>
+          <b id="quoteSelectedBookTitle" style="font:700 15px 'Fraunces',serif;color:var(--ink);display:block">Kitap Adı</b>
+          <small id="quoteSelectedBookAuthor" style="font-size:12px;color:var(--muted);font-family:'DM Mono',monospace">Yazar Adı</small>
+        </div>
+      </div>
+      <input type="hidden" id="quoteBookSelect">
+      <input type="hidden" id="quoteAuthorInput">
+
+      <div class="form-group">
+        <label>Alıntı Metni *</label>
+        <textarea id="quoteTextInput" placeholder="“Beni etkileyen o cümle...”"
+          style="min-height:100px;font-family:'Newsreader',Georgia,serif;font-style:italic" required></textarea>
+      </div>
+      <div class="form-group">
+        <label>Sayfa Numarası</label>
+        <input id="quotePageInput" type="number" placeholder="Örn. 42">
+      </div>
+      <div class="form-group">
+        <label>Görünürlük & Paylaşım Tercihi</label>
+        <select id="quoteVisibility">
+          <option value="public">Topluluk Duvarında Paylaş (Herkese Açık)</option>
+          <option value="private">Sadece Bana Özel (Gizli Defterimde Kalsın)</option>
+        </select>
+      </div>
+      <div class="modal-actions">
+        <button class="btn-action-secondary" onclick="closeModal('addQuoteModal')">Vazgeç</button>
+        <button class="btn-action-primary" onclick="submitNewQuote()">Deftere Kaydet</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Ödünç Alma (Lumina Lüks Arşiv Protokolü) -->
+  <div class="modal-backdrop" id="loanModal">
+    <div class="modal-box" style="max-width:540px;border-radius:24px;box-shadow:0 24px 60px rgba(0,0,0,0.3);border:1px solid rgba(212,175,55,0.25)">
+      <button class="modal-close-btn" onclick="closeModal('loanModal')">✕</button>
+      
+      <!-- Modal Header -->
+      <div style="margin-bottom:18px">
+        <h2 style="font:700 22px/1.2 'Fraunces',serif;color:var(--ink);margin:0 0 4px">Ödünç Alma Talebi</h2>
+        <p style="font-size:12.5px;color:var(--muted);margin:0">Lumina Kütüphane Arşivi · 14 Günlük Ücretsiz Ödünç Protokolü</p>
+      </div>
+
+      <!-- Rich Book Preview Card -->
+      <div style="display:grid;grid-template-columns:75px 1fr;gap:15px;background:linear-gradient(135deg, #f7faf8 0%, #edf3ef 100%);border:1px solid #d5ded9;border-radius:16px;padding:12px 14px;margin-bottom:18px;align-items:center;box-shadow:inset 0 1px 2px rgba(255,255,255,0.9)">
+        <div id="loanCover" style="height:105px;border-radius:8px;background-size:cover;background-position:center;box-shadow:0 6px 14px rgba(15,23,20,0.18);background-color:#1c2b25;position:relative;overflow:hidden;border:1px solid rgba(0,0,0,0.08)">
+          <div style="position:absolute;left:0;top:0;bottom:0;width:7px;background:linear-gradient(90deg,rgba(0,0,0,0.3),transparent)"></div>
+        </div>
+        <div>
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:5px">
+            <span id="loanBookGenreBadge" style="background:rgba(24,90,56,0.1);color:#185a38;border:1px solid rgba(24,90,56,0.2);font:700 9.5px 'DM Mono',monospace;padding:2px 7px;border-radius:4px;letter-spacing:0.04em">TÜR</span>
+            <span id="loanBookStockBadge" style="background:#eaf4ed;color:#1e5b38;font:700 9.5px 'DM Mono',monospace;padding:2px 7px;border-radius:4px">Stokta</span>
+          </div>
+          <h4 id="loanBookTitle" style="font:700 16.5px/1.25 'Fraunces',serif;color:var(--ink);margin:0 0 3px">Kitap Adı</h4>
+          <p id="loanBookMeta" style="font-size:12.5px;color:var(--muted);margin:0 0 5px">Yazar · 2024</p>
+          <div style="font-size:11.5px;color:#2b611e;font-weight:600;display:inline-flex;align-items:center;gap:4px">
+            <span>✓</span> Kütüphane üyelerine ücretsiz ödünç teslimatı
+          </div>
+        </div>
+      </div>
+
+      <!-- Dates with Quick Selection Chips -->
+      <div class="form-grid" style="margin-bottom:10px">
+        <div class="form-group" style="margin-bottom:0">
+          <label style="font:700 12px 'DM Sans',sans-serif;color:var(--ink);margin-bottom:6px;display:flex;align-items:center;gap:5px">
+            <span>Ödünç Alma Başlangıcı</span>
+          </label>
+          <div style="position:relative;display:flex;align-items:center">
+            <input id="loanDate" type="date" onchange="updateLoanMinDueDate()" style="width:100%;padding:10px 36px 10px 12px;border:1px solid #d5ded9;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:13px;background:#ffffff">
+            <img src="basarimlar/takvim.png" alt="Takvim"
+              onclick="try{el('loanDate').showPicker()}catch(e){el('loanDate').focus()}"
+              style="position:absolute;right:10px;width:20px;height:20px;object-fit:contain;cursor:pointer"
+              onerror="this.src='basarimlar/takvim.png'">
+          </div>
+        </div>
+        <div class="form-group" style="margin-bottom:0">
+          <label style="font:700 12px 'DM Sans',sans-serif;color:var(--ink);margin-bottom:6px;display:flex;align-items:center;gap:5px">
+            <span>Planlanan İade Tarihi</span>
+          </label>
+          <div style="position:relative;display:flex;align-items:center">
+            <input id="returnDate" type="date" style="width:100%;padding:10px 36px 10px 12px;border:1px solid #d5ded9;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:13px;background:#ffffff">
+            <img src="basarimlar/takvim.png" alt="Takvim"
+              onclick="try{el('returnDate').showPicker()}catch(e){el('returnDate').focus()}"
+              style="position:absolute;right:10px;width:20px;height:20px;object-fit:contain;cursor:pointer"
+              onerror="this.src='basarimlar/takvim.png'">
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Date Duration Buttons -->
+      <div style="display:flex;align-items:center;gap:6px;margin-bottom:16px;flex-wrap:wrap">
+        <span style="font:600 11px 'DM Mono',monospace;color:var(--muted)">Hızlı Seçim:</span>
+        <button type="button" class="btn-action-secondary loan-duration-btn" data-days="7" style="padding:4px 10px;font-size:11px;border-radius:999px;font-family:'DM Mono',monospace;cursor:pointer" onclick="setLoanDurationDays(7)">+7 Gün</button>
+        <button type="button" class="btn-action-secondary loan-duration-btn" data-days="14" style="padding:4px 10px;font-size:11px;border-radius:999px;font-family:'DM Mono',monospace;cursor:pointer" onclick="setLoanDurationDays(14)">+14 Gün (Standart)</button>
+        <button type="button" class="btn-action-secondary loan-duration-btn" data-days="21" style="padding:4px 10px;font-size:11px;border-radius:999px;font-family:'DM Mono',monospace;cursor:pointer" onclick="setLoanDurationDays(21)">+21 Gün</button>
+      </div>
+
+      <!-- Reason Field with Quick Tags -->
+      <div class="form-group" style="margin-bottom:16px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+          <label style="font:700 12px 'DM Sans',sans-serif;color:var(--ink);margin:0">Ödünç Alma Gerekçesi</label>
+          <div style="display:flex;gap:8px">
+            <button type="button" onclick="el('loanReason').value='Bireysel Edebi Okuma & İnceleme'" style="background:none;border:none;color:var(--gold-dark);font:600 11px 'DM Mono',monospace;cursor:pointer;text-decoration:underline">+ Edebi Okuma</button>
+            <button type="button" onclick="el('loanReason').value='Akademik / Tez Araştırması'" style="background:none;border:none;color:var(--gold-dark);font:600 11px 'DM Mono',monospace;cursor:pointer;text-decoration:underline">+ Araştırma</button>
+          </div>
+        </div>
+        <textarea id="loanReason" placeholder="Örn. Edebi inceleme veya kulüp okuması için kütüphane arşivinden talep ediyorum..." style="width:100%;height:64px;padding:10px 12px;border:1px solid #d5ded9;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:13px;resize:none" required></textarea>
+      </div>
+
+      <!-- Info note -->
+      <div style="background:#f1f5f3;border:1px solid #d5ded9;border-radius:10px;padding:9px 12px;margin-bottom:18px;font-size:11.5px;color:#4a5f57;display:flex;align-items:center;gap:8px">
+        <span>ℹ️</span>
+        <span>Talebiniz yönetici masasına iletilir. Onaylandığında bildirim merkezinden haberdar edilirsiniz.</span>
+      </div>
+
+      <!-- Modal Actions -->
+      <div class="modal-actions" style="margin-top:0">
+        <button class="btn-action-secondary" style="padding:11px 20px;font-size:13px;font-weight:600" onclick="closeModal('loanModal')">Vazgeç</button>
+        <button class="btn-action-primary" style="padding:11px 24px;font-size:13px;font-weight:700" onclick="submitLoanRequest()">Ödünç Talebini Gönder</button>
+      </div>
+    </div>
+  </div>
+
+  
+  <!-- Modal: Profil Avatarı Değiştirme -->
+  <div class="modal-backdrop" id="avatarModal">
+    <div class="modal-box" style="max-width:400px;text-align:center;">
+      <button class="modal-close-btn" onclick="closeModal('avatarModal')">✕</button>
+      <h2>Profil Fotoğrafı Seç</h2>
+      <p style="margin-bottom:20px;color:var(--muted)">Aşağıdaki hazır avatarlardan birini seçerek profilini kişiselleştir.</p>
+      <div class="avatar-grid" style="display:grid;grid-template-columns:repeat(4, 1fr);gap:15px;margin-bottom:20px;">
+        <div onclick="changeAvatar('👨‍🚀')" style="font-size:40px;cursor:pointer;padding:10px;border-radius:12px;background:var(--bg-subtle);transition:transform 0.2s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">👨‍🚀</div>
+        <div onclick="changeAvatar('🥷')" style="font-size:40px;cursor:pointer;padding:10px;border-radius:12px;background:var(--bg-subtle);transition:transform 0.2s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">🥷</div>
+        <div onclick="changeAvatar('🧛‍♀️')" style="font-size:40px;cursor:pointer;padding:10px;border-radius:12px;background:var(--bg-subtle);transition:transform 0.2s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">🧛‍♀️</div>
+        <div onclick="changeAvatar('🧙‍♂️')" style="font-size:40px;cursor:pointer;padding:10px;border-radius:12px;background:var(--bg-subtle);transition:transform 0.2s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">🧙‍♂️</div>
+        <div onclick="changeAvatar('🧝‍♀️')" style="font-size:40px;cursor:pointer;padding:10px;border-radius:12px;background:var(--bg-subtle);transition:transform 0.2s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">🧝‍♀️</div>
+        <div onclick="changeAvatar('👩‍🎤')" style="font-size:40px;cursor:pointer;padding:10px;border-radius:12px;background:var(--bg-subtle);transition:transform 0.2s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">👩‍🎤</div>
+        <div onclick="changeAvatar('🕵️‍♂️')" style="font-size:40px;cursor:pointer;padding:10px;border-radius:12px;background:var(--bg-subtle);transition:transform 0.2s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">🕵️‍♂️</div>
+        <div onclick="changeAvatar('EÇ')" style="font-size:40px;font-weight:700;font-family:'Cinzel',serif;color:var(--gold);cursor:pointer;padding:10px;border-radius:12px;background:var(--ink);transition:transform 0.2s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">EÇ</div>
+      </div>
+    </div>
+  </div>
+  <!-- Modal: Satın Alma -->
+  <div class="modal-backdrop" id="purchaseModal">
+    <div class="modal-box">
+      <button class="modal-close-btn" onclick="closeModal('purchaseModal')">✕</button>
+      <h2>Satın Alma & Ödeme</h2>
+      <p>Kitabını kendi kalıcı dijital kütüphanene ekle.</p>
+      <!-- Rich Book Summary Header in Purchase Modal -->
+      <div
+        style="display:grid;grid-template-columns:85px 1fr;gap:14px;background:var(--bg-subtle);border-radius:8px;padding:12px;margin-bottom:16px;align-items:center">
+        <div id="purchaseCover"
+          style="height:115px;border-radius:6px;background-size:cover;background-position:center;box-shadow:var(--shadow-sm);background-color:#24322d">
+        </div>
+        <div>
+          <span id="purchaseBookGenreBadge"
+            style="font:700 9px 'DM Mono',monospace;color:var(--gold);text-transform:uppercase;letter-spacing:0.5px"></span>
+          <b id="purchaseBookTitle"
+            style="font:700 18px 'Fraunces',serif;display:block;color:var(--ink);margin:2px 0;line-height:1.2">Kitap
+            Adı</b>
+          <span id="purchaseBookMeta"
+            style="font-size:12px;color:var(--muted);display:block;margin-bottom:4px;font-family:'DM Mono',monospace">Yazar
+            · Tür</span>
+          <p id="purchaseBookSummary"
+            style="font-size:12px;line-height:1.4;color:var(--ink-soft);margin:0;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">
+          </p>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Ödeme Yöntemi</label>
+        <select id="paymentMethod" onchange="handlePurchasePaymentMethodChange()">
+          <option value="card">Kredi / Banka Kartı</option>
+          <option value="transfer">Havale / EFT ile Ödeme</option>
+          <option value="wallet">Lumina Cüzdan Bakiyesi</option>
+        </select>
+      </div>
+
+      <!-- Option 1: Credit / Debit Card Fields -->
+      <div id="paymentCardFields" class="form-grid">
+        <div class="form-group" style="grid-column:1/-1">
+          <label>Kart Üzerindeki Ad Soyad</label>
+          <input id="cardHolder" placeholder="Ad Soyad giriniz">
+        </div>
+        <div class="form-group" style="grid-column:1/-1">
+          <label>Kart Numarası</label>
+          <input id="cardNumber" placeholder="0000 0000 0000 0000" maxlength="19">
+        </div>
+        <div class="form-group">
+          <label>Son Kullanma (AA/YY)</label>
+          <input id="cardExpiry" placeholder="AA/YY" maxlength="5">
+        </div>
+        <div class="form-group">
+          <label>CVV Güvenlik Kodu</label>
+          <input id="cardCvv" placeholder="123" maxlength="4">
+        </div>
+      </div>
+
+      <!-- Option 2: Bank Transfer (Havale / EFT) -->
+      <div id="paymentTransferFields"
+        style="display:none;background:var(--bg-subtle);border:1px solid var(--line);border-radius:8px;padding:14px;margin-bottom:14px">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
+          <span style="font-size:18px">🏦</span>
+          <b style="font-size:13px;color:var(--ink)">Lumina Kütüphanesi Resmi Banka Hesabı</b>
+        </div>
+        <div style="font-size:12px;display:flex;flex-direction:column;gap:6px;color:var(--ink-soft)">
+          <div><b>Banka:</b> Türkiye Ziraat Bankası A.Ş.</div>
+          <div><b>Hesap Sahibi:</b> Lumina Kültür & Kütüphane Vakfı</div>
+          <div
+            style="background:#ffffff;padding:8px 10px;border-radius:6px;border:1px dashed var(--gold-border);font-family:'DM Mono',monospace;color:var(--gold-dark);font-weight:600;display:flex;justify-content:space-between;align-items:center">
+            <span>TR42 0001 0000 1234 5678 9000 01</span>
+            <button type="button" class="btn-action-secondary" style="padding:2px 8px;font-size:10px"
+              onclick="navigator.clipboard?.writeText('TR420001000012345678900001');toast('IBAN kopyalandı.')">Kopyala</button>
+          </div>
+          <div style="color:var(--muted);font-size:11px;margin-top:2px">ℹ️ <i>Açıklama kısmına kitap adınızı ve okur
+              adınızı yazmanız yeterlidir. Dekont otomatik eşleştirilir.</i></div>
+        </div>
+      </div>
+
+      <!-- Option 3: Lumina Wallet (Cüzdan Bakiyesi) -->
+      <div id="paymentWalletFields"
+        style="display:none;background:var(--bg-subtle);border:1px solid var(--line);border-radius:8px;padding:14px;margin-bottom:14px">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
+          <span style="font-size:18px">💳</span>
+          <b style="font-size:13px;color:var(--ink)">Lumina Dijital Cüzdanım</b>
+        </div>
+        <div style="background:#ffffff;padding:12px;border-radius:8px;border:1px solid var(--line)">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+            <span style="font-size:12px;color:var(--muted)">Mevcut Cüzdan Bakiyeniz:</span>
+            <b style="font-size:15px;color:var(--success)">₺750,00</b>
+          </div>
+          <div style="font-size:11px;color:var(--muted)">Sipariş tutarı cüzdanınızdan otomatik tahsil edilecek, kart
+            bilgisi girmenize gerek yoktur.</div>
+        </div>
+      </div>
+
+      <!-- Vintage Perforated Coupon Ticket Voucher -->
+      <div class="vintage-coupon-ticket">
+        <div class="ticket-stub-left">
+          <span class="ticket-stub-icon"><img src="basarimlar/kuponbileti.png" alt="Kupon"
+              style="width:22px;height:18px;object-fit:contain"
+              onerror="this.src='basarimlar/kuponbileti.png'"></span>
+          <span class="ticket-stub-label">KUPON</span>
+        </div>
+        <div class="ticket-input-area">
+          <label style="font:700 9.5px 'DM Mono',monospace;color:#927221;margin-bottom:2px;display:block">İNDİRİM
+            KUPONU</label>
+          <div class="ticket-input-row">
+            <input class="ticket-code-input" id="couponCode" placeholder="KUPON KODU"
+              onkeydown="if(event.key==='Enter') applyPurchaseCoupon()">
+            <button class="ticket-apply-btn" type="button" onclick="applyPurchaseCoupon()">Uygula</button>
+          </div>
+          <div id="purchaseCouponMsg" class="ticket-msg-status" style="display:none"></div>
+        </div>
+      </div>
+      <p id="priceLine" style="font-weight:700;margin:14px 0;font-size:15px;color:var(--ink)"></p>
+      <div class="modal-actions">
+        <button class="btn-action-secondary" onclick="closeModal('purchaseModal')">Vazgeç</button>
+        <button class="btn-action-primary" onclick="completePurchase()">Ödemeyi Tamamla</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Kitap Detayları -->
+  <!-- Modal: Kitap Detayları (Lumina Lüks Arşiv Tasarımı) -->
+  <div class="modal-backdrop" id="detailModal">
+    <div class="modal-box" style="width:min(680px,100%);padding:28px 30px;border-radius:24px;box-shadow:0 24px 60px rgba(0,0,0,0.3);border:1px solid rgba(212,175,55,0.25)">
+      <button class="modal-close-btn" onclick="closeModal('detailModal')">✕</button>
+      
+      <!-- Modal Header -->
+      <div style="margin-bottom:18px">
+        <h2 style="margin:0 0 3px;font:700 22px/1.2 'Fraunces',serif;color:var(--ink)">Kitap Detayları</h2>
+        <p style="font-size:12.5px;color:var(--muted);margin:0">Lumina Kütüphane Koleksiyonu · Eser & Okur Arşivi</p>
+      </div>
+
+      <!-- Unified Luxury Book Showcase Box -->
+      <div class="detail-showcase-box" style="background:linear-gradient(135deg, #f7faf8 0%, #edf3ef 100%);border:1px solid #d5ded9;border-radius:18px;padding:18px 20px;margin-bottom:16px;display:grid;grid-template-columns:125px 1fr;gap:20px;align-items:center;box-shadow:inset 0 1px 2px rgba(255,255,255,0.9)">
+        <div id="detailCover" style="height:185px;border-radius:10px;background-size:cover;background-position:center;box-shadow:0 8px 20px rgba(15,23,20,0.22);background-color:#1c2b25;position:relative;overflow:hidden;border:1px solid rgba(0,0,0,0.1)">
+          <div style="position:absolute;left:0;top:0;bottom:0;width:8px;background:linear-gradient(90deg,rgba(0,0,0,0.35),transparent)"></div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
+            <span id="detailGenreBadge" style="background:rgba(24,90,56,0.1);color:#185a38;border:1px solid rgba(24,90,56,0.2);font:700 10px 'DM Mono',monospace;padding:2px 8px;border-radius:4px;letter-spacing:0.04em">TÜR</span>
+            <span id="detailStockBadge" style="background:#eaf4ed;color:#1e5b38;font:700 10px 'DM Mono',monospace;padding:2px 8px;border-radius:4px">Stokta</span>
+            <span id="detailYearBadge" style="background:#ffffff;border:1px solid #d5ded9;color:var(--muted);font:600 10px 'DM Mono',monospace;padding:2px 8px;border-radius:4px">2025</span>
+          </div>
+          <h3 id="detailTitle" style="margin:2px 0 0;font:700 21px/1.2 'Fraunces',serif;color:var(--ink)">Kitap Adı</h3>
+          <div style="display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted);margin-bottom:2px;flex-wrap:wrap">
+            <span id="detailAuthor" style="font-weight:600;color:var(--ink-soft)">Yazar</span>
+            <span>•</span>
+            <span id="detailIsbn" style="font-family:'DM Mono',monospace;font-size:11.5px">ISBN: 9786051234001</span>
+          </div>
+          <p id="detailSummary" style="font-size:13px;line-height:1.55;color:#354942;margin:0;background:rgba(255,255,255,0.75);border:1px solid rgba(0,0,0,0.06);padding:10px 14px;border-radius:10px"></p>
+        </div>
+      </div>
+
+      <!-- Compact Quotes Section with Read Sample Button in White -->
+      <div style="background:#ffffff;border:1px solid var(--line);border-radius:14px;padding:12px 16px;margin:12px 0;box-shadow:var(--shadow-sm)">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;gap:8px;flex-wrap:wrap">
+          <b style="font-size:12.5px;color:var(--ink)">Bu Kitaptan Alıntılar</b>
+          <div style="display:flex;gap:6px">
+            <button class="btn-action-secondary" style="padding:4px 10px;font-size:11px;background:#f7faf8" id="detailReaderBtn">Tadımlık Oku</button>
+            <button class="btn-action-secondary" style="padding:4px 10px;font-size:11px;background:#f7faf8;cursor:pointer" id="detailAddQuoteBtn">Alıntı Ekle</button>
+          </div>
+        </div>
+        <div id="detailQuotesList" style="font-size:12px"></div>
+      </div>
+
+      <!-- Reviews & Star Ratings Section -->
+      <div style="background:#ffffff;border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin-top:14px;box-shadow:var(--shadow-sm)">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;flex-wrap:wrap;gap:8px">
+          <div>
+            <b style="font-size:13px;color:var(--ink)">Okur İncelemeleri & Yorumları</b>
+            <span id="detailRatingSummary" style="font-size:12px;color:var(--muted);margin-left:6px"></span>
+          </div>
+          <button class="btn-action-secondary" style="padding:4px 10px;font-size:11px" id="detailAddReviewBtn" onclick="toggleAddReviewForm()">+ Yorum & Puan Ekle</button>
+        </div>
+
+        <!-- Add Review Form (collapsible) -->
+        <div id="addReviewFormBox" style="display:none;background:var(--bg-subtle);border:1px solid var(--line);border-radius:10px;padding:12px;margin-bottom:12px">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+            <span style="font-size:12px;font-weight:600">Puanınız:</span>
+            <div id="starRatingPicker" style="display:flex;gap:4px;cursor:pointer;align-items:center">
+              <img src="basarimlar/yildiz.png" alt="1" style="width:18px;height:18px;object-fit:contain;cursor:pointer" onclick="setReviewRating(1)" onerror="this.src='basarimlar/yildiz.png'">
+              <img src="basarimlar/yildiz.png" alt="2" style="width:18px;height:18px;object-fit:contain;cursor:pointer" onclick="setReviewRating(2)" onerror="this.src='basarimlar/yildiz.png'">
+              <img src="basarimlar/yildiz.png" alt="3" style="width:18px;height:18px;object-fit:contain;cursor:pointer" onclick="setReviewRating(3)" onerror="this.src='basarimlar/yildiz.png'">
+              <img src="basarimlar/yildiz.png" alt="4" style="width:18px;height:18px;object-fit:contain;cursor:pointer" onclick="setReviewRating(4)" onerror="this.src='basarimlar/yildiz.png'">
+              <img src="basarimlar/yildiz.png" alt="5" style="width:18px;height:18px;object-fit:contain;cursor:pointer" onclick="setReviewRating(5)" onerror="this.src='basarimlar/yildiz.png'">
+            </div>
+            <span id="starRatingVal" style="font-size:12px;font-weight:700;color:var(--ink)">5 / 5</span>
+          </div>
+          <textarea id="reviewTextInput" placeholder="Bu kitap hakkındaki düşünceleriniz, analiziniz veya okuma deneyiminiz..." style="width:100%;min-height:65px;font-size:13px;padding:8px 10px;border-radius:8px;border:1px solid var(--line);margin-bottom:8px;outline:none;background:#ffffff"></textarea>
+          <div style="display:flex;justify-content:flex-end;gap:8px">
+            <button class="btn-action-secondary" style="padding:4px 10px;font-size:11px" onclick="toggleAddReviewForm(false)">Vazgeç</button>
+            <button class="btn-action-primary" id="submitReviewBtn" style="padding:4px 12px;font-size:11px" onclick="submitBookReview()">Yorumu Yayınla</button>
+          </div>
+        </div>
+
+        <div id="detailReviewsList" style="max-height:260px;overflow-y:auto"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Sepet Siparişini Tamamla (Kart & Ödeme Bilgileri) -->
+  <div class="modal-backdrop" id="cartCheckoutModal">
+    <div class="modal-box">
+      <button class="modal-close-btn" onclick="closeModal('cartCheckoutModal')">✕</button>
+      <h2>Siparişi Tamamla & Ödeme</h2>
+      <p>Lütfen teslimat ve ödeme yöntemi tercihlerinizi belirleyerek siparişinizi onaylayın.</p>
+
+      <div style="background:var(--bg-subtle);border-radius:8px;padding:14px;margin-bottom:16px">
+        <b style="font-size:14px;display:block;color:var(--ink);margin-bottom:6px">Sipariş Edilecek Eserler:</b>
+        <div id="cartCheckoutItemsList" style="font-size:13px;color:var(--ink-soft);max-height:120px;overflow-y:auto">
+        </div>
+        <div
+          style="display:flex;justify-content:space-between;align-items:center;margin-top:10px;padding-top:10px;border-top:1px solid var(--line);font-weight:700">
+          <span>Toplam Tutar:</span>
+          <span id="cartCheckoutTotalSum" style="font-size:17px;color:var(--gold-dark)">₺0</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Teslimat Adresi *</label>
+        <input id="cartAddressInput" placeholder="Mahalle, Cadde, No, İlçe / Şehir">
+      </div>
+
+      <div class="form-group">
+        <label>Ödeme Yöntemi</label>
+        <select id="cartPaymentMethod" onchange="handleCartPaymentMethodChange()">
+          <option value="card">Kredi / Banka Kartı</option>
+          <option value="transfer">Havale / EFT ile Ödeme</option>
+          <option value="wallet">Lumina Cüzdan Bakiyesi</option>
+        </select>
+      </div>
+
+      <!-- Cart Option 1: Credit / Debit Card Fields -->
+      <div id="cartCardFields" class="form-grid">
+        <div class="form-group" style="grid-column:1/-1">
+          <label>Kart Üzerindeki İsim *</label>
+          <input id="cartCardHolder" placeholder="Ad Soyad giriniz">
+        </div>
+        <div class="form-group" style="grid-column:1/-1">
+          <label>Kart Numarası (16 Hane) *</label>
+          <input id="cartCardNumber" placeholder="0000 0000 0000 0000" maxlength="19">
+        </div>
+        <div class="form-group">
+          <label>Son Kullanma (AA/YY)</label>
+          <input id="cartCardExpiry" placeholder="AA/YY" maxlength="5">
+        </div>
+        <div class="form-group">
+          <label>CVC / CVV</label>
+          <input id="cartCardCvv" placeholder="123" maxlength="4">
+        </div>
+      </div>
+
+      <!-- Cart Option 2: Bank Transfer (Havale / EFT) -->
+      <div id="cartTransferFields"
+        style="display:none;background:var(--bg-subtle);border:1px solid var(--line);border-radius:8px;padding:14px;margin-bottom:14px">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
+          <span style="font-size:18px">🏦</span>
+          <b style="font-size:13px;color:var(--ink)">Lumina Kütüphanesi Resmi Banka Hesabı</b>
+        </div>
+        <div style="font-size:12px;display:flex;flex-direction:column;gap:6px;color:var(--ink-soft)">
+          <div><b>Banka:</b> Türkiye Ziraat Bankası A.Ş.</div>
+          <div><b>Hesap Sahibi:</b> Lumina Kültür & Kütüphane Vakfı</div>
+          <div
+            style="background:#ffffff;padding:8px 10px;border-radius:6px;border:1px dashed var(--gold-border);font-family:'DM Mono',monospace;color:var(--gold-dark);font-weight:600;display:flex;justify-content:space-between;align-items:center">
+            <span>TR42 0001 0000 1234 5678 9000 01</span>
+            <button type="button" class="btn-action-secondary" style="padding:2px 8px;font-size:10px"
+              onclick="navigator.clipboard?.writeText('TR420001000012345678900001');toast('IBAN kopyalandı.')">Kopyala</button>
+          </div>
+          <div style="color:var(--muted);font-size:11px;margin-top:2px">ℹ️ <i>Açıklama kısmına siparişinizi ve okur
+              adınızı yazmanız yeterlidir. Dekont otomatik eşleştirilir.</i></div>
+        </div>
+      </div>
+
+      <!-- Cart Option 3: Lumina Wallet (Cüzdan Bakiyesi) -->
+      <div id="cartWalletFields"
+        style="display:none;background:var(--bg-subtle);border:1px solid var(--line);border-radius:8px;padding:14px;margin-bottom:14px">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
+          <span style="font-size:18px">💳</span>
+          <b style="font-size:13px;color:var(--ink)">Lumina Dijital Cüzdanım</b>
+        </div>
+        <div style="background:#ffffff;padding:12px;border-radius:8px;border:1px solid var(--line)">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+            <span style="font-size:12px;color:var(--muted)">Mevcut Cüzdan Bakiyeniz:</span>
+            <b style="font-size:15px;color:var(--success)">₺750,00</b>
+          </div>
+          <div style="font-size:11px;color:var(--muted)">Sipariş tutarı cüzdanınızdan otomatik tahsil edilecek, kart
+            bilgisi girmenize gerek yoktur.</div>
+        </div>
+      </div>
+
+      <div class="modal-actions">
+        <button class="btn-action-secondary" onclick="closeModal('cartCheckoutModal')">Vazgeç</button>
+        <button class="btn-action-primary" onclick="confirmCartCheckout()">Ödemeyi Tamamla ve Onayla</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Dijital Makbuz & Fatura Görünümü -->
+  <div class="modal-backdrop" id="receiptModal">
+    <div class="modal-box" style="width:min(640px,96vw);max-height:90vh;overflow-y:auto">
+      <button class="modal-close-btn" onclick="closeModal('receiptModal')">✕</button>
+
+      <!-- Printable Invoice Area -->
+      <div id="printableReceiptArea"
+        style="background:#ffffff;padding:24px;border-radius:12px;border:1px solid var(--line);color:#1a202c">
+        <!-- Header -->
+        <div
+          style="display:flex;justify-content:space-between;align-items:flex-start;border-bottom:2px solid var(--line);padding-bottom:16px;margin-bottom:16px">
+          <div>
+            <div style="font:700 24px 'Fraunces',serif;color:var(--forest);letter-spacing:-0.5px">lumina<i>.</i></div>
+            <small style="font-family:'DM Mono',monospace;color:var(--muted);font-size:10px">DİJİTAL KÜTÜPHANE &
+              KÜLLİYAT</small>
+          </div>
+          <div style="text-align:right">
+            <span class="status-badge" style="background:#edf7ed;color:#1e4620;font-size:11px">RESMİ DİJİTAL
+              MAKBUZ</span>
+            <div style="font:700 13px 'DM Mono',monospace;color:var(--ink);margin-top:4px" id="receiptNoText">#LM-1248
+            </div>
+            <small style="color:var(--muted);font-size:11px" id="receiptDateText">20 Ağustos 2026</small>
+          </div>
+        </div>
+
+        <!-- Customer & Delivery Meta -->
+        <div
+          style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:18px;font-size:12px;background:var(--bg-subtle);padding:12px;border-radius:8px">
+          <div>
+            <span style="color:var(--muted);display:block;margin-bottom:2px">ALICI & OKUR BİLGİSİ:</span>
+            <b id="receiptCustomerName" style="font-size:13px;color:var(--ink)">Sena Erdem</b>
+            <div id="receiptCustomerEmail" style="color:var(--muted)">sena@lumina.lib</div>
+          </div>
+          <div>
+            <span style="color:var(--muted);display:block;margin-bottom:2px">TESLİMAT / İŞLEM:</span>
+            <div id="receiptDeliveryAddr" style="color:var(--ink);font-weight:500">Kadıköy, Moda Cad. No: 18 / İstanbul
+            </div>
+            <span style="color:var(--forest);font-weight:600">Ödeme Onaylandı (Kredi Kartı)</span>
+          </div>
+        </div>
+
+        <!-- Items Table -->
+        <table style="width:100%;border-collapse:collapse;margin-bottom:16px;font-size:13px">
+          <thead>
+            <tr
+              style="border-bottom:1px solid var(--line);text-align:left;color:var(--muted);font-size:11px;font-family:'DM Mono',monospace">
+              <th style="padding:6px 0">ESER BİLGİSİ</th>
+              <th style="padding:6px;text-align:center">ADET</th>
+              <th style="padding:6px 0;text-align:right">TUTAR</th>
+            </tr>
+          </thead>
+          <tbody id="receiptItemsTableBody"></tbody>
+        </table>
+
+        <!-- Total Breakdown -->
+        <div
+          style="border-top:1px solid var(--line);padding-top:12px;display:flex;flex-direction:column;gap:6px;font-size:13px">
+          <div style="display:flex;justify-content:space-between;color:var(--muted)">
+            <span>Ara Toplam:</span>
+            <span id="receiptSubtotal">₺0</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;color:var(--muted)">
+            <span>Kargo / Dijital Erişim:</span>
+            <span style="color:var(--forest);font-weight:600">Ücretsiz</span>
+          </div>
+          <div
+            style="display:flex;justify-content:space-between;font-size:16px;font-weight:700;color:var(--ink);border-top:1px solid var(--line);padding-top:8px;margin-top:4px">
+            <span>Genel Toplam (KDV Dahil):</span>
+            <span id="receiptGrandTotal" style="color:var(--gold-dark)">₺0</span>
+          </div>
+        </div>
+
+        <!-- Security & Barcode Footer -->
+        <div
+          style="margin-top:20px;padding-top:14px;border-top:1px dashed var(--line);display:flex;justify-content:space-between;align-items:center">
+          <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted)">
+            <div>ONAY KODU: <b id="receiptSecurityCode">LMN-9921-X48</b></div>
+            <div>Bu belge 5070 sayılı kanun uyarınca güvenli e-makbuzdur.</div>
+          </div>
+          <div
+            style="font-family:'DM Mono',monospace;letter-spacing:3px;font-size:18px;background:#f0f2f5;padding:4px 10px;border-radius:4px">
+            ||||| | |||| ||| |
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="modal-actions" style="margin-top:16px;justify-content:space-between">
+        <button class="btn-action-secondary" onclick="printReceiptDocument()">Yazdır / PDF Olarak Kaydet</button>
+        <button class="btn-action-primary" onclick="closeModal('receiptModal')">Kapat</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Spotlight Hızlı Arama (Ctrl + K) -->
+  <div class="spotlight-backdrop" id="spotlightModal" onclick="handleSpotlightBackdropClick(event)">
+    <div class="spotlight-box">
+      <div class="spotlight-input-row">
+        <svg viewBox="0 0 24 24" fill="none">
+          <circle cx="11" cy="11" r="7"></circle>
+          <line x1="21" y1="21" x2="16" y2="16"></line>
+        </svg>
+        <input class="spotlight-input" id="spotlightInput" placeholder="Kitap, yazar, alıntı veya sayfa ara..."
+          oninput="handleSpotlightInput()" onkeydown="handleSpotlightKeyDown(event)" autocomplete="off">
+        <span class="spotlight-badge">ESC</span>
+      </div>
+      <div class="spotlight-results" id="spotlightResultsList"></div>
+      <div class="spotlight-footer">
+        <span><b>↑↓</b> Gezin · <b>↵</b> Seç · <b>ESC</b> Kapat</span>
+        <span>LUMINA SPOTLIGHT</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Gerçekçi 3D Açık Kitap Okuyucu (Tadımlık E-Kitap) -->
+  <div class="modal-backdrop" id="readerModal">
+    <div class="real-book-modal" id="readerModalInner">
+      <!-- Top Floating Toolbar -->
+      <div class="book-top-toolbar">
+        <div style="display:flex;align-items:center;gap:12px">
+          <div>
+            <b id="readerBookTitle" style="font:700 17px 'Fraunces',serif;color:#ffffff;display:block">Kitap Başlığı</b>
+            <small id="readerBookAuthor" style="font-size:12px;color:#cfdad6;font-family:'DM Mono',monospace">Yazar Adı</small>
+          </div>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:12px">
+          <!-- Theme Switcher -->
+          <div style="display:flex;gap:4px;background:rgba(0,0,0,0.45);padding:4px 6px;border-radius:999px;border:1px solid rgba(255,255,255,0.15);box-shadow:0 4px 12px rgba(0,0,0,0.25)">
+            <button class="reader-toolbar-btn" style="padding:6px 14px;font-size:12px;font-weight:700;background:transparent;color:#ffffff;border:0;display:inline-flex;align-items:center;gap:6px;cursor:pointer;border-radius:999px;transition:all 0.2s" onclick="setReaderTheme('light')"><img src="basarimlar/dogal.png" alt="Doğal" style="width:16px;height:16px;object-fit:contain" onerror="this.src='basarimlar/dogal.png'"> Doğal</button>
+            <button class="reader-toolbar-btn" style="padding:6px 14px;font-size:12px;font-weight:700;background:transparent;color:#ffffff;border:0;display:inline-flex;align-items:center;gap:6px;cursor:pointer;border-radius:999px;transition:all 0.2s" onclick="setReaderTheme('sepia')"><img src="basarimlar/sepya.png" alt="Sepya" style="width:16px;height:16px;object-fit:contain" onerror="this.src='basarimlar/sepya.png'"> Sepya</button>
+            <button class="reader-toolbar-btn" style="padding:6px 14px;font-size:12px;font-weight:700;background:transparent;color:#ffffff;border:0;display:inline-flex;align-items:center;gap:6px;cursor:pointer;border-radius:999px;transition:all 0.2s" onclick="setReaderTheme('dark')"><img src="basarimlar/gece.png" alt="Gece" style="width:16px;height:16px;object-fit:contain" onerror="this.src='basarimlar/gece.png'"> Gece</button>
+          </div>
+
+          <!-- Font Zoom Adjusters -->
+          <div style="display:flex;gap:4px;background:rgba(0,0,0,0.45);padding:4px;border-radius:999px;border:1px solid rgba(255,255,255,0.15);box-shadow:0 4px 12px rgba(0,0,0,0.25)">
+            <button onclick="adjustReaderFontSize(-1)" title="Yazı Boyutunu Küçült" style="background:transparent;color:#ffffff;border:0;width:34px;height:34px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font:700 13px 'DM Mono',monospace;cursor:pointer;transition:all 0.2s">A-</button>
+            <button onclick="adjustReaderFontSize(1)" title="Yazı Boyutunu Büyüt" style="background:transparent;color:#ffffff;border:0;width:34px;height:34px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font:700 13px 'DM Mono',monospace;cursor:pointer;transition:all 0.2s">A+</button>
+          </div>
+
+          <!-- Close Modal -->
+          <button onclick="closeModal('readerModal')" title="Kitabı Kapat" style="background:rgba(255,255,255,0.12);color:#ffffff;border:1px solid rgba(255,255,255,0.25);width:38px;height:38px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;cursor:pointer;transition:all 0.2s;box-shadow:0 4px 12px rgba(0,0,0,0.25)">✕</button>
+        </div>
+      </div>
+
+      <!-- Real 3D Book Container -->
+      <div class="real-book-container" id="realBookContainer">
+        
+        <!-- CLOSED 3D BOOK COVER VIEW -->
+        <div class="closed-3d-book" id="readerClosedCover" onclick="openBookFromCover()">
+          <div class="closed-book-front" id="closedCoverFront">
+            <div class="closed-book-cover-img" id="closedCoverImg"></div>
+            <div class="closed-book-overlay">
+              <h2 class="closed-book-title" id="closedCoverTitle">Kitap Başlığı</h2>
+              <p class="closed-book-author" id="closedCoverAuthor">Yazar Adı</p>
+            </div>
+            <!-- Book 3D Spine and Edge Effects -->
+            <div class="closed-book-spine-lighting"></div>
+          </div>
+          <!-- 3D Book Thickness Edge -->
+          <div class="closed-book-page-edges"></div>
+        </div>
+
+        <!-- OPEN 3D SPREAD (Turn buttons & Open Hardcover) -->
+        <button class="book-turn-btn btn-prev" id="readerPrevBtn" onclick="turnReaderPage(-1)" title="Önceki Sayfa">‹</button>
+        <button class="book-turn-btn btn-next" id="readerNextBtn" onclick="turnReaderPage(1)" title="Sonraki Sayfa">›</button>
+
+        <div class="book-hardcover" id="readerHardcover">
+          <!-- Red Silk Bookmark -->
+          <div class="book-ribbon-bookmark"></div>
+          <!-- Central Spine Shadow Crease -->
+          <div class="book-spine-crease"></div>
+
+          <!-- Open Book Pages Spread -->
+          <div class="book-pages-stack" id="readerPagesStack">
+            <!-- Left Page (Verso) -->
+            <div class="book-page-leaf page-left" id="readerPageLeft" onclick="turnReaderPage(-1)">
+              <div class="book-running-head">
+                <span id="readerLeftRunningTitle">LUMINA BASKISI</span>
+                <span id="readerLeftRunningAuthor">ELİF DEMİR</span>
+              </div>
+              <div class="book-page-text" id="readerLeftText"></div>
+              <div class="book-page-footer">
+                <span id="readerLeftPageNo">Ön Kapak İçi</span>
+                <span id="readerLeftHint" style="font-size:10px;opacity:0.7">Lumina Arşivi</span>
+              </div>
+            </div>
+
+            <!-- Right Page (Recto) -->
+            <div class="book-page-leaf page-right" id="readerPageRight" onclick="turnReaderPage(1)">
+              <div class="book-running-head">
+                <span id="readerRightRunningChapter">1. BÖLÜM</span>
+                <span style="letter-spacing:2px">✦ ✦ ✦</span>
+              </div>
+              <div class="book-page-text" id="readerRightText"></div>
+              <div class="book-page-footer">
+                <span id="readerRightHint" style="font-size:10px;opacity:0.7">Tıkla: Sonraki Sayfa ›</span>
+                <span id="readerRightPageNo">Sayfa 1</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Kitap İadesi & Okur Değerlendirmesi (Şikayet / Öneri Masası) -->
+  <div class="modal-backdrop" id="returnFeedbackModal">
+    <div class="modal-box" style="width:min(540px, 100%);padding:26px 28px;border-radius:20px;border:1px solid rgba(24,90,56,0.2);box-shadow:0 24px 60px rgba(0,0,0,0.25)">
+      <button class="modal-close-btn" onclick="closeModal('returnFeedbackModal')">✕</button>
+      
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+        <span style="font-size:24px">📥</span>
+        <div>
+          <h2 style="margin:0 0 2px;font:700 20px 'Fraunces',serif;color:var(--ink)">Kitap İade Masası</h2>
+          <p style="margin:0;font-size:12.5px;color:var(--muted)">Lumina Arşiv İade & Okur Deneyimi Masası</p>
+        </div>
+      </div>
+
+      <div style="background:#f4f7f5;border:1px solid #dbe4df;border-radius:12px;padding:12px 14px;margin-bottom:16px;display:flex;align-items:center;gap:12px">
+        <img id="returnModalCover" src="basarimlar/okurtaci.png" alt="Cover" style="width:46px;height:64px;object-fit:cover;border-radius:6px;box-shadow:0 3px 8px rgba(0,0,0,0.15)">
+        <div>
+          <b id="returnModalTitle" style="font:700 15px 'Fraunces',serif;color:var(--ink);display:block">Kitap Adı</b>
+          <span style="font-size:12px;color:var(--muted)">Ödünç kaydı tamamlanacak ve kütüphane arşiv stokuna geri eklenecektir.</span>
+        </div>
+      </div>
+
+      <div style="margin-bottom:14px">
+        <label style="display:block;font-size:12px;font-weight:700;color:var(--ink-soft);margin-bottom:6px">KİTAP VE OKUMA DENEYİMİNİZ</label>
+        <div id="returnStarRatingPicker" style="display:flex;gap:6px;cursor:pointer;align-items:center">
+          <img src="basarimlar/yildiz.png" alt="1" style="width:20px;height:20px;cursor:pointer" onclick="setReturnRating(1)" onerror="this.src='basarimlar/yildiz.png'">
+          <img src="basarimlar/yildiz.png" alt="2" style="width:20px;height:20px;cursor:pointer" onclick="setReturnRating(2)" onerror="this.src='basarimlar/yildiz.png'">
+          <img src="basarimlar/yildiz.png" alt="3" style="width:20px;height:20px;cursor:pointer" onclick="setReturnRating(3)" onerror="this.src='basarimlar/yildiz.png'">
+          <img src="basarimlar/yildiz.png" alt="4" style="width:20px;height:20px;cursor:pointer" onclick="setReturnRating(4)" onerror="this.src='basarimlar/yildiz.png'">
+          <img src="basarimlar/yildiz.png" alt="5" style="width:20px;height:20px;cursor:pointer" onclick="setReturnRating(5)" onerror="this.src='basarimlar/yildiz.png'">
+          <span id="returnRatingVal" style="font-size:12px;font-weight:700;color:var(--ink);margin-left:6px">5 / 5 (Kusursuz)</span>
+        </div>
+      </div>
+
+      <div style="margin-bottom:18px">
+        <label style="display:block;font-size:12px;font-weight:700;color:var(--ink-soft);margin-bottom:6px">ŞİKAYET, ÖNERİ VEYA GERİ BİLDİRİMİNİZ (İSTEĞE BAĞLI)</label>
+        <textarea id="returnFeedbackInput" placeholder="Kitabın durumu, kütüphanemiz veya personelimiz hakkındaki şikayet, öneri veya düşünceleriniz..." style="width:100%;min-height:85px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;font-size:13px;font-family:inherit;outline:none;background:#ffffff;resize:vertical"></textarea>
+      </div>
+
+      <div class="modal-actions" style="margin:0;display:flex;justify-content:flex-end;gap:10px">
+        <button type="button" class="btn-action-secondary" onclick="closeModal('returnFeedbackModal')">Vazgeç</button>
+        <button type="button" class="btn-action-primary" id="confirmReturnWithFeedbackBtn" onclick="confirmReturnWithFeedback()">İadeyi Onayla & Gönder</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Rozet İnceleme & Kuşanma -->
+  <div class="modal-backdrop" id="badgeDetailModal">
+    <div class="modal-box" style="width:min(440px, 100%);text-align:center;padding:30px 24px;border-radius:24px;border:1px solid rgba(212,175,55,0.3);box-shadow:0 24px 60px rgba(0,0,0,0.25)">
+      <button class="modal-close-btn" onclick="closeModal('badgeDetailModal')">✕</button>
+      
+      <div style="width:90px;height:90px;margin:0 auto 16px;background:radial-gradient(circle, rgba(212,175,55,0.2) 0%, transparent 70%);display:flex;align-items:center;justify-content:center;border-radius:50%">
+        <img id="badgeModalIcon" src="basarimlar/madalya.png" alt="Badge" style="width:64px;height:64px;object-fit:contain;filter:drop-shadow(0 6px 12px rgba(0,0,0,0.18))">
+      </div>
+
+      <span id="badgeModalStatusBadge" style="background:#e8f5e9;color:#267332;font:700 11px 'DM Mono',monospace;padding:3px 10px;border-radius:999px;letter-spacing:0.04em">✓ KAZANILDI</span>
+      <h3 id="badgeModalTitle" style="font:700 22px/1.2 'Fraunces',serif;color:var(--ink);margin:10px 0 6px">Rozet Başlığı</h3>
+      <p id="badgeModalDesc" style="font-size:13.5px;color:var(--muted);margin:0 0 16px;line-height:1.55">Rozet açıklaması burada yer alır.</p>
+
+      <div style="background:#f8faf9;border:1px solid #e1e7e4;border-radius:12px;padding:12px 14px;margin-bottom:20px;font-size:12.5px;text-align:left">
+        <b style="color:var(--ink);display:block;margin-bottom:4px">🌟 Okur Ayrıcalığı:</b>
+        <span id="badgeModalReward" style="color:var(--ink-soft)">Bu rozeti kuşanarak profilinde ve okur listesinde adının yanında sergileyebilirsin.</span>
+      </div>
+
+      <div id="badgeModalActions" style="display:flex;gap:8px;justify-content:center">
+        <button type="button" class="btn-action-primary" id="badgeModalEquipBtn" style="padding:9px 24px;font-weight:700;font-size:13px" onclick="equipCurrentBadgeFromModal()">Profilimde Kuşan</button>
+        <button type="button" class="btn-action-secondary" onclick="closeModal('badgeDetailModal')">Kapat</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Yönetici Onay Penceresi (Modern Confirmation Modal) -->
+  <div class="modal-backdrop" id="adminConfirmActionModal">
+    <div class="modal-box" style="width:min(440px, 100%);padding:26px 28px;border-radius:20px;border:1px solid rgba(201,52,36,0.25);box-shadow:0 24px 60px rgba(0,0,0,0.25)">
+      <button class="modal-close-btn" onclick="closeModal('adminConfirmActionModal')">✕</button>
+      
+      <div style="margin-bottom:14px">
+        <h3 id="adminConfirmModalTitle" style="margin:0 0 6px;font:700 19px 'Fraunces',serif;color:var(--ink)">İşlemi Onaylayın</h3>
+        <p id="adminConfirmModalText" style="margin:0;font-size:13.5px;color:var(--muted);line-height:1.5">Bu işlemi gerçekleştirmek istediğinize emin misiniz?</p>
+      </div>
+
+      <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:20px">
+        <button type="button" class="btn-action-secondary" style="padding:8px 18px;font-size:12.5px" onclick="closeModal('adminConfirmActionModal')">Vazgeç</button>
+        <button type="button" id="adminConfirmModalProceedBtn" class="btn-action-primary" style="padding:8px 20px;font-size:12.5px;background:#c93424;border-color:#c93424;color:#ffffff">Onayla & Sil</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="toast-msg" id="toast"></div>
+
+  <!-- Awwwards Editorial Noise Grain Overlay -->
+  <div class="editorial-grain-overlay"></div>
+
+  <!-- Awwwards Luxury Magnetic Cursor Elements -->
+  <div class="luxury-cursor-dot" id="cursorDot"></div>
+  <div class="luxury-cursor-ring" id="cursorRing">
+    <span class="cursor-label" id="cursorLabel"></span>
+  </div>
+
+  <!-- JAVASCRIPT: MODULAR ENTRY POINT -->
+  <script type="module" src="src/js/main.js"></script>
+</body>
+
+</html>

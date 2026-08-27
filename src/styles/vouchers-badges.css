@@ -1,0 +1,563 @@
+/* ========================================================================= */
+    /* VINTAGE PERFORATED COUPON TICKET (KIRMIZI TIRTIKLI KUPON TASARIMI) */
+    /* ========================================================================= */
+    .vintage-coupon-ticket {
+      background: #fff8f8;
+      border: 1.5px dashed #d32f2f;
+      border-radius: 12px;
+      padding: 12px 16px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 16px 0;
+      box-shadow: 0 4px 14px rgba(211, 47, 47, 0.10);
+      overflow: visible;
+    }
+    .vintage-coupon-ticket::before,
+    .vintage-coupon-ticket::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      width: 14px;
+      height: 22px;
+      background: #ffffff;
+      transform: translateY(-50%);
+      border: 1.5px dashed #d32f2f;
+      z-index: 2;
+    }
+    .vintage-coupon-ticket::before {
+      left: -2px;
+      border-left: none;
+      border-radius: 0 14px 14px 0;
+    }
+    .vintage-coupon-ticket::after {
+      right: -2px;
+      border-right: none;
+      border-radius: 14px 0 0 14px;
+    }
+    .ticket-stub-left {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding-right: 12px;
+      border-right: 1.5px dashed #ffcdd2;
+      flex-shrink: 0;
+      color: #c62828;
+    }
+    .ticket-stub-icon {
+      font-size: 22px;
+      line-height: 1;
+      margin-bottom: 2px;
+    }
+    .ticket-stub-label {
+      font: 700 9px 'DM Mono', monospace;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #c62828;
+    }
+    .ticket-input-area {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .ticket-input-row {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .ticket-code-input {
+      flex: 1;
+      font: 700 13px 'DM Mono', monospace;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #1a2a22;
+      background: #ffffff;
+      border: 1px solid #ffcdd2;
+      border-radius: 6px;
+      padding: 7px 10px;
+      outline: none;
+      transition: all 0.2s;
+    }
+    .ticket-code-input:focus {
+      border-color: #d32f2f;
+      box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.15);
+    }
+    .ticket-apply-btn {
+      padding: 7px 14px;
+      font: 700 11px 'DM Mono', monospace;
+      background: #d32f2f;
+      color: #ffffff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.15s, transform 0.1s;
+      white-space: nowrap;
+    }
+    .ticket-apply-btn:hover {
+      background: #b71c1c;
+      transform: scale(1.02);
+    }
+    .ticket-msg-status {
+      font-size: 11px;
+      margin-top: 2px;
+    }
+    /* ========================================================================= */
+    /* PROFILE MISSION TICKET VOUCHERS (GÖREV KUPONLARI - KIRMIZI BİLET KOÇANI) */
+    /* ========================================================================= */
+    .profile-ticket-voucher {
+      background: #fff8f8;
+      border: 1.5px dashed #d32f2f;
+      border-radius: 12px;
+      padding: 14px 18px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 14px;
+      box-shadow: 0 4px 12px rgba(211, 47, 47, 0.08);
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .profile-ticket-voucher:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(211, 47, 47, 0.18);
+    }
+    .profile-ticket-voucher::before,
+    .profile-ticket-voucher::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      width: 14px;
+      height: 24px;
+      background: var(--bg-card, #ffffff);
+      transform: translateY(-50%);
+      border: 1.5px dashed #d32f2f;
+      z-index: 2;
+    }
+    .profile-ticket-voucher::before {
+      left: -2px;
+      border-left: none;
+      border-radius: 0 14px 14px 0;
+    }
+    .profile-ticket-voucher::after {
+      right: -2px;
+      border-right: none;
+      border-radius: 14px 0 0 14px;
+    }
+    .profile-ticket-stub {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding-right: 14px;
+      border-right: 1.5px dashed #ffcdd2;
+      flex-shrink: 0;
+      min-width: 85px;
+      text-align: center;
+    }
+    .profile-ticket-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .profile-ticket-actions {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Social Link Buttons */
+    .social-link-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 13px;
+      background: #ffffff;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--ink);
+      font: 600 12px 'DM Mono', monospace;
+      text-decoration: none;
+      transition: all 0.2s;
+      box-shadow: var(--shadow-sm);
+    }
+    .social-link-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+      color: #ffffff;
+    }
+    .social-link-btn.instagram:hover {
+      background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+      border-color: transparent;
+    }
+    .social-link-btn.linkedin:hover {
+      background: #0077b5;
+      border-color: #0077b5;
+    }
+    .social-link-btn.github:hover {
+      background: #24292e;
+      border-color: #24292e;
+    }
+
+    .faq-accordion-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+    .faq-item {
+      background: #ffffff;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+    }
+    .faq-item:hover {
+      border-color: #cbd7c9;
+    }
+    .faq-item.open {
+      border-color: var(--ink);
+      box-shadow: var(--shadow-md);
+    }
+    .faq-header-btn {
+      width: 100%;
+      text-align: left;
+      padding: 20px 24px;
+      background: transparent;
+      border: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font: 700 16px 'Fraunces', serif;
+      color: var(--ink);
+      cursor: pointer;
+    }
+    .faq-header-btn svg {
+      width: 18px;
+      height: 18px;
+      stroke: var(--muted);
+      stroke-width: 2;
+      transition: transform 0.24s cubic-bezier(0.16, 1, 0.3, 1);
+      flex-shrink: 0;
+    }
+    .faq-item.open .faq-header-btn svg {
+      transform: rotate(180deg);
+      stroke: var(--ink);
+    }
+    .faq-body {
+      display: none;
+      padding: 0 24px 22px;
+      font-size: 14px;
+      color: var(--ink-soft);
+      line-height: 1.65;
+      border-top: 1px solid var(--line-subtle);
+      animation: faqFade 0.22s ease-out;
+    }
+    .faq-item.open .faq-body { display: block; }
+    @keyframes faqFade {
+      0% { opacity: 0; transform: translateY(-4px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Reading Club Grid & Cards */
+    .club-banner {
+      background: linear-gradient(135deg, #14221d 0%, #0e1714 100%);
+      color: #ffffff;
+      border-radius: var(--radius-xl);
+      padding: 42px;
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 32px;
+      align-items: center;
+      margin-bottom: 36px;
+      box-shadow: var(--shadow-md);
+    }
+    .club-badge {
+      background: rgba(179, 136, 32, 0.2);
+      color: var(--gold-light);
+      border: 1px solid var(--gold-border);
+      font: 700 10px 'DM Mono', monospace;
+      padding: 4px 10px;
+      border-radius: 4px;
+      letter-spacing: 0.08em;
+      display: inline-block;
+      margin-bottom: 12px;
+    }
+    .club-discussion-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 22px;
+    }
+    .club-card {
+      background: #ffffff;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      padding: 24px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: var(--transition);
+    }
+    .club-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-md);
+      border-color: #cbd7c9;
+    }
+
+    /* Page Headers */
+    .page-header {
+      padding: 42px 0 28px;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 36px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .eyebrow {
+      font: 700 11px 'DM Mono', monospace;
+      color: var(--gold);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+      display: block;
+    }
+    .page-title {
+      font: 700 38px/1.2 'Fraunces', serif;
+      margin: 0;
+      color: var(--ink);
+      letter-spacing: -0.8px;
+    }
+    .page-subtitle {
+      color: var(--muted);
+      font-size: 15px;
+      margin: 6px 0 0;
+      max-width: 680px;
+    }
+    .back-btn {
+      background: #ffffff;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+      padding: 9px 16px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--ink);
+      box-shadow: var(--shadow-sm);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .back-btn:hover { background: var(--bg-subtle); }
+
+
+    /* ========================================================================= */
+    /* VOUCHERS & COLLECTOR BADGES (HORIZONTAL TICKET / COUPON SYSTEM) */
+    /* ========================================================================= */
+    .ticket-list-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-top: 14px;
+    }
+    .ticket-voucher-card {
+      background: #ffffff;
+      border: 1.5px dashed #f28b82;
+      border-radius: 12px;
+      position: relative;
+      padding: 18px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      transition: var(--transition);
+      box-shadow: 0 2px 10px rgba(15, 23, 20, 0.03);
+    }
+    .ticket-voucher-card:hover {
+      border-color: #e57373;
+      box-shadow: 0 6px 18px rgba(15, 23, 20, 0.07);
+      transform: translateY(-2px);
+    }
+    /* Ticket notch cutouts on left and right */
+    .ticket-voucher-card::before, .ticket-voucher-card::after {
+      content: '';
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      background: #faf8f5;
+      border: 1.5px dashed #f28b82;
+      border-radius: 50%;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    .ticket-voucher-card::before { left: -9px; }
+    .ticket-voucher-card::after { right: -9px; }
+
+    .ticket-left-col {
+      width: 105px;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding-right: 18px;
+      border-right: 1.5px dashed #f28b82;
+      text-align: center;
+      gap: 6px;
+    }
+    .ticket-icon {
+      font-size: 26px;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 64px;
+      height: 64px;
+    }
+    .ticket-badge-tag {
+      font: 700 9.5px 'DM Mono', monospace;
+      color: #991b1b;
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+      border-radius: 4px;
+      padding: 2px 7px;
+      letter-spacing: 0.06em;
+      line-height: 1.2;
+      text-transform: uppercase;
+      display: inline-block;
+      margin-top: 4px;
+    }
+    .ticket-badge-tag.unlocked-tag {
+      background: #edf7ed;
+      color: #1e7e34;
+      border-color: #c3e6cb;
+    }
+    .ticket-badge-tag.locked-tag {
+      background: #f1f3f2;
+      color: #6b7d75;
+      border-color: #d5ded9;
+    }
+    .ticket-mid-col {
+      flex: 1;
+      min-width: 0;
+    }
+    .ticket-mid-col h4 {
+      font: 700 16px/1.25 'Fraunces', serif;
+      margin: 0 0 5px;
+      color: var(--ink);
+    }
+    .ticket-mid-col p {
+      font-size: 13px;
+      color: var(--muted);
+      margin: 0 0 10px;
+      line-height: 1.4;
+    }
+    .ticket-pill-box {
+      display: inline-block;
+      border: 1px solid #ffcdd2;
+      background: #fff8f8;
+      color: #c62828;
+      padding: 3px 10px;
+      border-radius: 6px;
+      font: 700 11px 'DM Mono', monospace;
+      letter-spacing: 0.03em;
+    }
+    .ticket-right-col {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      justify-content: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+    .ticket-status-pill {
+      font: 700 11px 'DM Mono', monospace;
+      padding: 4px 12px;
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .ticket-status-pill.done {
+      background: #e8f5e9;
+      color: #1b5e20;
+      border: 1px solid #c8e6c9;
+    }
+    .ticket-status-pill.pending {
+      background: #f1f5f9;
+      color: #475569;
+      border: 1px solid #cbd5e1;
+    }
+    .ticket-action-btn {
+      background: #1e2925;
+      color: #ffffff;
+      border: none;
+      border-radius: 6px;
+      padding: 7px 18px;
+      font-weight: 700;
+      font-size: 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .ticket-action-btn:hover {
+      background: #0f1714;
+      transform: translateY(-1px);
+    }
+
+    /* Mini Collector Badges (İsim Altı İkon Rozetleri - Awwwards Capsule Pill Dock) */
+    .user-mini-badges-row {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 5px;
+      padding: 3px 9px;
+      background: var(--bg-subtle);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      box-shadow: var(--shadow-sm);
+      width: fit-content;
+    }
+    .mini-badge-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+      border: none;
+      box-shadow: none;
+      padding: 1px;
+      cursor: pointer;
+      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), filter 0.2s ease;
+      position: relative;
+      line-height: 1;
+    }
+    .mini-badge-pill:hover {
+      transform: translateY(-1.5px) scale(1.28);
+    }
+    .mini-badge-pill.locked-mini {
+      filter: grayscale(1);
+      opacity: 0.35;
+    }
+    .mini-badge-img {
+      width: 17px;
+      height: 17px;
+      object-fit: contain;
+      display: inline-block;
+      vertical-align: middle;
+      pointer-events: none;
+      filter: drop-shadow(0 1px 2px rgba(0,0,0,0.1));
+    }
+    .ticket-custom-badge-img {
+      width: 56px;
+      height: 56px;
+      object-fit: contain;
+      display: block;
+      filter: drop-shadow(0 2px 6px rgba(0,0,0,0.12));
+    }

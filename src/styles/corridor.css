@@ -1,0 +1,91 @@
+/* ========================================================================= */
+/* 0. LUMINA SLEEK LOGO REVEAL INTRO */
+/* ========================================================================= */
+#luminaIntro {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: #030605; /* Deep luxury dark */
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), visibility 1.2s;
+}
+
+#luminaIntro.unlocked {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: scale(1.05); /* Slight zoom in as it fades out to reveal the main site */
+}
+
+.intro-background {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(212, 175, 55, 0.08) 0%, transparent 60%);
+  opacity: 0;
+  animation: bgPulse 4s ease-in-out infinite alternate;
+}
+
+@keyframes bgPulse {
+  0% { opacity: 0.3; transform: scale(0.9); }
+  100% { opacity: 0.7; transform: scale(1.1); }
+}
+
+.intro-content {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.intro-logo {
+  font: 700 64px 'Fraunces', serif;
+  letter-spacing: -2px;
+  color: #ffffff;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: logoReveal 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.3s;
+}
+
+.intro-logo i {
+  font-style: normal;
+  color: var(--gold, #d4af37);
+}
+
+.intro-subtitle {
+  font: 400 16px 'DM Mono', monospace;
+  letter-spacing: 4px;
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+  opacity: 0;
+  transform: translateY(10px);
+  animation: logoReveal 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.8s;
+}
+
+@keyframes logoReveal {
+  0% { opacity: 0; transform: translateY(20px); filter: blur(10px); }
+  100% { opacity: 1; transform: translateY(0); filter: blur(0); }
+}
+
+/* Optional generic particles for subtle motion */
+.intro-particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: radial-gradient(rgba(212, 175, 55, 0.3) 1px, transparent 1px);
+  background-size: 50px 50px;
+  background-position: 0 0;
+  opacity: 0.15;
+  animation: particleDrift 30s linear infinite;
+}
+
+@keyframes particleDrift {
+  0% { background-position: 0 0; }
+  100% { background-position: -500px 500px; }
+}

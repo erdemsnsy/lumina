@@ -1,0 +1,28 @@
+{
+  "name": "lumina-library",
+  "version": "1.0.0",
+  "description": "Lumina — Luxury Editorial Digital Library & Bookstore Platform",
+  "main": "server/server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server/server.js",
+    "dev": "node --watch server/server.js"
+  },
+  "keywords": [
+    "library",
+    "bookstore",
+    "editorial",
+    "javascript",
+    "express",
+    "sqlite",
+    "fullstack"
+  ],
+  "author": "Erdem Şensoy",
+  "license": "MIT",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2"
+  }
+}

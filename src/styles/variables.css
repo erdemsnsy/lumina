@@ -1,0 +1,46 @@
+/* ========================================================================= */
+    /* EDITORIAL PRESTIGE & BESPOKE LUXURY DESIGN SYSTEM (EDİTORYAL ASİL TEMA) */
+    /* ========================================================================= */
+    :root {
+      --bg-main: #fbfbf9;
+      --bg-surface: #ffffff;
+      --bg-subtle: #f4f6f2;
+      --ink: #0d1412;
+      --ink-soft: #2b3834;
+      --muted: #667770;
+      --line: #e6ece4;
+      --line-subtle: #f0f4ee;
+      --gold: #a98020;
+      --gold-dark: #7f5e10;
+      --gold-light: #f7ebd0;
+      --gold-border: rgba(169, 128, 32, 0.35);
+      --bordeaux: #6b141d;
+      --bordeaux-light: #fbeeed;
+      --danger: #c93424;
+      --success: #267332;
+      --shadow-sm: 0 2px 8px rgba(13, 20, 18, 0.04);
+      --shadow-md: 0 12px 32px rgba(13, 20, 18, 0.07);
+      --shadow-lg: 0 24px 60px rgba(13, 20, 18, 0.12);
+      --radius-sm: 6px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --radius-xl: 26px;
+      --transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--bg-main);
+      color: var(--ink);
+      font-family: 'DM Sans', sans-serif;
+      overflow-x: hidden;
+      line-height: 1.55;
+    }
+
+    button, input, select, textarea { font: inherit; }
+    button { cursor: pointer; border: 0; outline: none; transition: var(--transition); }
+    button:active { transform: scale(0.98); }
+
+    .shell { max-width: 1280px; margin: auto; padding: 0 28px; }

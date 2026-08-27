@@ -1,0 +1,15 @@
+/* Lumina Dijital Kütüphane - Central Style Manifest */
+
+@import url('./variables.css');
+@import url('./animations.css');
+@import url('./corridor.css');
+@import url('./navbar.css');
+@import url('./spotlight.css');
+@import url('./ambient.css');
+@import url('./reader.css');
+@import url('./vouchers-badges.css');
+@import url('./hero-stats.css');
+@import url('./catalog.css');
+@import url('./views.css');
+@import url('./profile-admin.css');
+@import url('./responsive.css');

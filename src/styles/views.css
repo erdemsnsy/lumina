@@ -1,0 +1,208 @@
+/* ========================================================================= */
+/* VIEWS & LAYOUT MIN-HEIGHT */
+/* ========================================================================= */
+.app-view {
+  display: none;
+  min-height: calc(100vh - 280px);
+  padding-bottom: 60px;
+}
+.app-view.active {
+  display: block;
+  animation: viewFadeIn 0.25s ease-out;
+}
+@keyframes viewFadeIn {
+  0% { opacity: 0; transform: translateY(4px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* ========================================================================= */
+/* 5. QUOTES VIEW (ALINTI DEFTERİ - Minimalist Luxury) */
+/* ========================================================================= */
+.quote-card-styled {
+  background: #ffffff;
+  border-radius: 16px;
+  border: 1px solid #e2e8e5;
+  padding: 22px 20px 18px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.quote-card-styled::before {
+  content: "“";
+  position: absolute;
+  top: 4px;
+  right: 16px;
+  font-family: 'Newsreader', Georgia, serif;
+  font-size: 72px;
+  line-height: 1;
+  color: rgba(24, 90, 56, 0.045);
+  pointer-events: none;
+  font-weight: 700;
+}
+
+.quote-card-styled:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(15, 23, 20, 0.07);
+  border-color: #ccd7d1;
+}
+
+.quote-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.quote-tag-badge {
+  background: #f0f5f2;
+  color: #1a4f38;
+  border: 1px solid #d5e2da;
+  font: 700 10px 'DM Mono', monospace;
+  padding: 2px 8px;
+  border-radius: 999px;
+  letter-spacing: 0.02em;
+}
+
+.quote-date-text {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11.5px;
+  color: var(--muted);
+}
+
+.quote-body-wrapper {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+}
+
+.quote-body-text {
+  font-family: 'Newsreader', Georgia, serif;
+  font-style: italic;
+  font-size: 16.5px;
+  line-height: 1.6;
+  color: #172420;
+  margin: 4px 0 16px;
+  padding: 0;
+  border: none;
+}
+
+.quote-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding-top: 12px;
+  border-top: 1px solid #edf2ef;
+  gap: 10px;
+}
+
+.quote-author-info {
+  min-width: 0;
+}
+
+.quote-book-title {
+  margin: 0 0 2px;
+  font: 700 14px/1.3 'Fraunces', serif;
+  color: var(--ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.quote-meta-line {
+  font-size: 12px;
+  color: var(--muted);
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.quote-page-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+}
+
+.quote-sharer-tag {
+  display: block;
+  font-size: 11px;
+  color: #8c9b94;
+  margin-top: 2px;
+}
+
+.quote-actions-cluster {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.btn-quote-copy {
+  background: #ffffff;
+  border: 1px solid #d5ded9;
+  color: var(--ink-soft);
+  padding: 5px 11px;
+  font-size: 11.5px;
+  border-radius: 8px;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.btn-quote-copy:hover {
+  background: #f7faf8;
+  border-color: #b8c8be;
+  color: var(--ink);
+}
+
+.btn-quote-like {
+  background: #ffffff;
+  border: 1px solid #d5ded9;
+  color: var(--muted);
+  padding: 5px 10px;
+  font-size: 12px;
+  border-radius: 8px;
+  font-family: 'DM Mono', monospace;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: all 0.15s ease;
+}
+
+.btn-quote-like:hover {
+  background: #fff5f5;
+  border-color: #f7b4b4;
+  color: #c93424;
+}
+
+.btn-quote-like.liked {
+  background: #fef2f2;
+  border-color: #fca5a5;
+  color: #c93424;
+}
+
+.quote-heart-icon {
+  font-size: 13px;
+  line-height: 1;
+}
+
+.btn-quote-delete {
+  background: transparent;
+  border: none;
+  color: #b2bec3;
+  font-size: 13px;
+  cursor: pointer;
+  padding: 4px 6px;
+  border-radius: 6px;
+  transition: color 0.15s ease;
+}
+
+.btn-quote-delete:hover {
+  color: var(--danger);
+}
