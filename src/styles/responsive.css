@@ -454,12 +454,23 @@ input[type="date"]::-webkit-clear-button {
   }
 
   /* ========================================================================= */
-  /* CATALOG SEARCH, SORT & CATEGORY PILLS OPTIMIZATION                        */
+  /* CATALOG CONTROLS (SEARCH INPUT ZERO OVERFLOW FIX)                          */
   /* ========================================================================= */
-  .catalog-controls-row, .catalog-control-deck .filter-bar {
+  .catalog-control-deck {
+    padding: 12px 10px !important;
+    border-radius: 16px !important;
+    gap: 8px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .filter-bar {
+    display: flex !important;
     flex-direction: column !important;
     align-items: stretch !important;
     gap: 8px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
   }
 
   .search-shortcut-badge {
@@ -467,23 +478,30 @@ input[type="date"]::-webkit-clear-button {
   }
 
   .search-input-wrapper {
+    min-width: 0 !important;
     width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    padding: 2px 10px !important;
   }
   .search-input {
     width: 100% !important;
-    padding-right: 12px !important;
-    font-size: 12px !important;
+    min-width: 0 !important;
+    padding-right: 8px !important;
+    font-size: 12.5px !important;
     height: 38px !important;
-    border-radius: 10px !important;
   }
 
   .filter-select-wrapper {
     width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
   }
   .filter-select {
     width: 100% !important;
-    height: 36px !important;
-    font-size: 11.5px !important;
+    box-sizing: border-box !important;
+    height: 38px !important;
+    font-size: 12px !important;
     padding: 0 24px 0 10px !important;
     border-radius: 10px !important;
   }
@@ -632,61 +650,179 @@ input[type="date"]::-webkit-clear-button {
   }
 
   /* ========================================================================= */
-  /* BOOK DETAILS MODAL COMPACT SLEEK FIT (NO LONG SCREEN OVERWHELM)           */
+  /* BOOK DETAILS MODAL (FULL VISIBILITY & SMOOTH SCROLL)                      */
   /* ========================================================================= */
   #detailModal .modal-box {
-    width: 92% !important;
+    width: 94% !important;
     max-width: 440px !important;
-    padding: 14px 14px 12px !important;
-    border-radius: 16px !important;
-    max-height: 82vh !important;
+    padding: 16px 14px 12px !important;
+    border-radius: 18px !important;
+    max-height: 88vh !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
     margin: 10px auto !important;
   }
   #detailModal h2 {
-    font-size: 17px !important;
-    margin: 0 !important;
+    font-size: 18px !important;
+    margin: 0 0 2px !important;
   }
   #detailModal p:not(#detailSummary) {
     display: none !important;
   }
   .detail-showcase-box {
-    grid-template-columns: 78px 1fr !important;
-    gap: 8px !important;
-    padding: 8px 10px !important;
-    border-radius: 12px !important;
-    align-items: flex-start !important;
-    margin-bottom: 8px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 10px !important;
+    padding: 12px !important;
+    border-radius: 14px !important;
+    margin-bottom: 10px !important;
   }
   #detailCover {
-    height: 110px !important;
-    width: 78px !important;
-    border-radius: 6px !important;
+    height: 130px !important;
+    width: 90px !important;
+    margin: 0 auto !important;
+    border-radius: 8px !important;
   }
   #detailTitle {
-    font-size: 14.5px !important;
+    font-size: 16px !important;
     line-height: 1.25 !important;
     margin: 0 !important;
+    text-align: center !important;
   }
   #detailAuthor {
-    font-size: 10.5px !important;
+    font-size: 12px !important;
+    display: block !important;
+    text-align: center !important;
   }
   #detailIsbn {
     display: none !important;
   }
   #detailSummary {
-    font-size: 10.5px !important;
-    line-height: 1.35 !important;
-    padding: 4px 6px !important;
-    max-height: 55px !important;
-    overflow-y: auto !important;
+    font-size: 11.5px !important;
+    line-height: 1.5 !important;
+    padding: 8px 10px !important;
+    max-height: none !important;
+    overflow-y: visible !important;
     display: block !important;
+    border-radius: 8px !important;
   }
   #detailModal .btn-action-secondary {
+    padding: 4px 10px !important;
+    font-size: 11px !important;
+  }
+  #detailReviewsList {
+    max-height: none !important;
+    overflow-y: visible !important;
+  }
+
+  /* ========================================================================= */
+  /* BORROW LOAN MODAL (COMPACT & ZERO SCREEN OVERFLOW)                        */
+  /* ========================================================================= */
+  #loanModal .modal-box {
+    width: 92% !important;
+    max-width: 440px !important;
+    padding: 16px 14px 12px !important;
+    border-radius: 18px !important;
+    max-height: 86vh !important;
+    overflow-y: auto !important;
+  }
+  #loanModal h2 {
+    font-size: 18px !important;
+    margin: 0 0 2px !important;
+  }
+  #loanModal p:not(#loanBookMeta) {
+    display: none !important;
+  }
+  #loanCover {
+    height: 85px !important;
+    width: 60px !important;
+    min-width: 60px !important;
+  }
+  #loanBookTitle {
+    font-size: 14px !important;
+    margin: 0 0 2px !important;
+  }
+  #loanBookMeta {
+    font-size: 11px !important;
+    margin: 0 !important;
+  }
+  .loan-duration-btn {
     padding: 3px 8px !important;
     font-size: 10px !important;
   }
-  #detailReviewsList {
-    max-height: 110px !important;
+  #loanReason {
+    min-height: 48px !important;
+    font-size: 11.5px !important;
+    padding: 6px 8px !important;
+  }
+
+  /* ========================================================================= */
+  /* CART VIEW & CHECKOUT (FULL VERTICAL RESPONSIVE & ZERO RIGHT OVERFLOW)      */
+  /* ========================================================================= */
+  #cartUnifiedBox {
+    padding: 16px 12px !important;
+    border-radius: 16px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  #cartContentGrid {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 16px !important;
+    width: 100% !important;
+  }
+  .cart-item-card-box {
+    display: flex !important;
+    flex-direction: column !important;
+    padding: 14px 12px !important;
+    gap: 10px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    border-radius: 14px !important;
+  }
+  .cart-item-top-row {
+    display: grid !important;
+    grid-template-columns: 75px 1fr !important;
+    gap: 10px !important;
+    width: 100% !important;
+  }
+  .cart-item-cover {
+    width: 75px !important;
+    height: 105px !important;
+    min-width: 75px !important;
+  }
+  .cart-item-summary-box {
+    display: none !important;
+  }
+  .cart-item-actions-row {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    width: 100% !important;
+    gap: 8px !important;
+    padding-top: 8px !important;
+  }
+  #cartSummaryBox {
+    position: static !important;
+    width: 100% !important;
+    padding: 18px 14px !important;
+    box-sizing: border-box !important;
+    border-radius: 14px !important;
+  }
+  .vintage-coupon-ticket {
+    flex-direction: column !important;
+    gap: 6px !important;
+    width: 100% !important;
+  }
+  .ticket-input-row {
+    width: 100% !important;
+    display: flex !important;
+  }
+  .ticket-code-input {
+    flex: 1 !important;
+    width: auto !important;
+    min-width: 0 !important;
   }
 
   /* Form Grids */
@@ -799,21 +935,6 @@ input[type="date"]::-webkit-clear-button {
   #userBadgesGrid {
     grid-template-columns: repeat(2, 1fr) !important;
     gap: 8px !important;
-  }
-
-  /* Cart Layout */
-  .cart-grid-layout {
-    grid-template-columns: 1fr !important;
-    gap: 14px !important;
-  }
-  .cart-item-card {
-    flex-direction: column !important;
-    align-items: flex-start !important;
-    gap: 10px !important;
-  }
-  .cart-summary-card {
-    position: static !important;
-    width: 100% !important;
   }
 
   /* 3D Hardcover Reader Mobile Responsive Scale & Fit */

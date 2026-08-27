@@ -148,47 +148,50 @@ export function renderCartPage() {
       const summary = summaryMap[genre] || 'Lumina Kütüphane koleksiyonunun seçkin edebi mirası.';
 
       return `
-        <div style="display:flex;gap:24px;padding:24px 26px;border-radius:20px;background:#ffffff;border:1px solid #e1e7e4;box-shadow:0 4px 16px rgba(15,23,20,0.04);align-items:flex-start;transition:all 0.25s ease" onmouseover="this.style.boxShadow='0 10px 28px rgba(15,23,20,0.08)';this.style.borderColor='#ccd8d2'" onmouseout="this.style.boxShadow='0 4px 16px rgba(15,23,20,0.04)';this.style.borderColor='#e1e7e4'">
-          <!-- Large Hardcover Book Showcase -->
-          <div style="position:relative;width:115px;height:165px;min-width:115px;flex-shrink:0;border-radius:12px;overflow:hidden;box-shadow:0 12px 26px rgba(15,23,20,0.2), 0 3px 8px rgba(0,0,0,0.1);border:1px solid rgba(0,0,0,0.08);background:#1a2b25">
-            <img src="${coverUrl}" alt="${safeTitle}" style="width:100%;height:100%;object-fit:cover;display:block" onerror="this.src='https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&w=800&q=85'">
-            <div style="position:absolute;top:0;left:0;bottom:0;width:6px;background:linear-gradient(to right, rgba(255,255,255,0.4) 0%, rgba(0,0,0,0.25) 100%)"></div>
-          </div>
-
-          <!-- Book Details Deck -->
-          <div style="flex:1;min-width:0;display:flex;flex-direction:column;justify-content:space-between;min-height:165px">
-            <div>
-              <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
-                <span style="font:700 9.5px 'DM Mono',monospace;letter-spacing:0.04em;background:#edf5ea;color:#1e5b38;padding:3px 9px;border-radius:5px;text-transform:uppercase">${genre}</span>
-                <span style="font:600 11.5px 'DM Mono',monospace;color:#2e7d32">✓ Stokta Var (${stock} Adet)</span>
-              </div>
-              <h4 style="font:700 21px/1.25 'Fraunces',serif;margin:0 0 5px;color:var(--ink)">${item.title}</h4>
-              <p style="color:var(--muted);font-size:13.5px;margin:0 0 10px">${author} · ${year} · Lumina Kütüphane Arşivi</p>
-              <div style="font-size:12.5px;line-height:1.55;color:#394c45;background:rgba(240,246,243,0.75);border:1px solid #dce8e2;padding:9px 13px;border-radius:10px;margin-bottom:14px;font-style:italic">"${summary}"</div>
+        <div class="cart-item-card-box" style="display:flex;gap:24px;padding:22px 24px;border-radius:20px;background:#ffffff;border:1px solid #e1e7e4;box-shadow:0 4px 16px rgba(15,23,20,0.04);align-items:flex-start;transition:all 0.25s ease">
+          <!-- Main Content Area (Cover + Details) -->
+          <div class="cart-item-top-row" style="display:flex;gap:20px;flex:1;min-width:0;align-items:flex-start">
+            <!-- Large Hardcover Book Showcase -->
+            <div class="cart-item-cover" style="position:relative;width:115px;height:165px;min-width:115px;flex-shrink:0;border-radius:12px;overflow:hidden;box-shadow:0 10px 22px rgba(15,23,20,0.18);border:1px solid rgba(0,0,0,0.08);background:#1a2b25">
+              <img src="${coverUrl}" alt="${safeTitle}" style="width:100%;height:100%;object-fit:cover;display:block" onerror="this.src='https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&w=800&q=85'">
+              <div style="position:absolute;top:0;left:0;bottom:0;width:6px;background:linear-gradient(to right, rgba(255,255,255,0.4) 0%, rgba(0,0,0,0.25) 100%)"></div>
             </div>
 
-            <!-- Bottom Actions Bar: Price + Stepper + Remove Button -->
-            <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding-top:12px;border-top:1px solid #edf2ef">
-              <div style="display:inline-flex;align-items:center;gap:6px;background:#f8faf9;border:1px solid #e1e7e4;padding:6px 14px;border-radius:10px">
-                <img src="basarimlar/coin.png" alt="Coin" style="width:16px;height:16px;object-fit:contain" onerror="this.src='basarimlar/coin.png'">
-                <span style="font:800 16px 'Plus Jakarta Sans',sans-serif;color:var(--ink)">${item.price}</span>
-                <span style="font-size:11.5px;color:var(--muted)">/ adet</span>
-              </div>
-
-              <div style="display:flex;align-items:center;gap:12px">
-                <!-- Qty Stepper -->
-                <div style="display:inline-flex;align-items:center;gap:6px;background:#f4f7f5;padding:5px 12px;border-radius:999px;border:1px solid #dbe3de">
-                  <button type="button" onclick="changeCartQty('${safeTitle}', -1)" style="border:0;background:transparent;cursor:pointer;font-weight:bold;font-size:16px;color:var(--ink);width:24px;height:24px;display:flex;align-items:center;justify-content:center;border-radius:50%;transition:background 0.2s" onmouseover="this.style.background='#e2eae5'" onmouseout="this.style.background='transparent'">−</button>
-                  <span style="font:800 14px 'Plus Jakarta Sans',sans-serif;min-width:22px;text-align:center;color:var(--ink)">${item.qty}</span>
-                  <button type="button" onclick="changeCartQty('${safeTitle}', 1)" style="border:0;background:transparent;cursor:pointer;font-weight:bold;font-size:16px;color:var(--ink);width:24px;height:24px;display:flex;align-items:center;justify-content:center;border-radius:50%;transition:background 0.2s" onmouseover="this.style.background='#e2eae5'" onmouseout="this.style.background='transparent'">+</button>
+            <!-- Book Details Deck -->
+            <div style="flex:1;min-width:0;display:flex;flex-direction:column;justify-content:space-between">
+              <div>
+                <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;flex-wrap:wrap">
+                  <span style="font:700 9.5px 'DM Mono',monospace;letter-spacing:0.04em;background:#edf5ea;color:#1e5b38;padding:2px 8px;border-radius:5px;text-transform:uppercase">${genre}</span>
+                  <span style="font:600 11px 'DM Mono',monospace;color:#2e7d32">✓ Stokta (${stock})</span>
                 </div>
-
-                <!-- Remove Button -->
-                <button type="button" onclick="removeFromCart('${safeTitle}')" style="background:#fff1f2;border:1px solid #fecdd3;color:#e63946;padding:6px 14px;border-radius:999px;display:flex;align-items:center;gap:6px;cursor:pointer;font-size:12.5px;font-weight:600;transition:all 0.2s;flex-shrink:0" onmouseover="this.style.background='#ffe4e6';this.style.transform='translateY(-1px)'" onmouseout="this.style.background='#fff1f2';this.style.transform='translateY(0)'" title="Sepetten Kaldır">
-                  <span>✕</span>
-                  <span>Sepetten Çıkar</span>
-                </button>
+                <h4 style="font:700 19px/1.25 'Fraunces',serif;margin:0 0 3px;color:var(--ink)">${item.title}</h4>
+                <p style="color:var(--muted);font-size:12.5px;margin:0 0 8px">${author} · ${year}</p>
+                <div class="cart-item-summary-box" style="font-size:12px;line-height:1.5;color:#394c45;background:rgba(240,246,243,0.75);border:1px solid #dce8e2;padding:8px 12px;border-radius:8px;margin-bottom:10px;font-style:italic">"${summary}"</div>
               </div>
+            </div>
+          </div>
+
+          <!-- Bottom Actions Bar: Price + Stepper + Remove Button -->
+          <div class="cart-item-actions-row" style="display:flex;justify-content:space-between;align-items:center;gap:10px;width:100%;padding-top:10px;border-top:1px solid #edf2ef;flex-wrap:wrap">
+            <div style="display:inline-flex;align-items:center;gap:5px;background:#f8faf9;border:1px solid #e1e7e4;padding:4px 10px;border-radius:8px">
+              <img src="basarimlar/coin.png" alt="Coin" style="width:15px;height:15px;object-fit:contain" onerror="this.src='basarimlar/coin.png'">
+              <span style="font:800 15px 'Plus Jakarta Sans',sans-serif;color:var(--ink)">${item.price}</span>
+              <span style="font-size:11px;color:var(--muted)">/ adet</span>
+            </div>
+
+            <div style="display:flex;align-items:center;gap:8px">
+              <!-- Qty Stepper -->
+              <div style="display:inline-flex;align-items:center;gap:4px;background:#f4f7f5;padding:4px 10px;border-radius:999px;border:1px solid #dbe3de">
+                <button type="button" onclick="changeCartQty('${safeTitle}', -1)" style="border:0;background:transparent;cursor:pointer;font-weight:bold;font-size:15px;color:var(--ink);width:22px;height:22px;display:flex;align-items:center;justify-content:center;border-radius:50%">−</button>
+                <span style="font:800 13px 'Plus Jakarta Sans',sans-serif;min-width:18px;text-align:center;color:var(--ink)">${item.qty}</span>
+                <button type="button" onclick="changeCartQty('${safeTitle}', 1)" style="border:0;background:transparent;cursor:pointer;font-weight:bold;font-size:15px;color:var(--ink);width:22px;height:22px;display:flex;align-items:center;justify-content:center;border-radius:50%">+</button>
+              </div>
+
+              <!-- Remove Button -->
+              <button type="button" onclick="removeFromCart('${safeTitle}')" style="background:#fff1f2;border:1px solid #fecdd3;color:#e63946;padding:5px 12px;border-radius:999px;display:flex;align-items:center;gap:4px;cursor:pointer;font-size:11.5px;font-weight:700;flex-shrink:0" title="Sepetten Kaldır">
+                <span>✕</span>
+                <span>Çıkar</span>
+              </button>
             </div>
           </div>
         </div>
