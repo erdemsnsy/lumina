@@ -215,7 +215,7 @@ export function renderReaderPage(spreadIdx) {
           <h4 class="completion-title">Tadımlık Okuma Tamamlandı</h4>
           <p class="completion-desc">"${title}" eserinin 6 sayfalık özel tadımlık bölümünü okudunuz.</p>
           <div class="completion-actions">
-            <button type="button" class="btn-action-primary" style="width:100%;margin-bottom:8px" onclick="closeModal('readerModal');openModal('purchaseModal');">Satın Al (🪙 ${currentReaderBook?.price || 150})</button>
+            <button type="button" class="btn-action-primary" style="width:100%;margin-bottom:8px" onclick="closeModal('readerModal');openModal('purchaseModal');">Satın Al</button>
             <button type="button" class="btn-action-secondary" style="width:100%" onclick="closeModal('readerModal');navigateTo('catalog');">Kütüphaneden Ödünç Al</button>
           </div>
         </div>

@@ -38,25 +38,26 @@
       100% { height: 12px; }
     }
     .ambient-dropdown {
-      position: absolute;
-      top: calc(100% + 10px);
-      right: 0;
+      position: fixed;
+      top: 75px;
+      left: 50%;
+      transform: translateX(-50%);
       background: #141f1b;
       border: 1px solid rgba(255, 255, 255, 0.15);
-      border-radius: 12px;
+      border-radius: 14px;
       padding: 12px;
       box-shadow: 0 14px 34px rgba(0,0,0,0.45);
       display: none;
-      width: 230px;
-      z-index: 1000;
+      width: 240px;
+      z-index: 10000;
       color: #ffffff;
       flex-direction: column;
       gap: 6px;
     }
-    .ambient-dropdown.show { display: flex; animation: ambientMenuFade 0.2s ease-out; }
+    .ambient-dropdown.show { display: flex !important; animation: ambientMenuFade 0.2s ease-out; }
     @keyframes ambientMenuFade {
-      0% { opacity: 0; transform: translateY(-6px); }
-      100% { opacity: 1; transform: translateY(0); }
+      0% { opacity: 0; transform: translate(-50%, -6px); }
+      100% { opacity: 1; transform: translate(-50%, 0); }
     }
     .ambient-opt-btn {
       display: flex;

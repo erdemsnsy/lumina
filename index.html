@@ -102,43 +102,6 @@
             title="Kütüphane Okuma Ambiyansı">
             <span id="ambientBtnLabel">Ambiyans</span>
           </button>
-          <div class="ambient-dropdown" id="ambientMenu" onclick="event.stopPropagation()">
-            <div
-              style="font:700 10px 'DM Mono',monospace;color:#f3d478;letter-spacing:0.05em;margin-bottom:6px;padding:0 4px">
-              KÜTÜPHANE SESLERİ</div>
-            <button class="ambient-opt-btn active" id="ambientOpt-off" onclick="setAmbientTrack('off')">
-              <img src="basarimlar/ambiyansikapat.png" alt="Kapat" class="ambient-pixel-icon"
-                onerror="this.src='basarimlar/ambiyansikapat.png'">
-              <span>Ambiyansı Kapat</span>
-            </button>
-            <button class="ambient-opt-btn" id="ambientOpt-rain" onclick="setAmbientTrack('rain')">
-              <img src="basarimlar/yagmur.png" alt="Yağmur" class="ambient-pixel-icon"
-                onerror="this.src='basarimlar/yagmur.png'">
-              <span>Pencerede Yağmur</span>
-            </button>
-            <button class="ambient-opt-btn" id="ambientOpt-fireplace" onclick="setAmbientTrack('fireplace')">
-              <img src="basarimlar/somine.png" alt="Şömine" class="ambient-pixel-icon"
-                onerror="this.src='basarimlar/somine.png'">
-              <span>Kütüphane Şöminesi</span>
-            </button>
-            <button class="ambient-opt-btn" id="ambientOpt-library" onclick="setAmbientTrack('library')">
-              <img src="basarimlar/kutuphanekafe.png" alt="Kafe" class="ambient-pixel-icon"
-                onerror="this.src='basarimlar/kutuphanekafe.png'">
-              <span>Kütüphane & Kafe</span>
-            </button>
-            <button class="ambient-opt-btn" id="ambientOpt-lofi" onclick="setAmbientTrack('lofi')">
-              <img src="basarimlar/lofiplak.png" alt="Lo-Fi" class="ambient-pixel-icon"
-                onerror="this.src='basarimlar/lofiplak.png'">
-              <span>Lo-Fi Plak Cızırtısı</span>
-            </button>
-            <div
-              style="border-top:1px solid rgba(255,255,255,0.12);margin:8px 0 4px;padding:8px 6px 2px;display:flex;align-items:center;justify-content:space-between">
-              <span style="font:700 10px 'DM Mono',monospace;color:#cfdad6;letter-spacing:0.04em">DOKUNSAL SES
-                (SFX)</span>
-              <button class="sfx-toggle-btn" id="sfxToggleBtn" onclick="toggleSfx(event)"
-                style="background:rgba(243,212,120,0.22);border:1px solid #f3d478;color:#f3d478;padding:2px 8px;border-radius:999px;font:700 10px 'DM Mono',monospace;cursor:pointer;transition:all 0.2s">AÇIK</button>
-            </div>
-          </div>
         </div>
       </div>
 
@@ -169,6 +132,45 @@
         </button>
       </div>
     </header>
+  </div>
+
+  <!-- Global Independent Ambient Sound Menu -->
+  <div class="ambient-dropdown" id="ambientMenu" onclick="event.stopPropagation()">
+    <div
+      style="font:700 10px 'DM Mono',monospace;color:#f3d478;letter-spacing:0.05em;margin-bottom:6px;padding:0 4px">
+      KÜTÜPHANE SESLERİ</div>
+    <button class="ambient-opt-btn active" id="ambientOpt-off" onclick="setAmbientTrack('off')">
+      <img src="basarimlar/ambiyansikapat.png" alt="Kapat" class="ambient-pixel-icon"
+        onerror="this.src='basarimlar/ambiyansikapat.png'">
+      <span>Ambiyansı Kapat</span>
+    </button>
+    <button class="ambient-opt-btn" id="ambientOpt-rain" onclick="setAmbientTrack('rain')">
+      <img src="basarimlar/yagmur.png" alt="Yağmur" class="ambient-pixel-icon"
+        onerror="this.src='basarimlar/yagmur.png'">
+      <span>Pencerede Yağmur</span>
+    </button>
+    <button class="ambient-opt-btn" id="ambientOpt-fireplace" onclick="setAmbientTrack('fireplace')">
+      <img src="basarimlar/somine.png" alt="Şömine" class="ambient-pixel-icon"
+        onerror="this.src='basarimlar/somine.png'">
+      <span>Kütüphane Şöminesi</span>
+    </button>
+    <button class="ambient-opt-btn" id="ambientOpt-library" onclick="setAmbientTrack('library')">
+      <img src="basarimlar/kutuphanekafe.png" alt="Kafe" class="ambient-pixel-icon"
+        onerror="this.src='basarimlar/kutuphanekafe.png'">
+      <span>Kütüphane & Kafe</span>
+    </button>
+    <button class="ambient-opt-btn" id="ambientOpt-lofi" onclick="setAmbientTrack('lofi')">
+      <img src="basarimlar/lofiplak.png" alt="Lo-Fi" class="ambient-pixel-icon"
+        onerror="this.src='basarimlar/lofiplak.png'">
+      <span>Lo-Fi Plak Cızırtısı</span>
+    </button>
+    <div
+      style="border-top:1px solid rgba(255,255,255,0.12);margin:8px 0 4px;padding:8px 6px 2px;display:flex;align-items:center;justify-content:space-between">
+      <span style="font:700 10px 'DM Mono',monospace;color:#cfdad6;letter-spacing:0.04em">DOKUNSAL SES
+        (SFX)</span>
+      <button class="sfx-toggle-btn" id="sfxToggleBtn" onclick="toggleSfx(event)"
+        style="background:rgba(243,212,120,0.22);border:1px solid #f3d478;color:#f3d478;padding:2px 8px;border-radius:999px;font:700 10px 'DM Mono',monospace;cursor:pointer;transition:all 0.2s">AÇIK</button>
+    </div>
   </div>
 
   <!-- ========================================================================= -->

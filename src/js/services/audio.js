@@ -205,17 +205,16 @@ export function toggleAmbientMenu(event) {
   const menu = el('ambientMenu');
   if (!menu) return;
   menu.classList.toggle('show');
-  menu.classList.toggle('open');
 }
 
 if (typeof document !== 'undefined') {
   document.addEventListener('click', (e) => {
     const menu = el('ambientMenu');
     const btn = el('navBtn-ambient');
-    if (menu && (menu.classList.contains('show') || menu.classList.contains('open'))) {
-      if (!menu.contains(e.target) && (!btn || !btn.contains(e.target))) {
+    const mobBtn = el('mobDockBtn-ambient');
+    if (menu && menu.classList.contains('show')) {
+      if (!menu.contains(e.target) && (!btn || !btn.contains(e.target)) && (!mobBtn || !mobBtn.contains(e.target))) {
         menu.classList.remove('show');
-        menu.classList.remove('open');
       }
     }
   });

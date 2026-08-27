@@ -290,14 +290,16 @@ input[type="date"]::-webkit-clear-button {
     color: #ffffff !important;
   }
 
+  /* Global Ambient Dropdown Overlay on Mobile */
   .ambient-dropdown {
-    width: 250px !important;
-    right: 0 !important;
-    bottom: 70px !important;
-    top: auto !important;
     position: fixed !important;
+    top: auto !important;
+    bottom: 76px !important;
     left: 50% !important;
+    right: auto !important;
     transform: translateX(-50%) !important;
+    width: 250px !important;
+    z-index: 10000 !important;
   }
 
   /* Page Headers */
@@ -311,6 +313,34 @@ input[type="date"]::-webkit-clear-button {
   .page-header h1 {
     font-size: 24px !important;
     line-height: 1.2 !important;
+  }
+
+  /* Section Headings & "Tüm Koleksiyon →" Button Resizing */
+  .section-head {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: space-between !important;
+    align-items: flex-end !important;
+    gap: 8px !important;
+    margin-bottom: 14px !important;
+  }
+  .section-head h2 {
+    font-size: 20px !important;
+    margin: 0 0 2px !important;
+    letter-spacing: -0.4px !important;
+  }
+  .section-head p {
+    font-size: 11.5px !important;
+  }
+  .section-head .link, #featuredAll {
+    font-size: 11px !important;
+    padding: 5px 12px !important;
+    border-radius: 999px !important;
+    white-space: nowrap !important;
+    flex-shrink: 0 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    font-weight: 700 !important;
   }
 
   /* ========================================================================= */
@@ -423,27 +453,79 @@ input[type="date"]::-webkit-clear-button {
     font-size: 17px !important;
   }
 
-  /* Catalog Controls & Books Grid */
-  .catalog-controls-row {
+  /* ========================================================================= */
+  /* CATALOG SEARCH, SORT & CATEGORY PILLS OPTIMIZATION                        */
+  /* ========================================================================= */
+  .catalog-controls-row, .catalog-control-deck .filter-bar {
     flex-direction: column !important;
     align-items: stretch !important;
     gap: 8px !important;
   }
 
-  .catalog-search-box {
-    width: 100% !important;
-    max-width: 100% !important;
+  .search-shortcut-badge {
+    display: none !important;
   }
 
-  .catalog-categories-bar {
+  .search-input-wrapper {
+    width: 100% !important;
+  }
+  .search-input {
+    width: 100% !important;
+    padding-right: 12px !important;
+    font-size: 12px !important;
+    height: 38px !important;
+    border-radius: 10px !important;
+  }
+
+  .filter-select-wrapper {
+    width: 100% !important;
+  }
+  .filter-select {
+    width: 100% !important;
+    height: 36px !important;
+    font-size: 11.5px !important;
+    padding: 0 24px 0 10px !important;
+    border-radius: 10px !important;
+  }
+
+  .category-pills-bar {
     overflow-x: auto !important;
     white-space: nowrap !important;
     -webkit-overflow-scrolling: touch !important;
     padding-bottom: 4px !important;
+    gap: 6px !important;
     scrollbar-width: none !important;
   }
-  .catalog-categories-bar::-webkit-scrollbar {
+  .category-pills-bar::-webkit-scrollbar {
     display: none;
+  }
+
+  .category-pill {
+    padding: 5px 9px 5px 7px !important;
+    font-size: 11.5px !important;
+    font-weight: 600 !important;
+    gap: 5px !important;
+    flex-shrink: 0 !important;
+    transform: none !important;
+  }
+  .category-pill.active {
+    font-weight: 600 !important;
+    transform: none !important;
+    box-shadow: 0 2px 10px rgba(15, 23, 20, 0.25) !important;
+  }
+  .category-pill-icon {
+    width: 15px !important;
+    height: 15px !important;
+  }
+  .pill-title {
+    font-size: 11.5px !important;
+  }
+  .pill-count-badge {
+    font-size: 9.5px !important;
+    padding: 1px 5px !important;
+    min-width: 17px !important;
+    text-align: center !important;
+    box-sizing: border-box !important;
   }
 
   .books-grid {
@@ -549,39 +631,62 @@ input[type="date"]::-webkit-clear-button {
     grid-column: span 2 !important;
   }
 
-  /* Book Details Modal Custom Layout */
+  /* ========================================================================= */
+  /* BOOK DETAILS MODAL COMPACT SLEEK FIT (NO LONG SCREEN OVERWHELM)           */
+  /* ========================================================================= */
+  #detailModal .modal-box {
+    width: 92% !important;
+    max-width: 440px !important;
+    padding: 14px 14px 12px !important;
+    border-radius: 16px !important;
+    max-height: 82vh !important;
+    margin: 10px auto !important;
+  }
+  #detailModal h2 {
+    font-size: 17px !important;
+    margin: 0 !important;
+  }
+  #detailModal p:not(#detailSummary) {
+    display: none !important;
+  }
   .detail-showcase-box {
-    grid-template-columns: 88px 1fr !important;
-    gap: 10px !important;
-    padding: 10px 12px !important;
-    border-radius: 14px !important;
+    grid-template-columns: 78px 1fr !important;
+    gap: 8px !important;
+    padding: 8px 10px !important;
+    border-radius: 12px !important;
     align-items: flex-start !important;
+    margin-bottom: 8px !important;
   }
   #detailCover {
-    height: 125px !important;
-    width: 88px !important;
-    border-radius: 8px !important;
+    height: 110px !important;
+    width: 78px !important;
+    border-radius: 6px !important;
   }
   #detailTitle {
-    font-size: 15.5px !important;
+    font-size: 14.5px !important;
     line-height: 1.25 !important;
     margin: 0 !important;
   }
   #detailAuthor {
-    font-size: 11px !important;
+    font-size: 10.5px !important;
   }
   #detailIsbn {
     display: none !important;
   }
   #detailSummary {
-    font-size: 11px !important;
-    line-height: 1.4 !important;
-    padding: 6px 8px !important;
-    max-height: 70px !important;
+    font-size: 10.5px !important;
+    line-height: 1.35 !important;
+    padding: 4px 6px !important;
+    max-height: 55px !important;
     overflow-y: auto !important;
+    display: block !important;
+  }
+  #detailModal .btn-action-secondary {
+    padding: 3px 8px !important;
+    font-size: 10px !important;
   }
   #detailReviewsList {
-    max-height: 140px !important;
+    max-height: 110px !important;
   }
 
   /* Form Grids */
