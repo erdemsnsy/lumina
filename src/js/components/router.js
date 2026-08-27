@@ -7,12 +7,15 @@ export function navigateTo(viewName) {
   playUiSound('page');
   document.querySelectorAll('.app-view').forEach(v => v.classList.remove('active'));
   document.querySelectorAll('.navlink-btn').forEach(btn => btn.classList.remove('active'));
+  document.querySelectorAll('.mobile-dock-btn').forEach(btn => btn.classList.remove('active'));
 
   const targetView = el('view-' + viewName);
   const targetBtn = el('navBtn-' + viewName);
+  const targetDockBtn = el('mobDockBtn-' + viewName);
 
   if (targetView) targetView.classList.add('active');
   if (targetBtn) targetBtn.classList.add('active');
+  if (targetDockBtn) targetDockBtn.classList.add('active');
 
   // Trigger view-specific render handlers
   if (viewName === 'favorites') {
@@ -37,9 +40,13 @@ export function scrollToSection(sectionId) {
 
   // Update navbar active state
   document.querySelectorAll('.navlink-btn').forEach(btn => btn.classList.remove('active'));
+  document.querySelectorAll('.mobile-dock-btn').forEach(btn => btn.classList.remove('active'));
   const targetBtnId = (sectionId === 'katalog' || sectionId === 'catalogSection') ? 'navBtn-catalog' : 'navBtn-' + sectionId;
   const activeBtn = el(targetBtnId) || el('navBtn-home');
   if (activeBtn) activeBtn.classList.add('active');
+
+  const dockTarget = (sectionId === 'katalog' || sectionId === 'catalogSection') ? el('mobDockBtn-catalog') : el('mobDockBtn-home');
+  if (dockTarget) dockTarget.classList.add('active');
 
   setTimeout(() => {
     const s = el(sectionId);

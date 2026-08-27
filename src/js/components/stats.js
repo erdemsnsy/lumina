@@ -43,15 +43,18 @@ export function updateAllRealStatistics() {
   const userAvatarPill = el('navUserAvatar');
   const userNamePill = el('navUserName');
   const userRolePill = el('navUserRole') || el('profileRoleBadge');
+  const mobDockUser = el('mobDockUserLabel');
   if (userAvatarPill && userNamePill) {
     if (state.currentUser) {
       userAvatarPill.textContent = state.currentUser.avatar || 'OK';
       userNamePill.textContent = state.currentUser.name;
       if (userRolePill) userRolePill.textContent = state.currentUser.role;
+      if (mobDockUser) mobDockUser.textContent = state.currentUser.name ? state.currentUser.name.split(' ')[0] : 'Profil';
     } else {
       userAvatarPill.textContent = '✦';
       userNamePill.textContent = state.english ? 'Sign In' : 'Giriş Yap';
       if (userRolePill) userRolePill.textContent = 'Okur / Üye';
+      if (mobDockUser) mobDockUser.textContent = state.english ? 'Sign In' : 'Giriş';
     }
   }
 }
