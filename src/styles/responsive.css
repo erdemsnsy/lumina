@@ -313,44 +313,71 @@ input[type="date"]::-webkit-clear-button {
     line-height: 1.2 !important;
   }
 
-  /* Hero Section */
-  .hero-wrap, .hero-section {
-    padding: 8px 0 16px !important;
-    min-height: auto !important;
-  }
-
-  .hero-slide {
-    min-height: 390px !important;
+  /* ========================================================================= */
+  /* HERO EXHIBITION BANNER FIX (PHOTO VISIBILITY & ZERO CUTOFF)               */
+  /* ========================================================================= */
+  .hero {
+    margin-top: 14px !important;
     border-radius: 18px !important;
+    overflow: hidden !important;
   }
-
-  .hero-content-box {
-    padding: 20px 14px !important;
+  .hero-art {
+    height: 520px !important;
+    min-height: 500px !important;
+    position: relative !important;
+  }
+  .hero-slide img {
+    object-fit: cover !important;
+    object-position: center 25% !important;
+    width: 100% !important;
+    height: 100% !important;
+  }
+  .hero-overlay {
+    background: linear-gradient(180deg, rgba(15, 23, 20, 0.15) 0%, rgba(15, 23, 20, 0.55) 42%, rgba(15, 23, 20, 0.94) 75%, #0f1714 100%) !important;
+    padding: 20px 16px 24px !important;
+    justify-content: flex-end !important;
+  }
+  .hero-badge {
+    font-size: 9.5px !important;
+    padding: 3px 8px !important;
+    margin-bottom: 6px !important;
+  }
+  .hero-overlay h1 {
+    font-size: 24px !important;
+    line-height: 1.2 !important;
+    margin: 0 0 6px !important;
     max-width: 100% !important;
   }
-
-  .hero-title {
-    font-size: 23px !important;
-    line-height: 1.25 !important;
+  .hero-overlay p {
+    font-size: 12px !important;
+    line-height: 1.4 !important;
+    margin: 0 0 14px !important;
+    max-width: 100% !important;
+    opacity: 0.9;
   }
-
-  .hero-subtitle {
-    font-size: 12.5px !important;
-    margin-bottom: 14px !important;
-  }
-
-  .hero-actions {
+  .hero-btn-group {
+    display: flex !important;
     flex-direction: column !important;
     gap: 8px !important;
-    align-items: stretch !important;
+    width: calc(100% - 85px) !important;
   }
-
-  .hero-btn-primary, .hero-btn-secondary {
+  .btn-primary-formal, .btn-glass-formal {
+    padding: 8px 12px !important;
+    font-size: 12px !important;
+    border-radius: 8px !important;
     width: 100% !important;
-    text-align: center !important;
     justify-content: center !important;
-    padding: 9px 14px !important;
-    font-size: 12.5px !important;
+    text-align: center !important;
+  }
+  .hero-controls {
+    right: 14px !important;
+    bottom: 24px !important;
+    gap: 6px !important;
+  }
+  .hero-controls button {
+    width: 36px !important;
+    height: 36px !important;
+    font-size: 16px !important;
   }
 
   .hero-stats-row, .stats-bar {
@@ -456,15 +483,70 @@ input[type="date"]::-webkit-clear-button {
     justify-content: center !important;
   }
 
-  /* All Modals */
-  .modal-box {
-    width: 96% !important;
-    max-width: 96vw !important;
-    max-height: 90vh !important;
-    overflow-y: auto !important;
-    padding: 16px 12px !important;
-    border-radius: 16px !important;
-    margin: 8px auto !important;
+  /* ========================================================================= */
+  /* AUTH MODAL (LOGIN & REGISTER) COMPACT SLEEK FIT                           */
+  /* ========================================================================= */
+  #authModal .modal-box {
+    width: 95% !important;
+    max-width: 95vw !important;
+    padding: 16px 16px 14px !important;
+    border-radius: 18px !important;
+    max-height: 92vh !important;
+  }
+  .premium-modal .auth-pixel-badge {
+    margin-bottom: 8px !important;
+    padding: 2px 6px !important;
+    font-size: 9px !important;
+  }
+  .premium-modal .auth-tab-bar {
+    padding: 3px !important;
+    margin-bottom: 12px !important;
+    border-radius: 10px !important;
+  }
+  .auth-tab-pill {
+    padding: 5px 8px !important;
+    font-size: 11.5px !important;
+    border-radius: 8px !important;
+  }
+  .premium-modal .auth-title {
+    font-size: 20px !important;
+    margin: 0 0 2px !important;
+    letter-spacing: -0.3px !important;
+  }
+  .premium-modal .auth-subtitle {
+    font-size: 11.5px !important;
+    margin: 0 0 10px !important;
+    line-height: 1.35 !important;
+  }
+  .premium-modal .auth-label {
+    font-size: 10.5px !important;
+    margin-bottom: 3px !important;
+  }
+  .premium-modal .auth-input {
+    padding: 8px 12px !important;
+    font-size: 12.5px !important;
+    border-radius: 8px !important;
+  }
+  .premium-modal .auth-btn {
+    padding: 9px 12px !important;
+    font-size: 12.5px !important;
+    border-radius: 8px !important;
+    margin: 10px 0 8px !important;
+  }
+  .premium-modal .auth-switch-text {
+    padding-top: 8px !important;
+    font-size: 11px !important;
+  }
+  #passRulesBox {
+    padding: 5px 8px !important;
+    margin-top: 6px !important;
+    font-size: 9.5px !important;
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 2px 4px !important;
+  }
+  #rule-special {
+    grid-column: span 2 !important;
   }
 
   /* Book Details Modal Custom Layout */
